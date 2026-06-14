@@ -3,9 +3,15 @@ import numpy as np
 import scipy.io.wavfile
 
 def generate_music(topic: str, duration_seconds: int = 35) -> str:
+    out_path = "output/music.wav"
+    
+    # Check if music already exists and is valid (greater than 1KB)
+    if os.path.exists(out_path) and os.path.getsize(out_path) > 1000:
+        print("Background music already exists, skipping generation.")
+        return out_path
+        
     print(f"Generating background music for topic '{topic}' ({duration_seconds}s)...")
     os.makedirs("output", exist_ok=True)
-    out_path = "output/music.wav"
     
     try:
         import torch

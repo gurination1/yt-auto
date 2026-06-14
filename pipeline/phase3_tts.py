@@ -16,6 +16,12 @@ def generate_audio(script: dict) -> list[str]:
         seg_id = seg["id"]
         out_path = f"output/tts_segment_{seg_id}.wav"
         
+        # Check if file already exists and is valid (greater than 1KB)
+        if os.path.exists(out_path) and os.path.getsize(out_path) > 1000:
+            print(f"TTS segment {seg_id} already exists, skipping generation.")
+            audio_files.append(out_path)
+            continue
+            
         print(f"Generating TTS for Segment {seg_id}...")
         
         # Primary: Gemini TTS

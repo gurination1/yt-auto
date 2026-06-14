@@ -58,6 +58,11 @@ def fetch_broll(query: str, format_type: str, segment_index: int) -> str:
     out_path = f"output/broll_{segment_index}.mp4"
     img_path = f"output/broll_{segment_index}.jpg"
     
+    # Check if B-roll already exists and is valid (greater than 1KB)
+    if os.path.exists(out_path) and os.path.getsize(out_path) > 1000:
+        print(f"B-roll segment {segment_index} already exists, skipping fetch.")
+        return out_path
+        
     os.makedirs("output", exist_ok=True)
     
     # Try video sources first
