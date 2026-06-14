@@ -19,14 +19,14 @@ def upload_to_youtube(video_path: str, thumbnail_path: str, metadata: dict) -> s
     creds.refresh(Request())
     youtube = build("youtube", "v3", credentials=creds)
     
-    # Trim metadata arrays/strings to fit within YouTube API constraints
-    title = metadata.get("title", "Educational Video")[:100]
-    description = metadata.get("description", "Fast. Accurate. Mind-blowing.")[:5000]
+    # Trim metadata arrays/strings to fit within YouTube API constraints and strip angle brackets
+    title = metadata.get("title", "Educational Video")[:100].replace('<', '').replace('>', '')
+    description = metadata.get("description", "Fast. Accurate. Mind-blowing.")[:5000].replace('<', '').replace('>', '')
     tags = metadata.get("tags", [])
     # Convert tags to a list of strings and truncate
     if isinstance(tags, str):
         tags = [t.strip() for t in tags.split(",") if t.strip()]
-    tags = [str(t)[:100] for t in tags][:500]
+    tags = [str(t)[:100].replace('<', '').replace('>', '') for t in tags][:500]
     
     category_id = metadata.get("category_id", "27")
     
