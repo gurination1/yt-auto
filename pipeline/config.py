@@ -8,6 +8,7 @@ YT_CLIENT_SECRET   = os.environ.get("YT_CLIENT_SECRET", "")
 YT_REFRESH_TOKEN   = os.environ.get("YT_REFRESH_TOKEN", "")
 
 GEMINI_FLASH       = "gemini-2.5-flash"
+GEMINI_PRO         = "gemini-1.5-pro"
 GEMINI_TTS_MODEL   = "gemini-2.5-flash-preview-tts"
 GEMINI_API_BASE    = "https://generativelanguage.googleapis.com/v1beta"
 

@@ -17,6 +17,7 @@ import pipeline.phase8_thumbnail as phase8
 def main():
     parser = argparse.ArgumentParser(description="yt-auto Video Generator")
     parser.add_argument("--format", choices=["short", "long"], required=True, help="Video format to generate")
+    parser.add_argument("--resume", action="store_true", help="Resume generation from existing files in output/")
     args = parser.parse_args()
     
     # 0. Validate Config
@@ -26,14 +27,42 @@ def main():
         print(f"Configuration Error: {val_err}")
         sys.exit(1)
         
+    # Handle directory clearing if not resuming
+    if not args.resume and os.path.exists("output"):
+        print("Clearing output/ directory for a fresh run...")
+        import shutil
+        try:
+            shutil.rmtree("output")
+        except Exception as e:
+            print(f"Warning: Could not clear output directory: {e}")
+            
     os.makedirs("output", exist_ok=True)
     
+    topic_json_path = "output/topic.json"
+    script_json_path = "output/script.json"
+    
     try:
-        print(f"[Phase 1] Selecting trending topic for {args.format}...")
-        topic = phase1.select_topic(args.format)
+        # Load or select topic
+        if args.resume and os.path.exists(topic_json_path):
+            print("[Phase 1] Resuming: Loading existing topic...")
+            with open(topic_json_path, "r") as f:
+                topic = json.load(f)
+        else:
+            print(f"[Phase 1] Selecting trending topic for {args.format}...")
+            topic = phase1.select_topic(args.format)
+            with open(topic_json_path, "w") as f:
+                json.dump(topic, f, indent=2)
         
-        print(f"[Phase 2] Generating script for topic: '{topic['topic']}'...")
-        script = phase2.generate_script(topic, args.format)
+        # Load or generate script
+        if args.resume and os.path.exists(script_json_path):
+            print("[Phase 2] Resuming: Loading existing script...")
+            with open(script_json_path, "r") as f:
+                script = json.load(f)
+        else:
+            print(f"[Phase 2] Generating script for topic: '{topic['topic']}'...")
+            script = phase2.generate_script(topic, args.format)
+            with open(script_json_path, "w") as f:
+                json.dump(script, f, indent=2)
         print(f"Generated title: '{script['title']}'")
         
         print(f"[Phase 3] Generating TTS audio ({len(script['segments'])} segments)...")

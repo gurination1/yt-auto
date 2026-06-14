@@ -1,10 +1,16 @@
+import argparse
 import json
 import os
 import sys
 import google.auth.exceptions
 import pipeline.phase9_upload as phase9
+from pipeline.judge import JudgeClient
 
 def main():
+    parser = argparse.ArgumentParser(description="yt-auto Video Publisher")
+    parser.add_argument("--bypass-judge", action="store_true", help="Bypass the Judge AI visual check")
+    args = parser.parse_args()
+    
     metadata_path = "output/metadata.json"
     if not os.path.exists(metadata_path):
         print(f"Error: Metadata file not found at {metadata_path}. Have you run generation first?")
@@ -35,6 +41,40 @@ def main():
         else:
             print(f"Error: Thumbnail file not found. Checked: {thumbnail_path} and {fallback_thumb}")
             sys.exit(1)
+            
+    # --- JUDGE AI GATEKEEPER ---
+    if not args.bypass_judge:
+        print("\n⚖️ Initiating Judge AI visual and narrative check...")
+        judge = JudgeClient()
+        try:
+            report = judge.review_video(video_path, metadata)
+            # Save the judge report
+            with open("output/judge_report.json", "w") as rf:
+                json.dump(report, rf, indent=2)
+                
+            status = report.get("status", "REJECTED")
+            score = report.get("score", 0)
+            reason = report.get("reason", "No reason provided")
+            issues = report.get("issues", [])
+            
+            if status != "PASSED":
+                print("\n🛑 VIDEO REJECTED BY JUDGE AI!")
+                print(f"Score: {score}/100")
+                print(f"Reason: {reason}")
+                if issues:
+                    print("Issues:")
+                    for issue in issues:
+                        print(f" - {issue}")
+                print("\nFix the issues and regenerate the video before publishing.")
+                sys.exit(1)
+            else:
+                print(f"\n✅ Video PASSED Judge AI review! (Score: {score}/100)")
+                print(f"Judge Comments: {reason}\n")
+        except Exception as judge_err:
+            print(f"Warning: Judge AI review encountered an error: {judge_err}.")
+            print("Proceeding with upload (fallback due to Judge AI system error)...")
+    else:
+        print("\n⚠️ Bypassing Judge AI check as requested.")
             
     print(f"Publishing {fmt} video...")
     print(f"Video: {video_path}")

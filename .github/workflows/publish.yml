@@ -9,6 +9,11 @@ on:
         default: 'short'
         type: choice
         options: [short, long]
+      bypass_judge:
+        description: 'Bypass Judge AI visual check'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   publish:
@@ -31,7 +36,6 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           FORMAT="${{ inputs.format }}"
-          # The workflow name corresponds to the filename without directory path
           WORKFLOW="generate_${FORMAT}.yml"
           echo "Looking for latest successful $WORKFLOW run..."
           RUN_ID=$(gh run list \
@@ -64,7 +68,12 @@ jobs:
           YT_CLIENT_ID:     ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
-        run: python run_publish.py
+        run: |
+          BYPASS_FLAG=""
+          if [ "${{ inputs.bypass_judge }}" = "true" ]; then
+            BYPASS_FLAG="--bypass-judge"
+          fi
+          python run_publish.py $BYPASS_FLAG
 
       - name: Report result
         run: echo "✅ Published to YouTube. Check YouTube Studio to confirm scheduling."

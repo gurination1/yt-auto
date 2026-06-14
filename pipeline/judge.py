@@ -1,0 +1,188 @@
+import os
+import json
+import time
+import requests
+import mimetypes
+from pipeline.config import GEMINI_API_KEY, GEMINI_PRO, GEMINI_FLASH, GEMINI_API_BASE
+
+def upload_file_to_gemini(filepath: str, api_key: str) -> dict:
+    mime_type, _ = mimetypes.guess_type(filepath)
+    if not mime_type:
+        mime_type = "application/octet-stream"
+        
+    file_size = os.path.getsize(filepath)
+    filename = os.path.basename(filepath)
+    
+    print(f"Uploading file '{filename}' ({file_size / (1024*1024):.2f} MB) to Gemini Files API...")
+    
+    # 1. Start Resumable Upload
+    url = f"https://generativelanguage.googleapis.com/upload/v1beta/files?key={api_key}"
+    headers = {
+        "X-Goog-Upload-Protocol": "resumable",
+        "X-Goog-Upload-Command": "start",
+        "X-Goog-Upload-Header-Content-Length": str(file_size),
+        "X-Goog-Upload-Header-Content-Type": mime_type,
+        "Content-Type": "application/json"
+    }
+    body = {
+        "file": {
+            "displayName": filename
+        }
+    }
+    
+    response = requests.post(url, headers=headers, json=body, timeout=120)
+    response.raise_for_status()
+    
+    upload_url = response.headers.get("X-Goog-Upload-URL")
+    if not upload_url:
+        raise RuntimeError("Failed to retrieve upload URL from response headers")
+        
+    # 2. Upload the file content in binary
+    with open(filepath, "rb") as f:
+        file_bytes = f.read()
+        
+    headers_upload = {
+        "X-Goog-Upload-Offset": "0",
+        "X-Goog-Upload-Command": "finalize",
+        "Content-Length": str(file_size)
+    }
+    
+    response_upload = requests.post(upload_url, headers=headers_upload, data=file_bytes, timeout=300)
+    response_upload.raise_for_status()
+    return response_upload.json()
+
+def wait_for_file_active(file_name: str, api_key: str, max_timeout_seconds: int = 180) -> bool:
+    url = f"https://generativelanguage.googleapis.com/v1beta/{file_name}?key={api_key}"
+    print(f"Waiting for Gemini Files API to process video '{file_name}'...")
+    
+    start_time = time.time()
+    while time.time() - start_time < max_timeout_seconds:
+        response = requests.get(url, timeout=30)
+        response.raise_for_status()
+        data = response.json()
+        state = data.get("state")
+        
+        if state == "ACTIVE":
+            print("Video file is now ACTIVE and ready for query.")
+            return True
+        elif state == "FAILED":
+            raise RuntimeError(f"File processing failed on Gemini Files API: {data}")
+        else:
+            print(f"Current file state is '{state}'. Retrying in 5 seconds...")
+            time.sleep(5)
+            
+    raise TimeoutError("Timeout exceeded waiting for Gemini Files API to activate the file")
+
+def delete_file_from_gemini(file_name: str, api_key: str):
+    url = f"https://generativelanguage.googleapis.com/v1beta/{file_name}?key={api_key}"
+    try:
+        print(f"Cleaning up temporary file {file_name} from Gemini storage...")
+        response = requests.delete(url, timeout=30)
+        response.raise_for_status()
+        print("File deleted successfully.")
+    except Exception as e:
+        print(f"Warning: Failed to delete temporary file {file_name}: {e}")
+
+class JudgeClient:
+    def __init__(self):
+        self.api_key = GEMINI_API_KEY
+        self.base_url = GEMINI_API_BASE
+        
+    def review_video(self, video_path: str, metadata: dict) -> dict:
+        file_name = None
+        try:
+            # 1. Upload video
+            upload_response = upload_file_to_gemini(video_path, self.api_key)
+            file_info = upload_response.get("file", {})
+            file_name = file_info.get("name")
+            file_uri = file_info.get("uri")
+            mime_type = file_info.get("mimeType")
+            
+            if not file_name or not file_uri:
+                raise RuntimeError(f"Unexpected file upload response: {upload_response}")
+                
+            # 2. Wait for active status
+            wait_for_file_active(file_name, self.api_key)
+            
+            # 3. Formulate Prompt
+            rubric = f"""You are "Judge AI" (an expert viral media quality assurance LLM). Your task is to evaluate the generated educational video and ensure it meets our strict viral criteria.
+
+Video Metadata:
+{json.dumps(metadata, indent=2)}
+
+Please watch the video and evaluate it against these 5 rubrics:
+1. **Cohesiveness & Alignment (CRITICAL)**: Does the voiceover audio match the visual B-roll clips and the text captions shown on screen? Check for any mismatch (e.g. if the audio discusses "Quantum Computing" but the text caption or B-roll displays terms like "CRISPR" or "Gene Editing"). If there is ANY mismatched topic, fail the video.
+2. **Hook Appeal**: Is the hook in the first 3-5 seconds of the video engaging and curiosity-inducing?
+3. **Subtitles/Captions**: Are subtitles present, readable, and matching the narration word-for-word?
+4. **Music & Audio Quality**: Is the background music clean, and is it mixed correctly without overpowering the voiceover?
+5. **Retention & Loopability**: Does the video contain a retention element (like a rewatch callout in segment 4)? Does it loop back seamlessly from the last segment to the first segment's narration?
+
+You MUST return your review ONLY as a raw JSON object with no markdown syntax. The JSON structure must be exactly like this:
+{{
+  "score": 85, // Overall quality score (0-100)
+  "status": "PASSED", // "PASSED" if score >= 75 and no critical mismatches, otherwise "REJECTED"
+  "reason": "Explain the decision in detail",
+  "cohesiveness_score": 90, // 0-100 score for audio-visual-caption matching
+  "hook_score": 80, // 0-100 score for hook appeal
+  "retention_score": 85, // 0-100 score for looping and retention triggers
+  "issues": ["List of specific issues found, or empty if none"]
+}}
+"""
+            
+            # 4. Generate Review Content (Primary: Gemini 1.5 Pro, Fallback: Gemini 2.5 Flash)
+            model_to_use = GEMINI_PRO
+            url = f"{self.base_url}/models/{model_to_use}:generateContent?key={self.api_key}"
+            headers = {"Content-Type": "application/json"}
+            payload = {
+                "contents": [
+                    {
+                        "role": "user",
+                        "parts": [
+                            {"fileData": {"mimeType": mime_type, "fileUri": file_uri}},
+                            {"text": rubric}
+                        ]
+                    }
+                ],
+                "generationConfig": {
+                    "temperature": 0.2,
+                    "responseMimeType": "application/json"
+                }
+            }
+            
+            print(f"Sending video to model '{model_to_use}' for analysis...")
+            try:
+                response = requests.post(url, headers=headers, json=payload, timeout=180)
+                response.raise_for_status()
+                response_data = response.json()
+            except Exception as model_err:
+                print(f"Primary model {model_to_use} failed: {model_err}. Falling back to {GEMINI_FLASH}...")
+                model_to_use = GEMINI_FLASH
+                url_fallback = f"{self.base_url}/models/{model_to_use}:generateContent?key={self.api_key}"
+                # Remove responseMimeType from config for flash if not supported in the endpoint
+                payload["generationConfig"] = {"temperature": 0.2}
+                response = requests.post(url_fallback, headers=headers, json=payload, timeout=180)
+                response.raise_for_status()
+                response_data = response.json()
+                
+            try:
+                text_response = response_data["candidates"][0]["content"]["parts"][0]["text"]
+            except (KeyError, IndexError) as parse_err:
+                raise RuntimeError(f"Unexpected response format from Gemini: {response_data}") from parse_err
+                
+            # Clean response fences
+            text_response = text_response.strip()
+            if text_response.startswith("```json"):
+                text_response = text_response[7:]
+            elif text_response.startswith("```"):
+                text_response = text_response[3:]
+            if text_response.endswith("```"):
+                text_response = text_response[:-3]
+                
+            report = json.loads(text_response.strip())
+            print(f"Judge AI Review complete. Status: {report.get('status')} (Score: {report.get('score')}/100)")
+            return report
+            
+        finally:
+            # Clean up the file in Gemini storage
+            if file_name:
+                delete_file_from_gemini(file_name, self.api_key)
