@@ -1,8 +1,6 @@
 import os
-import torch
 import numpy as np
 import scipy.io.wavfile
-from transformers import AutoProcessor, MusicgenForConditionalGeneration
 
 def generate_music(topic: str, duration_seconds: int = 35) -> str:
     print(f"Generating background music for topic '{topic}' ({duration_seconds}s)...")
@@ -10,6 +8,8 @@ def generate_music(topic: str, duration_seconds: int = 35) -> str:
     out_path = "output/music.wav"
     
     try:
+        import torch
+        from transformers import AutoProcessor, MusicgenForConditionalGeneration
         print("Loading MusicGen Small model (first run downloads weights, cached afterwards)...")
         processor = AutoProcessor.from_pretrained("facebook/musicgen-small")
         model = MusicgenForConditionalGeneration.from_pretrained("facebook/musicgen-small")
