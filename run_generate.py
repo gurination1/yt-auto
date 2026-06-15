@@ -69,10 +69,17 @@ def main():
         audio_files = phase3.generate_audio(script)
         
         print("[Phase 4] Fetching B-roll media...")
-        broll_files = []
-        for i, seg in enumerate(script["segments"]):
-            broll_file = phase4.fetch_broll(seg["broll_query"], args.format, i)
-            broll_files.append(broll_file)
+        from pipeline.phase7_assemble import get_wav_duration
+        tts_durations = [get_wav_duration(f) for f in audio_files] if audio_files else []
+        broll_files = [
+            phase4.fetch_broll(
+                seg["broll_query"],
+                args.format,
+                i,
+                duration=tts_durations[i] if tts_durations else 6.0
+            )
+            for i, seg in enumerate(script["segments"])
+        ]
             
         print("[Phase 5] Generating captions with word-level timing...")
         # Pass args.format to customize resolution/style

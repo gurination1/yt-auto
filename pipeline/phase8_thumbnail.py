@@ -14,21 +14,29 @@ def generate_thumbnail(final_video_path: str, thumbnail_text: str) -> str:
     hook_frame_path = "output/hook_frame.jpg"
     thumbnail_path = "output/thumbnail.jpg"
     
-    # 1. Extract first frame of video
-    print("Extracting first frame from video...")
+    # 1. Extract best frame of video
+    print("Extracting best frame from video...")
+    # Use FFmpeg thumbnail filter to find most visually rich frame (not frame 0)
     cmd_frame = [
-        "ffmpeg", "-y", "-i", final_video_path, "-vframes", "1", "-q:v", "2", hook_frame_path
+        "ffmpeg", "-y", "-i", final_video_path,
+        "-vf", "thumbnail=n=90",    # analyze first 90 frames, pick best
+        "-frames:v", "1", "-q:v", "2", hook_frame_path
     ]
     subprocess.run(cmd_frame, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     
     # 2. Scale and draw text
-    cleaned_text = clean_thumbnail_text(thumbnail_text)
+    cleaned_text = clean_thumbnail_text(thumbnail_text).upper()   # ALL CAPS for impact
     
     # We will try with DejaVu Sans Bold first, and fallback to generic sans if it fails.
     drawtext_filter = (
         f"scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720,"
-        f"drawtext=text='{cleaned_text}':font='DejaVu Sans':style=Bold:fontsize=90:"
-        f"fontcolor=white:borderw=5:bordercolor=black:x=(w-text_w)/2:y=h*0.15"
+        # Dark semi-transparent box covering the top banner area
+        f"drawbox=x=0:y=0:w=iw:h=200:color=black@0.72:t=fill,"
+        # Bold white text centered in the box, with thick black border
+        f"drawtext=text='{cleaned_text}':"
+        f"font='DejaVu Sans Bold':fontsize=95:"
+        f"fontcolor=white:borderw=6:bordercolor=black:"
+        f"x=(w-text_w)/2:y=80"
     )
     
     cmd_thumb = [
@@ -41,12 +49,13 @@ def generate_thumbnail(final_video_path: str, thumbnail_text: str) -> str:
         print("Drawing thumbnail text...")
         subprocess.run(cmd_thumb, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     except subprocess.CalledProcessError:
-        print("Font DejaVu Sans failed, retrying with generic 'sans' font...")
+        print("Font DejaVu Sans Bold failed, retrying with generic 'sans' font...")
         # Fallback filter without specific font name
         drawtext_filter_fallback = (
             f"scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720,"
-            f"drawtext=text='{cleaned_text}':font='sans':fontsize=90:"
-            f"fontcolor=white:borderw=5:bordercolor=black:x=(w-text_w)/2:y=h*0.15"
+            f"drawbox=x=0:y=0:w=iw:h=200:color=black@0.72:t=fill,"
+            f"drawtext=text='{cleaned_text}':font='sans':style=Bold:fontsize=95:"
+            f"fontcolor=white:borderw=6:bordercolor=black:x=(w-text_w)/2:y=80"
         )
         cmd_thumb_fallback = [
             "ffmpeg", "-y", "-i", hook_frame_path,

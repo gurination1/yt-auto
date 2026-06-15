@@ -65,14 +65,13 @@ def generate_captions(audio_files: list[str], script: dict, format_type: str = "
     if format_type == "short":
         play_res_x = 1080
         play_res_y = 1920
-        font_size = 72
-        # Position captions in the middle-ish/lower-third of portrait mode
-        margin_v = 300
+        font_size  = 88      # was 72 — larger for mobile screens
+        margin_v   = 420     # position in lower-middle area of short
     else:
         play_res_x = 1920
         play_res_y = 1080
-        font_size = 54
-        margin_v = 120
+        font_size  = 60      # was 54
+        margin_v   = 130
 
     ass_header = f"""[Script Info]
 ScriptType: v4.00+
@@ -80,8 +79,8 @@ PlayResX: {play_res_x}
 PlayResY: {play_res_y}
 
 [V4+ Styles]
-Format: Name, Fontname, Fontsize, PrimaryColour, OutlineColour, Bold, Italic, Alignment, MarginL, MarginR, MarginV, Outline, Shadow
-Style: Default,Arial,{font_size},&H00FFFFFF,&H00000000,-1,0,2,30,30,{margin_v},3,1
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial Black,{font_size},&H00FFFFFF,&H000000FF,&H00000000,&H90000000,-1,0,0,0,100,100,0,0,1,5,2,2,30,30,{margin_v},1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text

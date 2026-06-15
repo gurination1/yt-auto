@@ -2,6 +2,7 @@ import os
 import wave
 import shutil
 import subprocess
+from pipeline.sfx import create_sfx_track
 
 def get_wav_duration(filepath: str) -> float:
     with wave.open(filepath, 'rb') as f:
@@ -64,6 +65,17 @@ def assemble_video(broll_files: list[str], tts_files: list[str], captions_ass: s
     ]
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
+    # Step 3b: Create SFX track (whoosh at each clip boundary)
+    print("Step 3b: Generating SFX track…")
+    total_tts_duration = sum(durations)
+    # Clip boundaries are at cumulative TTS durations (skip the first clip — no whoosh at t=0)
+    boundary_times = []
+    cumulative = 0.0
+    for d in durations[:-1]:   # all boundaries except the last (end of video)
+        cumulative += d
+        boundary_times.append(cumulative)
+    sfx_track_path = create_sfx_track(boundary_times, total_tts_duration)
+
     # Step 4: Add karaoke captions to video
     print("Step 4: Adding captions...")
     assembled_capped_path = "output/assembled_capped.mp4"
@@ -98,24 +110,24 @@ def assemble_video(broll_files: list[str], tts_files: list[str], captions_ass: s
     else:
         shutil.copy(assembled_capped_path, assembled_flashed_path)
 
-    # Step 6: Final mix: video + TTS + music with seamless audio loop
-    print("Step 6: Mixing video, narration, and background music...")
+    # Step 6: Final mix: video + TTS + music + SFX
+    print("Step 6: Final audio mix with SFX…")
     final_output_path = f"output/final_{format_type}.mp4"
-    
-    # We mix narration (volume=2.0) and music (volume=0.12).
-    # Music loops infinitely so it covers the whole duration.
-    # The output audio ends when the first stream (narration) ends.
+
     filter_complex = (
         "[1:a]volume=2.0[tts];"
         "[2:a]volume=0.12,aloop=loop=-1:size=2147483647[music_loop];"
-        "[tts][music_loop]amix=inputs=2:duration=first[audio_final]"
+        "[3:a]volume=0.35[sfx];"
+        "[tts][music_loop]amix=inputs=2:duration=first[mixed];"
+        "[mixed][sfx]amix=inputs=2:duration=first[audio_final]"
     )
-    
+
     cmd = [
         "ffmpeg", "-y",
         "-i", assembled_flashed_path,
         "-i", tts_combined_path,
         "-i", music_path,
+        "-i", sfx_track_path,           # ← NEW: 4th input
         "-filter_complex", filter_complex,
         "-map", "0:v",
         "-map", "[audio_final]",
@@ -123,9 +135,8 @@ def assemble_video(broll_files: list[str], tts_files: list[str], captions_ass: s
         "-b:v", "10M", "-maxrate", "12M", "-bufsize", "24M",
         "-pix_fmt", "yuv420p",
         "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
-        "-r", "30",
-        "-movflags", "+faststart",
-        final_output_path
+        "-r", "30", "-movflags", "+faststart",
+        final_output_path,
     ]
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     

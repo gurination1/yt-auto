@@ -43,38 +43,31 @@ def generate_audio(script: dict) -> list[str]:
             print(f"Gemini TTS succeeded for segment {seg_id} (Voice: {voice})")
             
         except Exception as e:
-            print(f"Gemini TTS failed for segment {seg_id}: {e}. Trying gTTS fallback...")
+            print(f"Gemini TTS failed for segment {seg_id}: {e}. Trying Kokoro fallback…")
             try:
-                from gtts import gTTS
-                import time
-                temp_mp3 = f"output/tts_temp_{seg_id}.mp3"
-                
-                # Resilient retry loop for gTTS network call
-                for g_attempt in range(5):
-                    try:
-                        tts = gTTS(text=seg["narration"], lang='en')
-                        tts.save(temp_mp3)
-                        break
-                    except Exception as g_err:
-                        if g_attempt == 4:
-                            raise g_err
-                        wait_sec = (g_attempt + 1) * 3
-                        print(f"gTTS save failed: {g_err}. Retrying in {wait_sec} seconds...")
-                        time.sleep(wait_sec)
-                
-                # Convert MP3 to WAV 24000Hz mono 16-bit PCM using FFmpeg
-                import subprocess
-                cmd = [
-                    "ffmpeg", "-y", "-i", temp_mp3,
-                    "-ar", "24000", "-ac", "1", "-c:a", "pcm_s16le",
-                    out_path
-                ]
-                subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                if os.path.exists(temp_mp3):
-                    os.remove(temp_mp3)
-                print(f"gTTS fallback succeeded for segment {seg_id}")
+                import numpy as np
+                import soundfile as sf
+                from kokoro import KPipeline
+
+                # Kokoro voices: af_heart, af_bella, am_adam, am_michael, af_sky
+                ko_voices = ["af_heart", "af_bella", "am_adam", "am_michael"]
+                ko_voice  = random.choice(ko_voices)
+                pipeline_ko = KPipeline(lang_code="a")  # 'a' = American English
+
+                samples = []
+                for _, _, audio in pipeline_ko(seg["narration"], voice=ko_voice, speed=1.0):
+                    samples.append(audio)
+
+                import scipy.io.wavfile
+                audio_np = np.concatenate(samples)
+                scipy.io.wavfile.write(out_path, 24000, audio_np)
+                print(f"Kokoro fallback succeeded for segment {seg_id} (voice: {ko_voice})")
+
             except Exception as e2:
-                raise RuntimeError(f"Both TTS engines failed for segment {seg_id}: {e} | {e2}")
+                raise RuntimeError(
+                    f"Both Gemini TTS and Kokoro failed for segment {seg_id}: "
+                    f"Gemini={e} | Kokoro={e2}"
+                )
         
         audio_files.append(out_path)
         

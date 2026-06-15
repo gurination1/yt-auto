@@ -3,7 +3,7 @@ import json
 import time
 import requests
 import mimetypes
-from pipeline.config import GEMINI_API_KEY, GEMINI_PRO, GEMINI_FLASH, GEMINI_API_BASE
+from pipeline.config import GEMINI_JUDGE_API_KEY, GEMINI_FLASH, GEMINI_API_BASE
 
 def upload_file_to_gemini(filepath: str, api_key: str) -> dict:
     mime_type, _ = mimetypes.guess_type(filepath)
@@ -65,7 +65,7 @@ def delete_file_from_gemini(file_name: str, api_key: str):
 
 class JudgeClient:
     def __init__(self):
-        self.api_key = GEMINI_API_KEY
+        self.api_key = GEMINI_JUDGE_API_KEY
         self.base_url = GEMINI_API_BASE
         
     def review_video(self, video_path: str, metadata: dict) -> dict:
@@ -109,8 +109,8 @@ You MUST return your review ONLY as a raw JSON object with no markdown syntax. T
 }}
 """
             
-            # 4. Generate Review Content (Primary: Gemini 1.5 Pro, Fallback: Gemini 2.5 Flash)
-            model_to_use = GEMINI_PRO
+            # 4. Generate Review Content (Primary: Gemini 2.5 Flash, Fallback: Gemini 2.5 Flash)
+            model_to_use = GEMINI_FLASH
             url = f"{self.base_url}/models/{model_to_use}:generateContent?key={self.api_key}"
             headers = {"Content-Type": "application/json"}
             payload = {

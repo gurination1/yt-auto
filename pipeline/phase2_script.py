@@ -39,6 +39,21 @@ def generate_script(topic: dict, format_type: str) -> dict:
         prompt = f"""Generate a highly engaging, viral 25-35 second YouTube Short educational script on the topic: "{topic['topic']}".
 Use the following hook concept: "{hook_formatted}" (short hook: "{topic.get('short_hook', '')}").
 
+For every `broll_query` field, write a SHORT, SPECIFIC, STOCK-FOOTAGE-FRIENDLY
+search term of 3-6 words MAXIMUM. Write exactly what a human would type into
+a stock video search bar (Pexels, Pixabay, etc). Use concrete nouns and visual
+objects — NOT instructions or descriptions of what you want.
+
+CORRECT examples: "Stephen Hawking wheelchair smiling", "DNA double helix blue",
+"quantum computer chip closeup", "black hole space vortex", "astronaut spacewalk ISS",
+"brain neurons firing", "atom particle collider", "coral reef fish colorful"
+
+WRONG examples: "visually jarring close-up of the topic", "macro b-roll of scientific
+element", "closing beautiful shot returning to start", "diagram concept visualization"
+
+For any named person (scientist, historical figure): ALWAYS include their name in the query.
+For abstract science concepts: use the most recognizable visual symbol.
+
 You MUST return your response ONLY as a raw JSON object with no markdown syntax. The JSON structure MUST be exactly like this:
 {{
   "title": "A catchy title under 40 chars, starting with a hook word/number and containing one emoji",
@@ -49,31 +64,31 @@ You MUST return your response ONLY as a raw JSON object with no markdown syntax.
     {{
       "id": 1,
       "narration": "hook sentence - must create information gap in 8 words or less",
-      "broll_query": "visually jarring or surprising close-up image of the topic, high contrast",
+      "broll_query": "{topic['topic']} black hole accretion disk space",
       "duration_target": 6
-    },
+    }},
     {{
       "id": 2,
       "narration": "First surprising scientific fact that expands on the hook",
-      "broll_query": "macro or close-up b-roll of the scientific fact element",
+      "broll_query": "Albert Einstein chalkboard equations",
       "duration_target": 6
-    },
+    }},
     {{
       "id": 3,
       "narration": "Second fact that builds towards the loop twist",
-      "broll_query": "clear related scientific visual or diagram concept",
+      "broll_query": "relativity space time fabric warp",
       "duration_target": 7
-    },
+    }},
     {{
       "id": 4,
       "narration": "Mention a hidden detail the viewer should pause to catch (REWATCH TRIGGER)",
-      "broll_query": "detailed diagram or visual where a hidden text could be hidden",
+      "broll_query": "light speed particle beam physics",
       "duration_target": 6
-    },
+    }},
     {{
       "id": 5,
       "narration": "Payoff sentence that transitions back to the exact starting words of segment 1 narration to form a seamless loop",
-      "broll_query": "closing beautiful shot returning to the start concept",
+      "broll_query": "universe galaxy stars spiral",
       "duration_target": 6
     }}
   ],
@@ -93,6 +108,21 @@ Structure the narrative into:
 - Act 3: Modern applications or future outlook (segments 13-16)
 - Closing CTA & link (segments 17-18)
 
+For every `broll_query` field, write a SHORT, SPECIFIC, STOCK-FOOTAGE-FRIENDLY
+search term of 3-6 words MAXIMUM. Write exactly what a human would type into
+a stock video search bar (Pexels, Pixabay, etc). Use concrete nouns and visual
+objects — NOT instructions or descriptions of what you want.
+
+CORRECT examples: "Stephen Hawking wheelchair smiling", "DNA double helix blue",
+"quantum computer chip closeup", "black hole space vortex", "astronaut spacewalk ISS",
+"brain neurons firing", "atom particle collider", "coral reef fish colorful"
+
+WRONG examples: "visually jarring close-up of the topic", "macro b-roll of scientific
+element", "closing beautiful shot returning to start", "diagram concept visualization"
+
+For any named person (scientist, historical figure): ALWAYS include their name in the query.
+For abstract science concepts: use the most recognizable visual symbol.
+
 You MUST return your response ONLY as a raw JSON object with no markdown syntax. The JSON structure MUST be exactly like this:
 {{
   "title": "Engaging educational title for a long video, under 70 characters",
@@ -103,7 +133,7 @@ You MUST return your response ONLY as a raw JSON object with no markdown syntax.
     {{
       "id": 1,
       "narration": "Opening narration hook...",
-      "broll_query": "Scenic, high-quality descriptive shot for the opening",
+      "broll_query": "{topic['topic']} space stars universe",
       "duration_target": 30
     }}
     // ... total 15-18 segments
