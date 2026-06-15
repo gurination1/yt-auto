@@ -10,7 +10,7 @@ permissions:
   contents: write             # needed to commit published_topics.json + voice_state.json
 
 jobs:
-  generate:
+  generate-and-publish:
     runs-on: ubuntu-latest
 
     steps:
@@ -47,7 +47,18 @@ jobs:
           GEMINI_JUDGE_API_KEY: ${{ secrets.GEMINI_JUDGE_API_KEY }}
         run: python run_generate.py --format short
 
+      - name: Publish to YouTube
+        env:
+          YT_CLIENT_ID:      ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET:  ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN:  ${{ secrets.YT_REFRESH_TOKEN }}
+          GEMINI_API_KEY:    ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEYS:   ${{ secrets.GEMINI_API_KEYS }}
+          GEMINI_JUDGE_API_KEY: ${{ secrets.GEMINI_JUDGE_API_KEY }}
+        run: python run_publish.py --bypass-judge
+
       - name: Upload video artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: short-video-${{ github.run_id }}

@@ -27,11 +27,19 @@ def upload_to_youtube(video_path: str, thumbnail_path: str, metadata: dict) -> s
     if isinstance(tags, str):
         tags = [t.strip() for t in tags.split(",") if t.strip()]
     tags = [str(t)[:100].replace('<', '').replace('>', '') for t in tags][:500]
+
+    # Append hashtags from tags to the description for YouTube discoverability
+    hashtags = " ".join(f"#{t.replace(' ', '')}" for t in tags[:15])
+    if hashtags:
+        # Ensure there's a blank line before the hashtag block
+        if not description.endswith("\n"):
+            description += "\n"
+        description += f"\n{hashtags}"
     
     category_id = metadata.get("category_id", "27")
     
     status_body = {
-        "privacyStatus":          "private",        # Always upload as private first for safety
+        "privacyStatus":          "public",         # Upload as public for immediate views
         "selfDeclaredMadeForKids": False,
         "madeForKids":            False,
         "containsSyntheticMedia": True,             # MANDATORY — May 2026 YouTube policy
