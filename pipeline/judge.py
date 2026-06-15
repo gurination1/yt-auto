@@ -8,48 +8,28 @@ from pipeline.config import GEMINI_API_KEY, GEMINI_PRO, GEMINI_FLASH, GEMINI_API
 def upload_file_to_gemini(filepath: str, api_key: str) -> dict:
     mime_type, _ = mimetypes.guess_type(filepath)
     if not mime_type:
-        mime_type = "application/octet-stream"
+        mime_type = "video/mp4"
         
     file_size = os.path.getsize(filepath)
     filename = os.path.basename(filepath)
     
-    print(f"Uploading file '{filename}' ({file_size / (1024*1024):.2f} MB) to Gemini Files API...")
+    print(f"Uploading file '{filename}' ({file_size / (1024*1024):.2f} MB) to Gemini Files API via simple upload...")
     
-    # 1. Start Resumable Upload
-    url = f"https://generativelanguage.googleapis.com/upload/v1beta/files?key={api_key}"
+    url = f"https://generativelanguage.googleapis.com/upload/v1beta/files?uploadType=media&key={api_key}"
     headers = {
-        "X-Goog-Upload-Protocol": "resumable",
-        "X-Goog-Upload-Command": "start",
+        "Content-Type": mime_type,
+        "Content-Length": str(file_size),
         "X-Goog-Upload-Header-Content-Length": str(file_size),
         "X-Goog-Upload-Header-Content-Type": mime_type,
-        "Content-Type": "application/json"
-    }
-    body = {
-        "file": {
-            "displayName": filename
-        }
     }
     
-    response = requests.post(url, headers=headers, json=body, timeout=120)
-    response.raise_for_status()
-    
-    upload_url = response.headers.get("X-Goog-Upload-URL")
-    if not upload_url:
-        raise RuntimeError("Failed to retrieve upload URL from response headers")
-        
-    # 2. Upload the file content in binary
     with open(filepath, "rb") as f:
         file_bytes = f.read()
         
-    headers_upload = {
-        "X-Goog-Upload-Offset": "0",
-        "X-Goog-Upload-Command": "finalize",
-        "Content-Length": str(file_size)
-    }
-    
-    response_upload = requests.post(upload_url, headers=headers_upload, data=file_bytes, timeout=300)
-    response_upload.raise_for_status()
-    return response_upload.json()
+    response = requests.post(url, headers=headers, data=file_bytes, timeout=300)
+    response.raise_for_status()
+    return response.json()
+
 
 def wait_for_file_active(file_name: str, api_key: str, max_timeout_seconds: int = 180) -> bool:
     url = f"https://generativelanguage.googleapis.com/v1beta/{file_name}?key={api_key}"
