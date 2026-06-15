@@ -82,7 +82,7 @@ def assemble_video(broll_files: list[str], tts_files: list[str], captions_ass: s
     cmd = [
         "ffmpeg", "-y", "-i", assembled_video_path,
         "-vf", f"ass={captions_ass}",
-        "-c:v", "libx264", "-preset", "slow", "-crf", "18", "-pix_fmt", "yuv420p",
+        "-c:v", "libx264", "-preset", "superfast", "-crf", "18", "-pix_fmt", "yuv420p",
         assembled_capped_path
     ]
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -103,7 +103,7 @@ def assemble_video(broll_files: list[str], tts_files: list[str], captions_ass: s
         cmd = [
             "ffmpeg", "-y", "-i", assembled_capped_path,
             "-vf", drawtext_filter,
-            "-c:v", "libx264", "-preset", "fast", "-crf", "18", "-pix_fmt", "yuv420p",
+            "-c:v", "libx264", "-preset", "superfast", "-crf", "18", "-pix_fmt", "yuv420p",
             assembled_flashed_path
         ]
         subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -131,8 +131,7 @@ def assemble_video(broll_files: list[str], tts_files: list[str], captions_ass: s
         "-filter_complex", filter_complex,
         "-map", "0:v",
         "-map", "[audio_final]",
-        "-c:v", "libx264", "-preset", "slow", "-crf", "18",
-        "-b:v", "10M", "-maxrate", "12M", "-bufsize", "24M",
+        "-c:v", "copy",
         "-pix_fmt", "yuv420p",
         "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
         "-r", "30", "-movflags", "+faststart",

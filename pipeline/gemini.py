@@ -51,6 +51,7 @@ def _post_with_rotation(
 
     Rotation strategy:
       - On 429: immediately rotate to next key (no long wait).
+      - On 5xx (500, 502, 503, 504): rotate key and wait 2 s.
       - After exhausting all keys once: sleep 15 s and retry.
       - Give up after len(pool) * 4 total attempts.
     """
@@ -73,10 +74,24 @@ def _post_with_rotation(
                     print("[GeminiClient] All keys rate-limited. Waiting 15 s…")
                     time.sleep(15)
                 continue
+            if resp.status_code in (500, 502, 503, 504):
+                print(
+                    f"[GeminiClient] {resp.status_code} on key slot "
+                    f"{(_shared_pool._idx % len(_shared_pool)) + 1}. Rotating…"
+                )
+                _shared_pool.rotate()
+                time.sleep(2)
+                continue
             resp.raise_for_status()
             return resp
-        except requests.exceptions.HTTPError:
-            raise
+        except requests.exceptions.HTTPError as exc:
+            # If it's a 4xx error (except 429), don't retry, just raise
+            if exc.response is not None and 400 <= exc.response.status_code < 500:
+                raise
+            # If it's a 5xx error or other HTTPError, rotate and retry
+            print(f"[GeminiClient] HTTP error (attempt {attempt+1}): {exc}. Rotating/Retrying…")
+            _shared_pool.rotate()
+            time.sleep(2)
         except Exception as exc:
             if attempt == max_attempts - 1:
                 raise
@@ -108,9 +123,14 @@ class GeminiClient:
                     print(f"[GeminiClient][pinned] 429. Waiting {wait}s…")
                     time.sleep(wait)
                     continue
+                if resp.status_code in (500, 502, 503, 504):
+                    wait = (attempt + 1) * 5
+                    print(f"[GeminiClient][pinned] {resp.status_code}. Waiting {wait}s…")
+                    time.sleep(wait)
+                    continue
                 resp.raise_for_status()
                 return resp
-            raise RuntimeError("Pinned key is rate-limited after 5 retries.")
+            raise RuntimeError("Pinned key is rate-limited or failed after 5 retries.")
         return _post_with_rotation(url_tmpl, payload, timeout, quick)
 
     # ── Text generation ──────────────────────────────────────────────────────
