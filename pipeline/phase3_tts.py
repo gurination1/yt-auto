@@ -46,9 +46,21 @@ def generate_audio(script: dict) -> list[str]:
             print(f"Gemini TTS failed for segment {seg_id}: {e}. Trying gTTS fallback...")
             try:
                 from gtts import gTTS
+                import time
                 temp_mp3 = f"output/tts_temp_{seg_id}.mp3"
-                tts = gTTS(text=seg["narration"], lang='en')
-                tts.save(temp_mp3)
+                
+                # Resilient retry loop for gTTS network call
+                for g_attempt in range(5):
+                    try:
+                        tts = gTTS(text=seg["narration"], lang='en')
+                        tts.save(temp_mp3)
+                        break
+                    except Exception as g_err:
+                        if g_attempt == 4:
+                            raise g_err
+                        wait_sec = (g_attempt + 1) * 3
+                        print(f"gTTS save failed: {g_err}. Retrying in {wait_sec} seconds...")
+                        time.sleep(wait_sec)
                 
                 # Convert MP3 to WAV 24000Hz mono 16-bit PCM using FFmpeg
                 import subprocess
