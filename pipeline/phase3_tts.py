@@ -1,12 +1,34 @@
 import os
 import random
 import wave
-from pipeline.config import GEMINI_VOICES
+import json
+from pipeline.config import GEMINI_VOICES, KOKORO_VOICES
 from pipeline.gemini import GeminiClient
+
+STATE_PATH = "voice_state.json"
+
+def pick_voice(pool: list[str], state_key: str) -> str:
+    state = {}
+    if os.path.exists(STATE_PATH):
+        try:
+            with open(STATE_PATH, "r") as f:
+                state = json.load(f)
+        except Exception:
+            pass
+    last = state.get(state_key)
+    choice = random.choice([v for v in pool if v != last] or pool)
+    state[state_key] = choice
+    try:
+        with open(STATE_PATH, "w") as f:
+            json.dump(state, f)
+    except Exception as e:
+        print(f"Warning: Failed to write voice state: {e}")
+    return choice
 
 def generate_audio(script: dict) -> list[str]:
     gemini_client = GeminiClient()
-    voice = random.choice(GEMINI_VOICES)
+    voice = pick_voice(GEMINI_VOICES, "gemini")
+    ko_voice = pick_voice(KOKORO_VOICES, "kokoro")
     audio_files = []
     
     # Ensure output directory exists
@@ -49,18 +71,19 @@ def generate_audio(script: dict) -> list[str]:
                 import soundfile as sf
                 from kokoro import KPipeline
 
-                # Kokoro voices: af_heart, af_bella, am_adam, am_michael, af_sky
-                ko_voices = ["af_heart", "af_bella", "am_adam", "am_michael"]
-                ko_voice  = random.choice(ko_voices)
                 pipeline_ko = KPipeline(lang_code="a")  # 'a' = American English
 
                 samples = []
                 for _, _, audio in pipeline_ko(seg["narration"], voice=ko_voice, speed=1.0):
                     samples.append(audio)
 
-                import scipy.io.wavfile
                 audio_np = np.concatenate(samples)
-                scipy.io.wavfile.write(out_path, 24000, audio_np)
+                audio_int16 = np.clip(audio_np * 32767, -32768, 32767).astype(np.int16)
+                with wave.open(out_path, "wb") as wf:
+                    wf.setnchannels(1)
+                    wf.setsampwidth(2)
+                    wf.setframerate(24000)
+                    wf.writeframes(audio_int16.tobytes())
                 print(f"Kokoro fallback succeeded for segment {seg_id} (voice: {ko_voice})")
 
             except Exception as e2:

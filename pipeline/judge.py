@@ -95,7 +95,7 @@ Please watch the video and evaluate it against these 5 rubrics:
 2. **Hook Appeal**: Is the hook in the first 3-5 seconds of the video engaging and curiosity-inducing?
 3. **Subtitles/Captions**: Are subtitles present, readable, and matching the narration word-for-word?
 4. **Music & Audio Quality**: Is the background music clean, and is it mixed correctly without overpowering the voiceover?
-5. **Retention & Loopability**: Does the video contain a retention element (like a rewatch callout in segment 4)? Does it loop back seamlessly from the last segment to the first segment's narration?
+5. **Retention & Loopability**: Does the video contain a retention element (like a rewatch callout in segment 4)? Does it loop back seamlessly from the last segment to the first segment's narration? Note: Segment 5 echoing Segment 1's THEME (not its exact wording) is the desired outcome — flag verbatim repetition of Segment 1's sentence as a script-quality issue.
 
 You MUST return your review ONLY as a raw JSON object with no markdown syntax. The JSON structure must be exactly like this:
 {{

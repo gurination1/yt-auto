@@ -87,7 +87,7 @@ You MUST return your response ONLY as a raw JSON object with no markdown syntax.
     }},
     {{
       "id": 5,
-      "narration": "Payoff sentence that transitions back to the exact starting words of segment 1 narration to form a seamless loop",
+      "narration": "Payoff sentence that thematically echoes or re-contextualizes the idea from Segment 1's hook to form a satisfying loop",
       "broll_query": "universe galaxy stars spiral",
       "duration_target": 6
     }}
@@ -96,7 +96,12 @@ You MUST return your response ONLY as a raw JSON object with no markdown syntax.
   "loop_callout": true
 }}
 
-Ensure that Segment 5's narration ends in a way that matches the exact beginning of Segment 1's narration.
+For Segment 1 specifically, `broll_query` MUST describe a high-motion, high-contrast, visually arresting shot (fast motion, bright colors, dramatic close-up) — this is the opening pattern-interrupt that determines whether viewers keep watching.
+
+Segment 5's final sentence should THEMATICALLY echo or re-contextualize the IDEA from
+Segment 1's hook — e.g. answer the question it posed, or reveal a twist that recasts
+it — WITHOUT repeating its exact wording. The goal is a satisfying "full circle" feeling
+on rewatch, not a verbatim repeat.
 """
     else:  # long-form
         prompt = f"""Generate a comprehensive 7-10 minute YouTube educational script on the topic: "{topic['topic']}".

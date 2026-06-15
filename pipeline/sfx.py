@@ -7,7 +7,7 @@ All audio at 44100 Hz, mono, int16.
 """
 import os
 import numpy as np
-import scipy.io.wavfile
+import wave
 
 
 def _synth_whoosh(sample_rate: int = 44100, duration: float = 0.38) -> np.ndarray:
@@ -86,6 +86,10 @@ def create_sfx_track(
     # Clip to int16
     track_int16 = np.clip(track * 32767, -32768, 32767).astype(np.int16)
     out_path    = "output/sfx_track.wav"
-    scipy.io.wavfile.write(out_path, sample_rate, track_int16)
+    with wave.open(out_path, "wb") as wf:
+        wf.setnchannels(1)
+        wf.setsampwidth(2)
+        wf.setframerate(sample_rate)
+        wf.writeframes(track_int16.tobytes())
     print(f"[SFX] SFX track created: {len(clip_boundary_times)} whoosh(es) at {clip_boundary_times}")
     return out_path

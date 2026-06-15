@@ -6,29 +6,34 @@ import subprocess
 from pipeline.config import PEXELS_API_KEY, PIXABAY_API_KEY, COVERR_API_KEY, NASA_API_KEY
 
 
-# ── Source 1: Pexels ─────────────────────────────────────────────────────────
+# ── Source 1: Pexels Candidates ──────────────────────────────────────────────
 
-def _pexels_video(query: str, orientation: str) -> str | None:
+def _pexels_candidates(query: str, orientation: str, n: int = 8) -> list[dict]:
     if not PEXELS_API_KEY:
-        return None
+        return []
     try:
         r = requests.get(
             "https://api.pexels.com/videos/search",
             headers={"Authorization": PEXELS_API_KEY},
-            params={"query": query, "per_page": 5, "orientation": orientation},
+            params={"query": query, "per_page": n, "orientation": orientation},
             timeout=30,
         )
         r.raise_for_status()
         videos = r.json().get("videos", [])
-        if not videos:
-            return None
-        video = random.choice(videos[:3])
-        files = [f for f in video["video_files"] if f.get("quality") in ("hd", "sd")]
-        files.sort(key=lambda f: f.get("width", 0), reverse=True)
-        return files[0]["link"] if files else None
+        candidates = []
+        for video in videos:
+            image_url = video.get("image")
+            video_files = [f for f in video.get("video_files", []) if f.get("quality") in ("hd", "sd")]
+            if image_url and video_files:
+                video_files.sort(key=lambda f: f.get("width", 0), reverse=True)
+                candidates.append({
+                    "video_url": video_files[0]["link"],
+                    "thumb_url": image_url
+                })
+        return candidates
     except Exception as e:
-        print(f"[B-roll] Pexels failed for '{query}': {e}")
-        return None
+        print(f"[B-roll] Pexels search failed for '{query}': {e}")
+        return []
 
 
 # ── Source 2: Pixabay ────────────────────────────────────────────────────────
@@ -246,12 +251,12 @@ def _pil_placeholder(query: str, w: int, h: int, img_path: str):
 
 # ── Master fetch function ────────────────────────────────────────────────────
 
-def fetch_broll(query: str, format_type: str, segment_index: int, duration: float = 6.0) -> str:
+def fetch_broll(query: str, format_type: str, segment_index: int, duration: float = 6.0, narration: str = "") -> str:
     """
-    6-tier B-roll waterfall:
-      1. Pexels video
-      2. Pixabay video
-      3. Coverr video (cinematic, requires COVERR_API_KEY)
+    6-tier B-roll waterfall with Gemini Vision matching:
+      1. Pexels video (ranked and validated via Gemini Vision API on thumbnails)
+      2. Pixabay video (validated via Gemini Vision API on extracted frame)
+      3. Coverr video (validated via Gemini Vision API on extracted frame)
       4. NASA image → Ken Burns video (for science/space queries, free, no key)
       5. Wikipedia image → Ken Burns video (for named people/concepts, free, no key)
       6. Pollinations AI image → Ken Burns video (fallback)
@@ -271,37 +276,103 @@ def fetch_broll(query: str, format_type: str, segment_index: int, duration: floa
         print(f"[B-roll] Segment {segment_index}: using cached clip.")
         return out_path
 
-    # ── Try video sources ────────────────────────────────────────────────────
-    print(f"[B-roll] Segment {segment_index}: searching for '{query}'…")
-
     # Build a simpler fallback query (first 2-3 nouns if first query fails)
     words         = query.split()
     fallback_query = " ".join(words[:2]) if len(words) > 2 else query
 
-    video_url = (
-        _pexels_video(query, orientation)
-        or _pexels_video(fallback_query, orientation)
-        or _pixabay_video(query)
-        or _pixabay_video(fallback_query)
-        or _coverr_video(query)
-        or _coverr_video(fallback_query)
-    )
+    # ── Try Pexels with vision ranking ───────────────────────────────────────
+    print(f"[B-roll] Segment {segment_index}: searching Pexels for candidates of '{query}'…")
+    candidates = _pexels_candidates(query, orientation)
+    if not candidates:
+        candidates = _pexels_candidates(fallback_query, orientation)
 
-    if video_url:
-        try:
-            r = requests.get(video_url, stream=True, timeout=90)
-            r.raise_for_status()
-            with open(out_path, "wb") as f:
-                for chunk in r.iter_content(chunk_size=8192):
-                    if chunk:
-                        f.write(chunk)
-            if os.path.getsize(out_path) > 10_000:
-                print(f"[B-roll] Segment {segment_index}: video downloaded OK.")
-                return out_path
-        except Exception as e:
-            print(f"[B-roll] Video download failed: {e}. Falling to image sources…")
-            if os.path.exists(out_path):
-                os.remove(out_path)
+    if candidates:
+        thumbs = []
+        for idx, cand in enumerate(candidates):
+            try:
+                r_thumb = requests.get(cand["thumb_url"], timeout=15)
+                r_thumb.raise_for_status()
+                thumbs.append(r_thumb.content)
+            except Exception as e:
+                print(f"[B-roll] Failed to download thumbnail {idx} from Pexels: {e}")
+                thumbs.append(b"")
+
+        from pipeline.vision_match import vision_rank_broll
+        best_idx, match_found = vision_rank_broll(thumbs, narration, query)
+
+        if match_found and best_idx is not None and best_idx < len(candidates):
+            chosen = candidates[best_idx]
+            print(f"[B-roll] Pexels match found at index {best_idx}. Downloading video…")
+            try:
+                r_vid = requests.get(chosen["video_url"], stream=True, timeout=90)
+                r_vid.raise_for_status()
+                with open(out_path, "wb") as f:
+                    for chunk in r_vid.iter_content(chunk_size=8192):
+                        if chunk:
+                            f.write(chunk)
+                if os.path.getsize(out_path) > 10_000:
+                    print(f"[B-roll] Segment {segment_index}: Pexels video downloaded OK.")
+                    return out_path
+            except Exception as e:
+                print(f"[B-roll] Pexels video download failed: {e}. Continuing waterfall…")
+                if os.path.exists(out_path):
+                    os.remove(out_path)
+        else:
+            print(f"[B-roll] No suitable Pexels candidate passed Vision Match. Trying next sources…")
+
+    # ── Try other video sources with single frame validation ─────────────────
+    other_videos = [
+        ("Pixabay (main)", lambda: _pixabay_video(query)),
+        ("Pixabay (fallback)", lambda: _pixabay_video(fallback_query)),
+        ("Coverr (main)", lambda: _coverr_video(query)),
+        ("Coverr (fallback)", lambda: _coverr_video(fallback_query)),
+    ]
+
+    from pipeline.vision_match import vision_rank_broll
+
+    for label, fetch_url_fn in other_videos:
+        video_url = fetch_url_fn()
+        if video_url:
+            print(f"[B-roll] Downloading video from {label}…")
+            try:
+                r = requests.get(video_url, stream=True, timeout=90)
+                r.raise_for_status()
+                with open(out_path, "wb") as f:
+                    for chunk in r.iter_content(chunk_size=8192):
+                        if chunk:
+                            f.write(chunk)
+                
+                if os.path.exists(out_path) and os.path.getsize(out_path) > 10_000:
+                    # Extract one frame via FFmpeg
+                    temp_frame_path = f"output/temp_frame_{segment_index}.jpg"
+                    if os.path.exists(temp_frame_path):
+                        os.remove(temp_frame_path)
+                    
+                    cmd = [
+                        "ffmpeg", "-y", "-i", out_path,
+                        "-vf", "thumbnail=n=30", "-frames:v", "1", temp_frame_path
+                    ]
+                    subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                    
+                    if os.path.exists(temp_frame_path):
+                        with open(temp_frame_path, "rb") as tf:
+                            frame_data = tf.read()
+                        os.remove(temp_frame_path)
+                        
+                        _, match_found = vision_rank_broll([frame_data], narration, query)
+                        if match_found:
+                            print(f"[B-roll] {label} video accepted by Vision Match.")
+                            return out_path
+                        else:
+                            print(f"[B-roll] {label} video rejected by Vision Match. Continuing waterfall…")
+                            os.remove(out_path)
+                    else:
+                        print(f"[B-roll] Warning: Frame extraction failed for {label}. Accepting by default.")
+                        return out_path
+            except Exception as e:
+                print(f"[B-roll] Download or verification failed for {label}: {e}")
+                if os.path.exists(out_path):
+                    os.remove(out_path)
 
     # ── Try image sources (all converted with Ken Burns) ─────────────────────
     print(f"[B-roll] Segment {segment_index}: trying image sources…")

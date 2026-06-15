@@ -6,7 +6,7 @@ on:
   workflow_dispatch:          # allow manual test trigger
 
 permissions:
-  contents: write             # needed to commit published_topics.json
+  contents: write             # needed to commit published_topics.json + voice_state.json
 
 jobs:
   generate:
@@ -19,15 +19,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip'            # CRITICAL: saves 3-5 min on every run
-
-      - name: Cache HuggingFace model weights
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/huggingface
-          key: ${{ runner.os }}-hf-musicgen-small-v1
-          restore-keys: |
-            ${{ runner.os }}-hf-
+          cache: 'pip'
 
       - name: Cache faster-whisper models
         uses: actions/cache@v4
@@ -64,10 +56,10 @@ jobs:
             output/metadata.json
           retention-days: 7
 
-      - name: Commit topic log (GH keepalive)
+      - name: Commit topic log + voice state
         run: |
           git config user.name "yt-bot"
           git config user.email "yt-bot@noreply"
-          git add published_topics.json
-          git diff --staged --quiet || git commit -m "chore: update published topics [skip ci]"
+          git add published_topics.json voice_state.json
+          git diff --staged --quiet || git commit -m "chore: update published topics + voice state [skip ci]"
           git push || true

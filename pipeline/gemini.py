@@ -42,7 +42,7 @@ _shared_pool = _KeyPool(GEMINI_API_KEYS)
 
 
 def _post_with_rotation(
-    url_template: str, payload: dict, timeout: int = 120
+    url_template: str, payload: dict, timeout: int = 120, quick: bool = False
 ) -> requests.Response:
     """
     POST using the shared key pool.
@@ -54,7 +54,7 @@ def _post_with_rotation(
       - After exhausting all keys once: sleep 15 s and retry.
       - Give up after len(pool) * 4 total attempts.
     """
-    max_attempts = len(_shared_pool) * 4
+    max_attempts = len(_shared_pool) if quick else len(_shared_pool) * 4
     for attempt in range(max_attempts):
         key  = _shared_pool.current()
         url  = url_template.format(key=key)
@@ -69,7 +69,7 @@ def _post_with_rotation(
                     f"{(_shared_pool._idx % len(_shared_pool)) + 1}. Rotating…"
                 )
                 _shared_pool.rotate()
-                if (attempt + 1) % len(_shared_pool) == 0:
+                if not quick and (attempt + 1) % len(_shared_pool) == 0:
                     print("[GeminiClient] All keys rate-limited. Waiting 15 s…")
                     time.sleep(15)
                 continue
@@ -95,7 +95,7 @@ class GeminiClient:
     def __init__(self, api_key: str | None = None):
         self._pinned = api_key
 
-    def _post(self, url_tmpl: str, payload: dict, timeout: int = 120) -> requests.Response:
+    def _post(self, url_tmpl: str, payload: dict, timeout: int = 120, quick: bool = False) -> requests.Response:
         if self._pinned:
             url = url_tmpl.format(key=self._pinned)
             for attempt in range(5):
@@ -111,7 +111,7 @@ class GeminiClient:
                 resp.raise_for_status()
                 return resp
             raise RuntimeError("Pinned key is rate-limited after 5 retries.")
-        return _post_with_rotation(url_tmpl, payload, timeout)
+        return _post_with_rotation(url_tmpl, payload, timeout, quick)
 
     # ── Text generation ──────────────────────────────────────────────────────
 
@@ -174,7 +174,7 @@ class GeminiClient:
             },
         }
         try:
-            resp = self._post(url, payload)
+            resp = self._post(url, payload, quick=True)
         except Exception as exc:
             raise TTSError(str(exc)) from exc
         try:

@@ -31,7 +31,8 @@ def generate_captions(audio_files: list[str], script: dict, format_type: str = "
                             continue
                         start = time_offset + word_info.start
                         end   = time_offset + word_info.end
-                        ass_events.append(f"Dialogue: 0,{fmt_time(start)},{fmt_time(end)},Default,,0,0,0,,{{\\blur3}}{word}")
+                        ass_events.append(f"Dialogue: 0,{fmt_time(start)},{fmt_time(end)},Default,,0,0,0,,"
+                                           f"{{\\blur4\\fscx135\\fscy135\\t(0,120,\\fscx100\\fscy100)}}{word}")
             
             data, sr = sf.read(audio_path)
             duration = len(data) / sr
@@ -56,7 +57,8 @@ def generate_captions(audio_files: list[str], script: dict, format_type: str = "
                         continue
                     w_start = time_offset + w_idx * word_dur
                     w_end = w_start + word_dur
-                    ass_events.append(f"Dialogue: 0,{fmt_time(w_start)},{fmt_time(w_end)},Default,,0,0,0,,{{\\blur3}}{word_clean}")
+                    ass_events.append(f"Dialogue: 0,{fmt_time(w_start)},{fmt_time(w_end)},Default,,0,0,0,,"
+                                       f"{{\\blur4\\fscx135\\fscy135\\t(0,120,\\fscx100\\fscy100)}}{word_clean}")
                     
             time_offset += duration
             print(f"Segment {seg['id']} duration: {duration:.2f}s (rule-timed), Cumulative offset: {time_offset:.2f}s")
@@ -80,7 +82,7 @@ PlayResY: {play_res_y}
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Default,Arial Black,{font_size},&H00FFFFFF,&H000000FF,&H00000000,&H90000000,-1,0,0,0,100,100,0,0,1,5,2,2,30,30,{margin_v},1
+Style: Default,Arial Black,{font_size},&H00FFFFFF,&H000000FF,&H0000D4FF,&H90000000,-1,0,0,0,100,100,0,0,1,6,2,2,30,30,{margin_v},1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text

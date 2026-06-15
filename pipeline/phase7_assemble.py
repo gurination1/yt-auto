@@ -118,8 +118,8 @@ def assemble_video(broll_files: list[str], tts_files: list[str], captions_ass: s
         "[1:a]volume=2.0[tts];"
         "[2:a]volume=0.12,aloop=loop=-1:size=2147483647[music_loop];"
         "[3:a]volume=0.35[sfx];"
-        "[tts][music_loop]amix=inputs=2:duration=first[mixed];"
-        "[mixed][sfx]amix=inputs=2:duration=first[audio_final]"
+        "[tts][music_loop]amix=inputs=2:duration=first:normalize=0[mixed];"
+        "[mixed][sfx]amix=inputs=2:duration=first:normalize=0[audio_final]"
     )
 
     cmd = [

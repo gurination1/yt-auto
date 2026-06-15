@@ -37,7 +37,8 @@ GEMINI_PRO       = "gemini-2.5-flash"          # deliberately using flash; 1.5-p
 GEMINI_TTS_MODEL = "gemini-2.5-flash-preview-tts"
 GEMINI_API_BASE  = "https://generativelanguage.googleapis.com/v1beta"
 
-GEMINI_VOICES    = ["Aoede", "Charon", "Fenrir", "Kore", "Puck"]
+GEMINI_VOICES    = ["Aoede","Charon","Fenrir","Kore","Puck","Leda","Orus","Callirrhoe","Achird","Iapetus"]
+KOKORO_VOICES    = ["af_heart","af_bella","af_nicole","af_sarah","af_sky","af_aoede","am_adam","am_michael","am_fenrir","am_puck"]
 
 # ── Video Specs ──────────────────────────────────────────────────────────────
 SHORTS_W, SHORTS_H = 1080, 1920
