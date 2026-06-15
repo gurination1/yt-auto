@@ -1,50 +1,80 @@
 # 🎬 yt-auto — Automated YouTube Video Pipeline
 
-> A production-ready, fully-automated YouTube educational video pipeline. It automatically generates and schedules YouTube Shorts and long-form videos with zero ongoing human work except a single tap on your phone to review and publish.
+> A production-ready, fully-automated YouTube educational video pipeline. It automatically generates and schedules YouTube Shorts and long-form videos with zero ongoing human work.
 
 ---
 
 ## 🌟 How It Works
 
-This system implements a **two-stage architecture** separated by a human checkpoint:
+This system runs a fully-automated, schedules-based video creation and upload workflow:
 
 ```
-[ Stage A: Auto-Generate (Scheduled Cron) ]
+[ Scheduled GitHub Action / manual run ]
    ├── Topic Detection (Gemini 2.5 Flash + Google Search Grounding)
    ├── Script Writing & Grounded Fact-Verification
    ├── Voice Generation (Gemini TTS / Fallback Kokoro CPU)
-   ├── Video/Image Retrieval (Pexels / Pixabay / Fallback Pollinations)
-   ├── Timing-based Subtitles (faster-whisper word-level timestamps)
-   ├── Background Music (MusicGen / Fallback Numpy Synth)
-   ├── FFmpeg Assembly & Auto-looping logic
-   └── Video Thumbnail Generation (1280x720 overlay)
-   └── Saved as a GitHub Action Artifact 📥
-        │
-        ▼
-[ Human Checkpoint ] ◄── Open GitHub mobile app & tap "Run workflow" on Publish
-        │
-        ▼
-[ Stage B: Auto-Publish (workflow_dispatch) ]
-   ├── Downloads Artifact from Stage A
-   ├── Trims/Validates Metadata & Flags Synthetic Media (May 2026 YouTube Policy)
-   └── Uploads & Schedules video on YouTube via Data API v3 🚀
+   ├── Video/Image Retrieval (Pexels / Pixabay / Fallback Pollinations AI)
+   ├── Timing-based Subtitles (word-level timestamps)
+   ├── Background Music (Procedural Numpy Synth / pad chords)
+   ├── SFX (Whoosh transitions synced to cuts)
+   ├── FFmpeg Assembly & Auto-looping logic (Using superfast preset)
+   ├── Video Thumbnail Generation (1280x720 overlay)
+   └── Auto-Publish to YouTube (Public, with auto hashtags, containsSyntheticMedia flag)
 ```
+
+---
+
+## 🤖 AI Developer & Agent Memory (READ THIS BEFORE EDITING)
+
+If you are an AI agent or developer touching this codebase, review these critical architectural decisions, constraints, and lessons learned from past implementations:
+
+### 1. Gemini API Key Rotation & 503/429 Resiliency
+* **Location:** [pipeline/gemini.py](file:///root/yt-auto/pipeline/gemini.py) (`_post_with_rotation` and `_KeyPool`)
+* **Experience Gained:** Relying on a single API key easily hits daily quotas or rate limits (`429`). The Gemini API also frequently throws `503 Service Unavailable` errors under heavy load.
+* **Mechanism:** 
+  * The environment variable `GEMINI_API_KEYS` accepts a comma-separated list of keys (e.g. `key1,key2,key3`).
+  * On a `429` error, the pool rotates immediately to the next key without delaying execution.
+  * On a `500`/`502`/`503`/`504` error, the pool rotates and sleeps for 2 seconds before retrying.
+  * Pinned key operations (e.g. for the video Judge) fallback to linear/exponential backoff.
+
+### 2. FFmpeg Assembly & Rendering Speed
+* **Location:** [pipeline/phase7_assemble.py](file:///root/yt-auto/pipeline/phase7_assemble.py)
+* **Experience Gained:** In CPU-bound environments (like GitHub Actions runners or low-resource servers), rendering video with slow presets or complete transcoding takes hours.
+* **Mechanism:** 
+  * Re-encoding uses the `superfast` preset.
+  * Muxing streams (final combining of audio, video, and effects) uses `-c:v copy` and `-c:a aac` wherever possible to avoid redundant encoding.
+  * Subtitles/captions are applied dynamically via a generated `.ass` file overlay.
+
+### 3. YouTube Upload Policies & SEO Automation
+* **Location:** [pipeline/phase9_upload.py](file:///root/yt-auto/pipeline/phase9_upload.py)
+* **Privacy Status:** Uploads are set to `"public"` so that the video goes live immediately upon completion (or is scheduled with `publishAt`).
+* **SEO Hashtags:** The upload step parses tags from metadata, converts them to `#Hashtag` format, and appends them to the description automatically.
+* **Synthetic Media Disclosure (MANDATORY):** Per YouTube’s global policy, AI-generated content must declare synthetic media. We explicitly pass `"containsSyntheticMedia": True` in the `status` block. *Do not disable this to prevent channel strikes.*
+
+### 4. Custom Thumbnail Upload Verification
+* **Location:** [pipeline/phase9_upload.py](file:///root/yt-auto/pipeline/phase9_upload.py) (Thumbnail call)
+* **Gotcha:** If a channel is not phone-verified in YouTube Studio (**Settings** ➔ **Channel** ➔ **Feature Eligibility**), the API call to upload a custom thumbnail will fail. 
+* **Handling:** The script catches thumbnail errors gracefully so the video still publishes successfully even if custom thumbnails are disabled on the channel.
+
+### 5. Runtime & Persistent Server Context
+* **Reality Check:** GitHub Actions has a 6-hour job execution limit. However, since our generation and publish steps take less than 10 minutes total per video, this limit is not an issue.
+* **WhatsApp Bot Co-existence:** The WhatsApp bot (`guri-v10-webjs` / `guri_bot`) is hosted on Termux/Railway and runs 24/7. **Do not confuse its hosting requirements with the short-lived GitHub Actions pipeline.**
 
 ---
 
 ## 🔑 GitHub Secrets Setup
 
-You must configure the following repository secrets to allow the pipeline to run successfully on GitHub Actions. 
-Go to your repository **Settings** ➔ **Secrets and variables** ➔ **Actions** ➔ **New repository secret** and add:
+Configure the following repository secrets under **Settings** ➔ **Secrets and variables** ➔ **Actions**:
 
 | Secret Name | Required | Description / Value |
 | :--- | :--- | :--- |
-| `GEMINI_API_KEY` | **Yes** | Your Google AI Studio API key. |
-| `PEXELS_API_KEY` | **Yes** | Use this default key: `Lc1GBzaPtICzuN6mNAf2mSjgMOVmf4KZX2ZAHIc9GKXTgiHQ1LsuOhle` or generate your own. |
-| `PIXABAY_API_KEY`| No | Optional. Get a free video API key at [Pixabay API Docs](https://pixabay.com/api/docs/). |
-| `YT_CLIENT_ID` | **Yes** | OAuth 2.0 Web Client ID from your Google Cloud Console. |
-| `YT_CLIENT_SECRET`| **Yes** | OAuth 2.0 Client Secret from your Google Cloud Console. |
-| `YT_REFRESH_TOKEN`| **Yes** | OAuth 2.0 Refresh Token (authorized for scope `https://www.googleapis.com/auth/youtube`). |
+| `GEMINI_API_KEYS` | **Yes** | Comma-separated list of Google AI Studio keys for rotation. |
+| `GEMINI_API_KEY` | **Yes** | Single fallback Google AI Studio key. |
+| `PEXELS_API_KEY` | **Yes** | Used to fetch background B-roll videos. |
+| `PIXABAY_API_KEY`| No | Optional fallback B-roll api. |
+| `YT_CLIENT_ID` | **Yes** | OAuth 2.0 Client ID. |
+| `YT_CLIENT_SECRET`| **Yes** | OAuth 2.0 Client Secret. |
+| `YT_REFRESH_TOKEN`| **Yes** | OAuth 2.0 Refresh Token (authorized for YouTube scope). |
 
 ---
 
@@ -72,15 +102,3 @@ The automation is configured around Indian Standard Time (IST):
 *   **Short #1:** Uploads daily at **10:00 AM IST** ➔ Schedules to publish at **12:00 PM IST (Noon)**.
 *   **Short #2:** Uploads daily at **05:00 PM IST** ➔ Schedules to publish at **07:00 PM IST (Evening)**.
 *   **Long-form:** Uploads every Monday at **11:30 AM IST** ➔ Schedules to publish at **02:00 PM IST**.
-
----
-
-## 📱 How to Publish from Your Phone
-
-1. **Wait for Notification:** When a scheduled Generate workflow finishes, you will see a successful run under the Actions tab.
-2. **Review:** (Optional) If you want to review the video, download the artifact from the Github Actions webpage.
-3. **Approve & Publish:** 
-   * Open the **GitHub mobile app** on your phone.
-   * Go to your repository ➔ **Actions** ➔ select **Publish Video to YouTube**.
-   * Tap **Run workflow**, choose the format (`short` or `long`), and submit.
-   * Stage B will automatically download the correct generated video, upload it, and schedule it on your channel!
