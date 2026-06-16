@@ -87,22 +87,32 @@ def assemble_video(broll_files: list[str], tts_files: list[str], captions_ass: s
     ]
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
-    # Step 5: Add Segment 4 flash overlay (rewatch trigger) - Shorts only
-    print("Step 5: Adding flash overlay (Shorts only)...")
+    # Step 5: Adding premium hook overlays (Shorts only)
+    print("Step 5: Adding premium hook overlays...")
     assembled_flashed_path = "output/assembled_flashed.mp4"
-    if format_type == "short" and len(durations) >= 4:
-        seg4_start = sum(durations[:3])
-        seg4_end = seg4_start + 0.8
+    if format_type == "short":
+        clean_title = "".join(c for c in script.get("title", "").upper() if c.isalnum() or c.isspace()).strip()
         
-        # Use simple text with no special characters to avoid FFmpeg escaping issues
-        drawtext_filter = (
-            f"drawtext=text='pause - catch the hidden detail':fontsize=40:fontcolor=yellow:"
-            f"x=(w-text_w)/2:y=h*0.15:enable='between(t,{seg4_start:.3f},{seg4_end:.3f})':"
-            f"box=1:boxcolor=black@0.5"
-        )
+        filters = []
+        # 1. Pattern interrupt flash (0.25s)
+        filters.append(f"drawbox=y=0:color=white@0.2:t=fill:enable='between(t,0,0.25)'")
+        # 2. Big title hook card (first 1.5s)
+        filters.append(f"drawtext=text='{clean_title}':fontsize=85:fontcolor=white:font='Bebas Neue':"
+                       f"x=(w-text_w)/2:y=h*0.22:enable='between(t,0,1.5)':borderw=8:bordercolor=black")
+                       
+        if len(durations) >= 4:
+            seg4_start = sum(durations[:3])
+            seg4_end = seg4_start + 0.8
+            # 3. Rewatch trigger
+            filters.append(
+                f"drawtext=text='PAUSE - CATCH THE DETAIL':fontsize=48:fontcolor=yellow:font='Bebas Neue':"
+                f"x=(w-text_w)/2:y=h*0.15:enable='between(t,{seg4_start:.3f},{seg4_end:.3f})':"
+                f"box=1:boxcolor=black@0.6:boxborderw=10"
+            )
+            
         cmd = [
             "ffmpeg", "-y", "-i", assembled_capped_path,
-            "-vf", drawtext_filter,
+            "-vf", ",".join(filters),
             "-c:v", "libx264", "-preset", "superfast", "-crf", "18", "-pix_fmt", "yuv420p",
             assembled_flashed_path
         ]

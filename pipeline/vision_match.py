@@ -21,11 +21,10 @@ def vision_rank_broll(thumbnails: list[bytes], narration: str, query: str) -> tu
         f'Narration for this moment: "{narration}"\n'
         f'Search query used: "{query}"\n\n'
         f"{len(thumbnails)} candidate thumbnails follow, indexed 0..{len(thumbnails)-1}. "
-        f"Pick the index whose image most literally shows the SUBJECT of the narration "
-        f'(e.g. narration about cats -> must show an actual cat, NOT excavators, '
-        f"cable, scans, or other keyword-collision results).\n\n"
+        f"Select the index that best fits the theme, concept, or mood of the narration, even if it is not a literal match. "
+        f"Avoid candidates that are completely unrelated or represent keyword-collision garbage.\n\n"
         f'Return ONLY JSON: {{"best_index": <int or null>, "match_found": <bool>}}. '
-        f"Set match_found=false, best_index=null if NONE clearly show the subject."
+        f"Set match_found=false, best_index=null ONLY if all candidates are completely irrelevant."
     )}]
     for t in thumbnails:
         parts.append({"inlineData": {"mimeType": "image/jpeg",
@@ -41,5 +40,5 @@ def vision_rank_broll(thumbnails: list[bytes], narration: str, query: str) -> tu
             return None, False
         return idx, True
     except Exception as e:
-        print(f"[B-roll] Vision ranking failed: {e}. Continuing waterfall…")
-        return None, False
+        print(f"[B-roll] Vision ranking failed/rate-limited: {e}. Falling back to first candidate (0, True)")
+        return 0, True

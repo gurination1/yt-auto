@@ -99,12 +99,18 @@ You MUST return your response ONLY as a raw JSON object with no markdown syntax.
   "loop_callout": true
 }}
 
-For Segment 1 specifically, `broll_query` MUST describe a high-motion, high-contrast, visually arresting shot (fast motion, bright colors, dramatic close-up) — this is the opening pattern-interrupt that determines whether viewers keep watching.
+For Segment 1 specifically:
+- `broll_query` MUST describe a high-motion, high-contrast, visually arresting shot (fast motion, bright colors, dramatic close-up) — this is the opening pattern-interrupt that determines whether viewers keep watching.
+- Create an information gap targeting something the viewer THINKS they already know, keeping it embarrassingly simple yet unresolved (e.g. 'You use gravity every day. But did you know...').
 
-Segment 5's final sentence should THEMATICALLY echo or re-contextualize the IDEA from
-Segment 1's hook — e.g. answer the question it posed, or reveal a twist that recasts
-it — WITHOUT repeating its exact wording. The goal is a satisfying "full circle" feeling
-on rewatch, not a verbatim repeat.
+For Segments 2-4:
+- Frame facts with visual or scientific paradoxes (e.g., 'Something the size of a city that weighs more than the sun' or 'The man who failed entrance exams rewrote the universe').
+- Deliver the single most mind-bending scientific fact in Segment 2.
+- Introduce an open loop (a second mystery or surprise fact) in Segment 3 that builds tension towards the loop twist.
+
+For Segment 5 specifically:
+- Resolve all loops and design the final sentence to end on a transition that flows seamlessly back into Segment 1's hook narration.
+- Segment 5's final sentence should THEMATICALLY echo or re-contextualize the IDEA from Segment 1's hook — e.g. answer the question it posed, or reveal a twist that recasts it — WITHOUT repeating its exact wording. The goal is a satisfying "full circle" feeling on rewatch, not a verbatim repeat.
 """
     else:  # long-form
         prompt = f"""Generate a comprehensive 7-10 minute YouTube educational script on the topic: "{topic['topic']}".

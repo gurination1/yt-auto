@@ -27,16 +27,14 @@ def generate_thumbnail(final_video_path: str, thumbnail_text: str) -> str:
     # 2. Scale and draw text
     cleaned_text = clean_thumbnail_text(thumbnail_text).upper()   # ALL CAPS for impact
     
-    # We will try with DejaVu Sans Bold first, and fallback to generic sans if it fails.
+    # We will try with Bebas Neue first, and fallback to DejaVu Sans Bold / sans if it fails.
     drawtext_filter = (
         f"scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720,"
-        # Dark semi-transparent box covering the top banner area
-        f"drawbox=x=0:y=0:w=iw:h=200:color=black@0.72:t=fill,"
-        # Bold white text centered in the box, with thick black border
+        f"drawbox=x=0:y=200:w=iw:h=320:color=black@0.65:t=fill,"
         f"drawtext=text='{cleaned_text}':"
-        f"font='DejaVu Sans Bold':fontsize=95:"
-        f"fontcolor=white:borderw=6:bordercolor=black:"
-        f"x=(w-text_w)/2:y=80"
+        f"font='Bebas Neue':fontsize=110:"
+        f"fontcolor=yellow:borderw=8:bordercolor=black:"
+        f"x=(w-text_w)/2:y=(h-text_h)/2"
     )
     
     cmd_thumb = [
@@ -46,16 +44,15 @@ def generate_thumbnail(final_video_path: str, thumbnail_text: str) -> str:
     ]
     
     try:
-        print("Drawing thumbnail text...")
+        print("Drawing thumbnail text with Bebas Neue...")
         subprocess.run(cmd_thumb, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     except subprocess.CalledProcessError:
-        print("Font DejaVu Sans Bold failed, retrying with generic 'sans' font...")
-        # Fallback filter without specific font name
+        print("Font Bebas Neue failed, retrying with DejaVu Sans Bold...")
         drawtext_filter_fallback = (
             f"scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720,"
-            f"drawbox=x=0:y=0:w=iw:h=200:color=black@0.72:t=fill,"
-            f"drawtext=text='{cleaned_text}':font='sans':style=Bold:fontsize=95:"
-            f"fontcolor=white:borderw=6:bordercolor=black:x=(w-text_w)/2:y=80"
+            f"drawbox=x=0:y=200:w=iw:h=320:color=black@0.65:t=fill,"
+            f"drawtext=text='{cleaned_text}':font='DejaVu Sans Bold':fontsize=95:"
+            f"fontcolor=yellow:borderw=8:bordercolor=black:x=(w-text_w)/2:y=(h-text_h)/2"
         )
         cmd_thumb_fallback = [
             "ffmpeg", "-y", "-i", hook_frame_path,

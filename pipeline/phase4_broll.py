@@ -143,7 +143,7 @@ def _wikipedia_image(query: str) -> str | None:
 
 
 def _wikimedia_video(query: str) -> str | None:
-    """Search Wikimedia Commons for CC-licensed educational videos. No API key needed."""
+    """Search Wikimedia Commons for CC-licensed educational videos and fetch actual URL. No API key needed."""
     try:
         r = requests.get(
             "https://commons.wikimedia.org/w/api.php",
@@ -163,21 +163,150 @@ def _wikimedia_video(query: str) -> str | None:
         if not results:
             return None
 
-        # Pick a result and get the actual file URL
-        import hashlib
-        title = results[0]["title"]  # e.g. "File:Example.webm"
-        filename = title.replace("File:", "").replace(" ", "_")
-        md5 = hashlib.md5(filename.encode()).hexdigest()
-        url = f"https://upload.wikimedia.org/wikipedia/commons/{md5[0]}/{md5[:2]}/{urllib.parse.quote(filename)}"
-
-        # Verify the URL is reachable
-        head = requests.head(url, timeout=10, allow_redirects=True)
-        if head.status_code == 200:
-            return url
+        # Pick the top result and use Wikipedia API to get the correct URL
+        title = results[0]["title"]
+        r_info = requests.get(
+            "https://commons.wikimedia.org/w/api.php",
+            params={
+                "action": "query",
+                "titles": title,
+                "prop": "imageinfo",
+                "iiprop": "url",
+                "format": "json",
+            },
+            headers={"User-Agent": "yt-auto/1.0 (educational-pipeline)"},
+            timeout=15,
+        )
+        r_info.raise_for_status()
+        pages = r_info.json().get("query", {}).get("pages", {})
+        for page_id, page_data in pages.items():
+            imageinfo = page_data.get("imageinfo", [])
+            if imageinfo:
+                return imageinfo[0].get("url")
         return None
     except Exception as e:
         print(f"[B-roll] Wikimedia Commons failed for '{query}': {e}")
         return None
+
+
+def _nasa_video(query: str) -> str | None:
+    """Fetches a real NASA video for science/space topics. Completely free, no key."""
+    try:
+        r = requests.get(
+            "https://images-api.nasa.gov/search",
+            params={
+                "q": query,
+                "media_type": "video",
+                "page_size": 5,
+            },
+            headers={"User-Agent": "yt-auto/1.0 (educational-pipeline)"},
+            timeout=20,
+        )
+        r.raise_for_status()
+        items = r.json().get("collection", {}).get("items", [])
+        if not items:
+            return None
+
+        # Pick one from top 3
+        item = random.choice(items[:3])
+        nasa_id = item.get("data", [{}])[0].get("nasa_id")
+        if not nasa_id:
+            return None
+
+        r_asset = requests.get(
+            f"https://images-api.nasa.gov/asset/{urllib.parse.quote(nasa_id)}",
+            headers={"User-Agent": "yt-auto/1.0 (educational-pipeline)"},
+            timeout=15,
+        )
+        r_asset.raise_for_status()
+        items_asset = r_asset.json().get("collection", {}).get("items", [])
+        for a in items_asset:
+            href = a.get("href", "")
+            if href.endswith("~medium.mp4") or href.endswith("~mobile.mp4"):
+                return href
+        for a in items_asset:
+            href = a.get("href", "")
+            if href.endswith(".mp4"):
+                return href
+        return None
+    except Exception as e:
+        print(f"[B-roll] NASA video failed for '{query}': {e}")
+        return None
+
+
+def _archive_video(query: str) -> str | None:
+    """Search Internet Archive for public domain movies. No API key needed."""
+    try:
+        r = requests.get(
+            "https://archive.org/advancedsearch.php",
+            params={
+                "q": f"title:({query}) AND mediatype:(movies)",
+                "fl[]": "identifier",
+                "rows": "5",
+                "output": "json",
+            },
+            headers={"User-Agent": "yt-auto/1.0 (educational-pipeline)"},
+            timeout=20,
+        )
+        r.raise_for_status()
+        docs = r.json().get("response", {}).get("docs", [])
+        if not docs:
+            return None
+
+        identifier = docs[0]["identifier"]
+        r_files = requests.get(
+            f"https://archive.org/metadata/{urllib.parse.quote(identifier)}",
+            headers={"User-Agent": "yt-auto/1.0 (educational-pipeline)"},
+            timeout=15,
+        )
+        r_files.raise_for_status()
+        files = r_files.json().get("files", [])
+        for f in files:
+            name = f.get("name", "")
+            if name.endswith(".mp4") and int(f.get("size", 0)) > 10_000:
+                return f"https://archive.org/download/{identifier}/{urllib.parse.quote(name)}"
+        return None
+    except Exception as e:
+        print(f"[B-roll] Internet Archive failed for '{query}': {e}")
+        return None
+
+
+def _download_video_robust(url: str, out_path: str, segment_index: int) -> bool:
+    try:
+        r = requests.get(url, stream=True, timeout=90, headers={"User-Agent": "yt-auto/1.0"})
+        r.raise_for_status()
+
+        parsed = urllib.parse.urlparse(url)
+        path = parsed.path.lower()
+        is_webm = path.endswith(".webm") or path.endswith(".ogv")
+
+        temp_file = f"output/temp_dl_{segment_index}" + (".webm" if is_webm else ".mp4")
+        with open(temp_file, "wb") as f:
+            for chunk in r.iter_content(chunk_size=8192):
+                if chunk:
+                    f.write(chunk)
+
+        if os.path.exists(temp_file) and os.path.getsize(temp_file) > 10_000:
+            if is_webm:
+                print(f"[B-roll] Converting webm/ogv from {url} to mp4...")
+                cmd = [
+                    "ffmpeg", "-y", "-i", temp_file,
+                    "-c:v", "libx264", "-preset", "fast", "-crf", "23",
+                    "-pix_fmt", "yuv420p", "-an", out_path
+                ]
+                res = subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                if os.path.exists(temp_file):
+                    os.remove(temp_file)
+                return res.returncode == 0 and os.path.exists(out_path) and os.path.getsize(out_path) > 10_000
+            else:
+                if os.path.exists(out_path):
+                    os.remove(out_path)
+                os.rename(temp_file, out_path)
+                return True
+        return False
+    except Exception as e:
+        print(f"[B-roll] Robust download failed for {url}: {e}")
+        return False
 
 
 # ── Ken Burns zoom — applied to ALL image-to-video conversions ───────────────
@@ -372,6 +501,12 @@ def fetch_broll(query: str, format_type: str, segment_index: int, duration: floa
         ("Pixabay (fallback)", lambda: _pixabay_video(fallback_query)),
         ("Coverr (main)", lambda: _coverr_video(query)),
         ("Coverr (fallback)", lambda: _coverr_video(fallback_query)),
+        ("NASA video (main)", lambda: _nasa_video(query)),
+        ("NASA video (fallback)", lambda: _nasa_video(fallback_query)),
+        ("Wikimedia video (main)", lambda: _wikimedia_video(query)),
+        ("Wikimedia video (fallback)", lambda: _wikimedia_video(fallback_query)),
+        ("Archive video (main)", lambda: _archive_video(query)),
+        ("Archive video (fallback)", lambda: _archive_video(fallback_query)),
     ]
 
     from pipeline.vision_match import vision_rank_broll
@@ -380,78 +515,33 @@ def fetch_broll(query: str, format_type: str, segment_index: int, duration: floa
         video_url = fetch_url_fn()
         if video_url:
             print(f"[B-roll] Downloading video from {label}…")
-            try:
-                r = requests.get(video_url, stream=True, timeout=90)
-                r.raise_for_status()
-                with open(out_path, "wb") as f:
-                    for chunk in r.iter_content(chunk_size=8192):
-                        if chunk:
-                            f.write(chunk)
+            if _download_video_robust(video_url, out_path, segment_index):
+                # Extract one frame via FFmpeg
+                temp_frame_path = f"output/temp_frame_{segment_index}.jpg"
+                if os.path.exists(temp_frame_path):
+                    os.remove(temp_frame_path)
                 
-                if os.path.exists(out_path) and os.path.getsize(out_path) > 10_000:
-                    # Extract one frame via FFmpeg
-                    temp_frame_path = f"output/temp_frame_{segment_index}.jpg"
-                    if os.path.exists(temp_frame_path):
-                        os.remove(temp_frame_path)
+                cmd = [
+                    "ffmpeg", "-y", "-i", out_path,
+                    "-vf", "thumbnail=n=30", "-frames:v", "1", temp_frame_path
+                ]
+                subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                
+                if os.path.exists(temp_frame_path):
+                    with open(temp_frame_path, "rb") as tf:
+                        frame_data = tf.read()
+                    os.remove(temp_frame_path)
                     
-                    cmd = [
-                        "ffmpeg", "-y", "-i", out_path,
-                        "-vf", "thumbnail=n=30", "-frames:v", "1", temp_frame_path
-                    ]
-                    subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                    
-                    if os.path.exists(temp_frame_path):
-                        with open(temp_frame_path, "rb") as tf:
-                            frame_data = tf.read()
-                        os.remove(temp_frame_path)
-                        
-                        _, match_found = vision_rank_broll([frame_data], narration, query)
-                        if match_found:
-                            print(f"[B-roll] {label} video accepted by Vision Match.")
-                            return out_path
-                        else:
-                            print(f"[B-roll] {label} video rejected by Vision Match. Continuing waterfall…")
-                            os.remove(out_path)
+                    _, match_found = vision_rank_broll([frame_data], narration, query)
+                    if match_found:
+                        print(f"[B-roll] {label} video accepted by Vision Match.")
+                        return out_path
                     else:
-                        print(f"[B-roll] Warning: Frame extraction failed for {label}. Accepting by default.")
-                        return out_path
-            except Exception as e:
-                print(f"[B-roll] Download or verification failed for {label}: {e}")
-                if os.path.exists(out_path):
-                    os.remove(out_path)
-
-    # ── Try Wikimedia Commons video (science/education, CC-licensed) ──────────
-    for q in queries_to_try[:3]:  # Try top 3 queries
-        wiki_url = _wikimedia_video(q)
-        if wiki_url:
-            print(f"[B-roll] Downloading Wikimedia Commons video for '{q}'…")
-            try:
-                r = requests.get(wiki_url, stream=True, timeout=90,
-                                 headers={"User-Agent": "yt-auto/1.0"})
-                r.raise_for_status()
-                # Wikimedia videos may be webm, need to convert
-                temp_wiki = f"output/wiki_temp_{segment_index}.webm"
-                with open(temp_wiki, "wb") as f:
-                    for chunk in r.iter_content(chunk_size=8192):
-                        if chunk:
-                            f.write(chunk)
-                if os.path.getsize(temp_wiki) > 10_000:
-                    # Convert webm to mp4
-                    cmd = [
-                        "ffmpeg", "-y", "-i", temp_wiki,
-                        "-c:v", "libx264", "-preset", "fast", "-crf", "23",
-                        "-pix_fmt", "yuv420p", "-an", out_path
-                    ]
-                    subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                    os.remove(temp_wiki)
-                    if os.path.exists(out_path) and os.path.getsize(out_path) > 10_000:
-                        print(f"[B-roll] Wikimedia Commons video accepted for segment {segment_index}.")
-                        return out_path
-            except Exception as e:
-                print(f"[B-roll] Wikimedia download/convert failed: {e}")
-                for p in [temp_wiki, out_path]:
-                    if os.path.exists(p):
-                        os.remove(p)
+                        print(f"[B-roll] {label} video rejected by Vision Match. Continuing waterfall…")
+                        os.remove(out_path)
+                else:
+                    print(f"[B-roll] Warning: Frame extraction failed for {label}. Accepting by default.")
+                    return out_path
 
     # ── Try image sources (all converted with Ken Burns) ─────────────────────
     print(f"[B-roll] Segment {segment_index}: trying image sources…")
