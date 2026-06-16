@@ -39,8 +39,8 @@ def generate_captions(audio_files: list[str], script: dict, format_type: str = "
             time_offset += duration
             print(f"Segment {seg['id']} duration: {duration:.2f}s, Cumulative offset: {time_offset:.2f}s")
             
-    except ImportError:
-        print("faster-whisper is not installed. Using rule-based word timing fallback...")
+    except Exception as exc:
+        print(f"Warning: faster-whisper failed ({exc}). Falling back to rule-based word timing...")
         for i, (audio_path, seg) in enumerate(zip(audio_files, script["segments"])):
             if not os.path.exists(audio_path):
                 raise FileNotFoundError(f"Audio file not found: {audio_path}")
