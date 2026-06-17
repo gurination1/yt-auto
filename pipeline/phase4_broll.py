@@ -70,7 +70,7 @@ def _coverr_video(query: str) -> str | None:
     try:
         r = requests.get(
             "https://api.coverr.co/videos",
-            params={"keywords": query, "token": COVERR_API_KEY, "page": 1, "size": 5},
+            params={"keywords": query, "api_key": COVERR_API_KEY, "page": 1, "size": 5},
             timeout=30,
         )
         r.raise_for_status()
@@ -83,6 +83,41 @@ def _coverr_video(query: str) -> str | None:
     except Exception as e:
         print(f"[B-roll] Coverr failed for '{query}': {e}")
         return None
+
+
+def _coverr_candidates(query: str, orientation: str, n: int = 5) -> list[dict]:
+    if not COVERR_API_KEY:
+        return []
+    try:
+        r = requests.get(
+            "https://api.coverr.co/videos",
+            params={"keywords": query, "api_key": COVERR_API_KEY, "page": 1, "size": n * 3},
+            timeout=30,
+        )
+        r.raise_for_status()
+        hits = r.json().get("hits", [])
+        candidates = []
+        for item in hits:
+            thumb = item.get("thumbnail")
+            urls = item.get("urls", {}).get("mp4", {})
+            video_url = urls.get("hd") or urls.get("sd")
+            if thumb and video_url:
+                is_vertical = item.get("is_vertical", False)
+                candidates.append({
+                    "video_url": video_url,
+                    "thumb_url": thumb,
+                    "is_vertical": is_vertical
+                })
+        # Sort candidates to prefer the requested orientation
+        if orientation == "portrait":
+            candidates.sort(key=lambda x: x["is_vertical"], reverse=True)
+        else:
+            candidates.sort(key=lambda x: x["is_vertical"], reverse=False)
+        return candidates[:n]
+    except Exception as e:
+        print(f"[B-roll] Coverr candidates search failed for '{query}': {e}")
+        return []
+
 
 
 # ── Source 4: NASA Image & Video Library (no key — public domain) ─────────────
@@ -453,6 +488,49 @@ def fetch_broll(query: str, format_type: str, segment_index: int, duration: floa
         queries_to_try.extend([q for q in alt_queries if q != query])
     queries_to_try.append(fallback_query)
 
+    # ── Try Coverr with vision ranking ───────────────────────────────────────
+    candidates = []
+    if COVERR_API_KEY:
+        for q in queries_to_try:
+            print(f"[B-roll] Segment {segment_index}: searching Coverr for '{q}'…")
+            candidates = _coverr_candidates(q, orientation)
+            if candidates:
+                break
+
+    if candidates:
+        thumbs = []
+        for idx, cand in enumerate(candidates):
+            try:
+                r_thumb = requests.get(cand["thumb_url"], timeout=15)
+                r_thumb.raise_for_status()
+                thumbs.append(r_thumb.content)
+            except Exception as e:
+                print(f"[B-roll] Failed to download thumbnail {idx} from Coverr: {e}")
+                thumbs.append(b"")
+
+        from pipeline.vision_match import vision_rank_broll
+        best_idx, match_found = vision_rank_broll(thumbs, narration, query)
+
+        if match_found and best_idx is not None and best_idx < len(candidates):
+            chosen = candidates[best_idx]
+            print(f"[B-roll] Coverr match found at index {best_idx}. Downloading video…")
+            try:
+                r_vid = requests.get(chosen["video_url"], stream=True, timeout=90)
+                r_vid.raise_for_status()
+                with open(out_path, "wb") as f:
+                    for chunk in r_vid.iter_content(chunk_size=8192):
+                        if chunk:
+                            f.write(chunk)
+                if os.path.getsize(out_path) > 10_000:
+                    print(f"[B-roll] Segment {segment_index}: Coverr video downloaded OK.")
+                    return out_path
+            except Exception as e:
+                print(f"[B-roll] Coverr video download failed: {e}. Continuing waterfall…")
+                if os.path.exists(out_path):
+                    os.remove(out_path)
+        else:
+            print(f"[B-roll] No suitable Coverr candidate passed Vision Match. Trying next sources…")
+
     # ── Try Pexels with vision ranking ───────────────────────────────────────
     candidates = []
     for q in queries_to_try:
@@ -494,6 +572,7 @@ def fetch_broll(query: str, format_type: str, segment_index: int, duration: floa
                     os.remove(out_path)
         else:
             print(f"[B-roll] No suitable Pexels candidate passed Vision Match. Trying next sources…")
+
 
     # ── Try other video sources with single frame validation ─────────────────
     other_videos = [
