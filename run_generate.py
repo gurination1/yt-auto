@@ -138,11 +138,15 @@ def main():
             
             if status == "PASSED" or score >= 80 or not failed_segs:
                 print("[Judge AI] Video PASSED the quality review.")
+                with open("output/judge_report.json", "w") as rf:
+                    json.dump(review_result, rf, indent=2)
                 break
                 
             print(f"[Judge AI] Video REJECTED. Failed segments: {failed_segs}")
             if attempt == max_attempts:
                 print("[Judge AI] Reached max review attempts. Proceeding with current version.")
+                with open("output/judge_report.json", "w") as rf:
+                    json.dump(review_result, rf, indent=2)
                 break
                 
             print(f"[Judge AI] Re-fetching B-roll for failed segments {failed_segs}...")
@@ -203,7 +207,8 @@ def main():
             os.path.basename(thumbnail),
             "metadata.json",
             "topic.json",
-            "script.json"
+            "script.json",
+            "judge_report.json"
         ]
         for f in os.listdir("output"):
             if f not in keep_files:

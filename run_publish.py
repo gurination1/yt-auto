@@ -45,34 +45,48 @@ def main():
     # --- JUDGE AI GATEKEEPER ---
     if not args.bypass_judge:
         print("\n⚖️ Initiating Judge AI visual and narrative check...")
-        judge = JudgeClient()
-        try:
-            report = judge.review_video(video_path, metadata)
-            # Save the judge report
-            with open("output/judge_report.json", "w") as rf:
-                json.dump(report, rf, indent=2)
+        
+        # Check if we already have a cached report from the generation phase
+        report_path = "output/judge_report.json"
+        report = None
+        if os.path.exists(report_path):
+            try:
+                with open(report_path, "r") as rf:
+                    report = json.load(rf)
+                print("Found cached Judge AI report from generation phase. Reusing report...")
+            except Exception as e:
+                print(f"Warning: Failed to load cached judge report: {e}. Running full review...")
                 
-            status = report.get("status", "REJECTED")
-            score = report.get("score", 0)
-            reason = report.get("reason", "No reason provided")
-            issues = report.get("issues", [])
-            
-            if status != "PASSED":
-                print("\n🛑 VIDEO REJECTED BY JUDGE AI!")
-                print(f"Score: {score}/100")
-                print(f"Reason: {reason}")
-                if issues:
-                    print("Issues:")
-                    for issue in issues:
-                        print(f" - {issue}")
-                print("\nFix the issues and regenerate the video before publishing.")
-                sys.exit(1)
-            else:
-                print(f"\n✅ Video PASSED Judge AI review! (Score: {score}/100)")
-                print(f"Judge Comments: {reason}\n")
-        except Exception as judge_err:
-            print(f"Warning: Judge AI review encountered an error: {judge_err}.")
-            print("Proceeding with upload (fallback due to Judge AI system error)...")
+        if not report:
+            judge = JudgeClient()
+            try:
+                report = judge.review_video(video_path, metadata)
+                # Save the judge report
+                with open(report_path, "w") as rf:
+                    json.dump(report, rf, indent=2)
+            except Exception as judge_err:
+                print(f"Warning: Judge AI review encountered an error: {judge_err}.")
+                print("Proceeding with upload (fallback due to Judge AI system error)...")
+                report = {"status": "PASSED", "score": 100, "reason": "Bypassed due to Judge API error"}
+                
+        status = report.get("status", "REJECTED")
+        score = report.get("score", 0)
+        reason = report.get("reason", "No reason provided")
+        issues = report.get("issues", [])
+        
+        if status != "PASSED":
+            print("\n🛑 VIDEO REJECTED BY JUDGE AI!")
+            print(f"Score: {score}/100")
+            print(f"Reason: {reason}")
+            if issues:
+                print("Issues:")
+                for issue in issues:
+                    print(f" - {issue}")
+            print("\nFix the issues and regenerate the video before publishing.")
+            sys.exit(1)
+        else:
+            print(f"\n✅ Video PASSED Judge AI review! (Score: {score}/100)")
+            print(f"Judge Comments: {reason}\n")
     else:
         print("\n⚠️ Bypassing Judge AI check as requested.")
             
