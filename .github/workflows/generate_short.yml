@@ -2,8 +2,8 @@ name: Generate Short Video
 
 on:
   schedule:
-    - cron: '30 4 * * *'    # 10:00 AM IST → Short 1 (04:30 UTC)
-    - cron: '30 11 * * *'   # 05:00 PM IST → Short 2 (11:30 UTC)
+    - cron: '30 1 * * *'    # Scheduled for 7:00 AM IST (01:30 UTC) -> Runs around 11:30 AM IST due to GitHub queue delay
+    - cron: '0 8 * * *'     # Scheduled for 1:30 PM IST (08:00 UTC) -> Runs around 6:00 PM IST due to GitHub queue delay
   workflow_dispatch:          # allow manual test trigger
 
 permissions:
