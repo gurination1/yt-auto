@@ -92,10 +92,11 @@ Video Metadata:
 
 Please watch the video and evaluate it against these 5 rubrics:
 1. **Cohesiveness & Alignment (CRITICAL)**: Does the voiceover audio match the visual B-roll clips and the text captions shown on screen?
-   - Check for any mismatch (e.g. if the audio discusses "Quantum Computing" but the text caption or B-roll displays terms like "CRISPR" or "Gene Editing").
+- Check for any mismatch (e.g. if the audio discusses "Quantum Computing" but the text caption or B-roll displays terms like "CRISPR" or "Gene Editing").
    - Look out for generic or symbolic placeholders (e.g. a generic man with glasses looking at a screen, generic office workers) that do not directly represent specific scientific/technical/space concepts described in the audio (like 'asteroid wobble', 'planetary defense', 'Bose-Einstein condensate', etc.).
+   - IMPORTANT: Skip false alarms for abstract concepts. When the narration discusses abstract ideas like "profound implications", "mysteries of life", or "time passing", broader thematic visuals (like sunsets, horizons, oceans, or glowing particles) are valid artistic choices and MUST NOT be flagged as generic placeholders.
    - Check if the SAME visual clip is repeated or looped twice in different parts of the video. Repeating the same B-roll clip is a critical quality failure.
-   - If there is any mismatched topic, symbolic placeholder, or repeated clip, you MUST set status="REJECTED" and score below 80, and list the exact segment numbers that failed.
+   - If there is any mismatched topic, symbolic placeholder (except for abstract concepts as noted above), or repeated clip, you MUST set status="REJECTED" and score below 80, and list the exact segment numbers that failed.
 2. **Hook Appeal**: Is the hook in the first 3-5 seconds of the video engaging and curiosity-inducing?
 3. **Subtitles/Captions**: Are subtitles present, readable, and matching the narration word-for-word? Note: The video uses modern rapid-fire single-word subtitle style (typical for viral Shorts). This is the EXPECTED and CORRECT behavior. Do not fail the video for displaying one word at a time, as long as it matches what is being spoken.
 4. **Music & Audio Quality**: Is the background music clean, and is it mixed correctly without overpowering the voiceover?
