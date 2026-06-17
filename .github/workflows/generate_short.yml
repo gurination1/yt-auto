@@ -1,9 +1,6 @@
 name: Generate Short Video
 
 on:
-  schedule:
-    - cron: '48 5 * * *'    # 11:18 AM IST (05:48 UTC) -> Triggers almost instantly (within 5-15 mins) due to low queue congestion
-    - cron: '18 12 * * *'   # 05:48 PM IST (12:18 UTC) -> Triggers almost instantly (within 5-15 mins) due to low queue congestion
   workflow_dispatch:          # allow manual test trigger
 
 permissions:
