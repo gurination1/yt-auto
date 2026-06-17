@@ -13,8 +13,10 @@ class TTSError(Exception):
     pass
 
 
+STATE_FILE = "gemini_state.json"
+
 class _KeyPool:
-    """Round-robin Gemini API key pool. Rotates instantly on 429."""
+    """Smart Gemini API key pool with cooldowns and git-persisted state."""
 
     def __init__(self, keys: list[str]):
         if not keys:
@@ -22,16 +24,80 @@ class _KeyPool:
                 "No Gemini API keys configured. Set GEMINI_API_KEY or GEMINI_API_KEYS."
             )
         self._keys = keys
-        self._idx  = 0
+        self._cooldowns = [0.0] * len(keys)
+        self._failures = [0] * len(keys)
+        self._idx = 0
+        self._load_state()
 
-    def current(self) -> str:
-        return self._keys[self._idx % len(self._keys)]
+    def _load_state(self):
+        import json
+        if os.path.exists(STATE_FILE):
+            try:
+                with open(STATE_FILE, "r") as f:
+                    state = json.load(f)
+                now = time.time()
+                for idx_str, info in state.items():
+                    idx = int(idx_str)
+                    if 0 <= idx < len(self._keys):
+                        cd_until = info.get("cooldown_until", 0.0)
+                        if cd_until > now:
+                            self._cooldowns[idx] = cd_until
+                        self._failures[idx] = info.get("failures", 0)
+            except Exception as e:
+                print(f"Warning: Failed to load key pool state: {e}")
 
-    def rotate(self) -> str:
-        self._idx += 1
-        slot = (self._idx % len(self._keys)) + 1
-        print(f"[KeyPool] Rotated to key slot {slot}/{len(self._keys)}")
-        return self.current()
+    def _save_state(self):
+        import json
+        state = {}
+        for idx in range(len(self._keys)):
+            state[str(idx)] = {
+                "cooldown_until": self._cooldowns[idx],
+                "failures": self._failures[idx]
+            }
+        try:
+            with open(STATE_FILE, "w") as f:
+                json.dump(state, f, indent=2)
+        except Exception as e:
+            print(f"Warning: Failed to save key pool state: {e}")
+
+    def get_available_key(self) -> str | None:
+        now = time.time()
+        for i in range(len(self._keys)):
+            candidate_idx = (self._idx + i) % len(self._keys)
+            if now >= self._cooldowns[candidate_idx]:
+                self._idx = candidate_idx
+                return self._keys[candidate_idx]
+        return None
+
+    def mark_failed(self, key: str, status_code: int = 429):
+        if key not in self._keys:
+            return
+        idx = self._keys.index(key)
+        self._failures[idx] += 1
+        
+        f_count = self._failures[idx]
+        now = time.time()
+        if f_count == 1:
+            cooldown_duration = 60.0
+        elif f_count == 2:
+            cooldown_duration = 900.0  # 15 mins
+        elif f_count == 3:
+            cooldown_duration = 7200.0  # 2 hours
+        else:
+            cooldown_duration = 86400.0  # 24 hours (1 day)
+
+        self._cooldowns[idx] = now + cooldown_duration
+        slot = idx + 1
+        print(f"[KeyPool] Key slot {slot}/{len(self._keys)} failed (status {status_code}). Cooldown for {cooldown_duration:.0f}s (Until: {time.strftime('%H:%M:%S', time.localtime(self._cooldowns[idx]))})")
+        self._save_state()
+
+    def mark_success(self, key: str):
+        if key not in self._keys:
+            return
+        idx = self._keys.index(key)
+        if self._failures[idx] != 0:
+            self._failures[idx] = 0
+            self._save_state()
 
     def __len__(self) -> int:
         return len(self._keys)
@@ -45,57 +111,64 @@ def _post_with_rotation(
     url_template: str, payload: dict, timeout: int = 120, quick: bool = False
 ) -> requests.Response:
     """
-    POST using the shared key pool.
-    url_template must contain {key}, e.g.:
-        "https://.../models/X:generateContent?key={key}"
-
-    Rotation strategy:
-      - On 429: immediately rotate to next key (no long wait).
-      - On 5xx (500, 502, 503, 504): rotate key and wait 2 s.
-      - After exhausting all keys once: sleep 15 s and retry.
-      - Give up after len(pool) * 4 total attempts.
+    POST using the shared key pool with backoffs and git-persisted cooldowns.
     """
     max_attempts = len(_shared_pool) if quick else len(_shared_pool) * 4
     for attempt in range(max_attempts):
-        key  = _shared_pool.current()
-        url  = url_template.format(key=key)
+        key = _shared_pool.get_available_key()
+        if not key:
+            # All keys are on cooldown! Find the one that finishes earliest
+            now = time.time()
+            earliest_idx = min(range(len(_shared_pool)), key=lambda idx: _shared_pool._cooldowns[idx])
+            wait_time = max(1.0, _shared_pool._cooldowns[earliest_idx] - now)
+            wait_time = min(15.0, wait_time)  # cap to 15s max sleep
+            print(f"[GeminiClient] All keys on cooldown. Waiting {wait_time:.1f} s for key slot {earliest_idx+1}...")
+            time.sleep(wait_time)
+            continue
+
+        url = url_template.format(key=key)
+        slot = _shared_pool._keys.index(key) + 1
         try:
             resp = requests.post(
                 url, json=payload, timeout=timeout,
                 headers={"Content-Type": "application/json"},
             )
             if resp.status_code == 429:
-                print(
-                    f"[GeminiClient] 429 on key slot "
-                    f"{(_shared_pool._idx % len(_shared_pool)) + 1}. Rotating…"
-                )
-                _shared_pool.rotate()
-                if not quick and (attempt + 1) % len(_shared_pool) == 0:
-                    print("[GeminiClient] All keys rate-limited. Waiting 15 s…")
-                    time.sleep(15)
+                print(f"[GeminiClient] 429 on key slot {slot}. Rotating…")
+                _shared_pool.mark_failed(key, 429)
+                _shared_pool._idx += 1
                 continue
             if resp.status_code in (500, 502, 503, 504):
-                print(
-                    f"[GeminiClient] {resp.status_code} on key slot "
-                    f"{(_shared_pool._idx % len(_shared_pool)) + 1}. Rotating…"
-                )
-                _shared_pool.rotate()
-                time.sleep(2)
+                print(f"[GeminiClient] {resp.status_code} on key slot {slot}. Rotating…")
+                _shared_pool.mark_failed(key, resp.status_code)
+                # Set temporary short cooldown (10s) for server errors
+                _shared_pool._cooldowns[slot-1] = time.time() + 10.0
+                _shared_pool._idx += 1
                 continue
             resp.raise_for_status()
+            # Success! Reset consecutive failure count
+            _shared_pool.mark_success(key)
             return resp
         except requests.exceptions.HTTPError as exc:
-            # If it's a 4xx error (except 429), don't retry, just raise
             if exc.response is not None and 400 <= exc.response.status_code < 500:
+                if exc.response.status_code in (400, 403):
+                    print(f"[GeminiClient] HTTP {exc.response.status_code} error on key slot {slot}: {exc}")
+                    _shared_pool.mark_failed(key, exc.response.status_code)
+                    # For exhausted/invalid key, apply direct 24 hour cooldown
+                    _shared_pool._cooldowns[slot-1] = time.time() + 86400.0
+                    _shared_pool._idx += 1
+                    continue
                 raise
-            # If it's a 5xx error or other HTTPError, rotate and retry
             print(f"[GeminiClient] HTTP error (attempt {attempt+1}): {exc}. Rotating/Retrying…")
-            _shared_pool.rotate()
+            _shared_pool.mark_failed(key, 500)
+            _shared_pool._idx += 1
             time.sleep(2)
         except Exception as exc:
             if attempt == max_attempts - 1:
                 raise
             print(f"[GeminiClient] Request error (attempt {attempt+1}): {exc}. Retrying…")
+            _shared_pool.mark_failed(key, 0)
+            _shared_pool._idx += 1
             time.sleep(3)
     raise RuntimeError("Gemini: all keys exhausted. Try again later.")
 

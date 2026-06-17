@@ -120,6 +120,27 @@ def main():
         with open(metadata_path, "w") as f:
             json.dump(metadata, f, indent=2)
             
+        # Cleanup intermediate files in output/ to save space
+        print("Cleaning up intermediate files...")
+        keep_files = [
+            os.path.basename(final_video),
+            os.path.basename(thumbnail),
+            "metadata.json",
+            "topic.json",
+            "script.json"
+        ]
+        for f in os.listdir("output"):
+            if f not in keep_files:
+                path = os.path.join("output", f)
+                try:
+                    if os.path.isfile(path):
+                        os.remove(path)
+                    elif os.path.isdir(path):
+                        import shutil
+                        shutil.rmtree(path)
+                except Exception as e:
+                    print(f"Warning: Could not remove temporary file {f}: {e}")
+
         print(f"\n✅ Generation complete. Video: {final_video}")
         print("Artifact ready. Trigger the Publish workflow in GitHub mobile app to upload.")
         

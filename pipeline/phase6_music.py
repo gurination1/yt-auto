@@ -93,12 +93,19 @@ def _fetch_freesound_music(topic: str, duration_seconds: int) -> str | None:
             continue
 
         pick = random.choice(results)
+        sound_id = pick.get("id")
         preview_url = pick.get("previews", {}).get("preview-hq-mp3")
         if not preview_url:
             print("[Music] Selected result has no HQ preview, skipping.")
             continue
 
-        print(f"[Music] Downloading Freesound #{pick['id']}: {pick['name']} ({pick['duration']:.1f}s)")
+        cache_dir = "cache_music"
+        cache_path = os.path.join(cache_dir, f"freesound_{sound_id}.wav")
+        if os.path.exists(cache_path) and os.path.getsize(cache_path) > 1000:
+            print(f"[Music] Found cached Freesound track #{sound_id} → {cache_path}")
+            return cache_path
+
+        print(f"[Music] Downloading Freesound #{sound_id}: {pick['name']} ({pick['duration']:.1f}s)")
         tmpdir = tempfile.mkdtemp(prefix="freesound_")
         tmp_mp3 = os.path.join(tmpdir, "temp.mp3")
         tmp_wav = os.path.join(tmpdir, "temp.wav")
@@ -113,6 +120,12 @@ def _fetch_freesound_music(topic: str, duration_seconds: int) -> str | None:
                 stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True,
             )
             print("[Music] Freesound track converted to wav successfully.")
+            
+            # Save to cache
+            os.makedirs(cache_dir, exist_ok=True)
+            shutil.copy(tmp_wav, cache_path)
+            print(f"[Music] Cached Freesound track to {cache_path}")
+            
             return tmp_wav
         except Exception as exc:
             print(f"[Music] Freesound download/convert failed: {exc}")
@@ -132,7 +145,7 @@ def generate_music(topic: str, duration_seconds: int = 35) -> str:
         fs_wav = _fetch_freesound_music(topic, duration_seconds)
         if fs_wav and os.path.exists(fs_wav) and os.path.getsize(fs_wav) > 1000:
             os.makedirs("output", exist_ok=True)
-            shutil.move(fs_wav, out_path)
+            shutil.copy(fs_wav, out_path)
             print(f"[Music] Using Freesound CC0 track → {out_path}")
             return out_path
     except Exception as exc:
