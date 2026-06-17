@@ -36,8 +36,14 @@ def generate_script(topic: dict, format_type: str) -> dict:
             event="A discovery"
         )
         
-        prompt = f"""Generate a highly engaging, viral 25-35 second YouTube Short educational script on the topic: "{topic['topic']}".
-Use the following hook concept: "{hook_formatted}" (short hook: "{topic.get('short_hook', '')}").
+        prompt = f"""Generate an extremely viral, high-retention 25-35 second YouTube Short educational script on the topic: "{topic['topic']}".
+Use the following hook concept as your core theme: "{hook_formatted}" (short hook: "{topic.get('short_hook', '')}").
+
+Narration Style Requirements:
+1. Pacing & Punchiness: Every single sentence must be extremely short, sharp, and high-impact (5 to 10 words MAXIMUM per segment's narration). Avoid long clauses or passive language.
+2. Hook/Pattern Interrupt: Segment 1 must immediately shatter the viewer's attention. DO NOT use introductory filler like "Did you know..." or "Have you ever wondered...". Go straight to a shocking or mind-bending statement that creates an massive information gap in under 8 words.
+3. Emotional/Sensory Triggers: Use strong, dramatic verbs and adjectives (e.g., "panicking", "shatters", "banned", "impossible", "melts", "secret", "trapped").
+4. No Fluff: Get straight to the mind-blowing science. Every word must justify its existence.
 
 For every `broll_query` field, write a SHORT, SPECIFIC, STOCK-FOOTAGE-FRIENDLY
 search term of 3-6 words MAXIMUM. Write exactly what a human would type into
@@ -59,38 +65,38 @@ For abstract science concepts: use the most recognizable visual symbol.
 You MUST return your response ONLY as a raw JSON object with no markdown syntax. The JSON structure MUST be exactly like this:
 {{
   "title": "A catchy title under 40 chars, starting with a hook word/number and containing one emoji",
-  "description": "Line1: restate the hook\\nLine2: Fast. Accurate. Mind-blowing.\\nLine3: Full breakdown -> [link]\\n\\n#science #didyouknow #facts",
+  "description": "Line1: restate the hook\nLine2: Fast. Accurate. Mind-blowing.\nLine3: Full breakdown -> [link]\n\n#science #didyouknow #facts",
   "tags": ["8 to 12 relevant tags under 500 characters total"],
   "category_id": "27",
   "segments": [
     {{
       "id": 1,
-      "narration": "hook sentence - must create information gap in 8 words or less",
+      "narration": "opening shocking hook sentence - 8 words or less, massive information gap",
       "broll_query": "{topic['topic']} black hole accretion disk space",
       "broll_queries": ["{topic['topic']} black hole accretion disk space", "event horizon visualization", "gravitational lensing effect", "supermassive black hole animation"],
       "duration_target": 6
     }},
     {{
       "id": 2,
-      "narration": "First surprising scientific fact that expands on the hook",
+      "narration": "Mind-bending scientific fact that expands on the hook - 8 words or less",
       "broll_query": "Albert Einstein chalkboard equations",
       "duration_target": 6
     }},
     {{
       "id": 3,
-      "narration": "Second fact that builds towards the loop twist",
+      "narration": "Second crazy detail building mystery - 8 words or less",
       "broll_query": "relativity space time fabric warp",
       "duration_target": 7
     }},
     {{
       "id": 4,
-      "narration": "Mention a hidden detail the viewer should pause to catch (REWATCH TRIGGER)",
+      "narration": "Rewatch trigger referencing a hidden visual detail - 8 words or less",
       "broll_query": "light speed particle beam physics",
       "duration_target": 6
     }},
     {{
       "id": 5,
-      "narration": "Payoff sentence that thematically echoes or re-contextualizes the idea from Segment 1's hook to form a satisfying loop",
+      "narration": "Payoff sentence wrapping up and looping seamlessly back into Segment 1's hook - 8 words or less",
       "broll_query": "universe galaxy stars spiral",
       "duration_target": 6
     }}
@@ -101,7 +107,6 @@ You MUST return your response ONLY as a raw JSON object with no markdown syntax.
 
 For Segment 1 specifically:
 - `broll_query` MUST describe a high-motion, high-contrast, visually arresting shot (fast motion, bright colors, dramatic close-up) — this is the opening pattern-interrupt that determines whether viewers keep watching.
-- Create an information gap targeting something the viewer THINKS they already know, keeping it embarrassingly simple yet unresolved (e.g. 'You use gravity every day. But did you know...').
 
 For Segments 2-4:
 - Frame facts with visual or scientific paradoxes (e.g., 'Something the size of a city that weighs more than the sun' or 'The man who failed entrance exams rewrote the universe').

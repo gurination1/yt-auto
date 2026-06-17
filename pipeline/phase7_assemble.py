@@ -94,11 +94,14 @@ def assemble_video(broll_files: list[str], tts_files: list[str], captions_ass: s
         clean_title = "".join(c for c in script.get("title", "").upper() if c.isalnum() or c.isspace()).strip()
         
         filters = []
-        # 1. Pattern interrupt flash (0.25s)
-        filters.append(f"drawbox=y=0:color=white@0.2:t=fill:enable='between(t,0,0.25)'")
-        # 2. Big title hook card (first 1.5s)
-        filters.append(f"drawtext=text='{clean_title}':fontsize=85:fontcolor=white:font='Bebas Neue':"
-                       f"x=(w-text_w)/2:y=h*0.22:enable='between(t,0,1.5)':borderw=8:bordercolor=black")
+        # 1. Pattern interrupt flashes at the start of each segment (0.15s transparent white overlay)
+        for t_start in [0.0] + boundary_times:
+            filters.append(f"drawbox=y=0:color=white@0.3:t=fill:enable='between(t,{t_start:.3f},{t_start+0.15:.3f})'")
+            
+        # 2. Big title hook card (first 1.5s) - Yellow font with premium box padding
+        filters.append(f"drawtext=text='{clean_title}':fontsize=80:fontcolor=yellow:font='Bebas Neue':"
+                       f"x=(w-text_w)/2:y=h*0.22:enable='between(t,0,1.5)':borderw=8:bordercolor=black:"
+                       f"box=1:boxcolor=black@0.5:boxborderw=15")
                        
         if len(durations) >= 4:
             seg4_start = sum(durations[:3])

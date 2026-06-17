@@ -49,6 +49,29 @@ def _synth_snap(sample_rate: int = 44100) -> np.ndarray:
     return (sfx * 32767 * 0.45).astype(np.int16)
 
 
+def _synth_impact(sample_rate: int = 44100, duration: float = 1.0) -> np.ndarray:
+    """
+    Synthetic cinematic impact/boom: high-energy start, rapid frequency sweep (150Hz → 30Hz),
+    combined with a short burst of noise, with an exponential decay.
+    """
+    t = np.linspace(0, duration, int(sample_rate * duration))
+    # Sub-bass pitch drop: 150Hz down to 30Hz
+    freq = 30 + 120 * np.exp(-t * 12)
+    phase = np.cumsum(2 * np.pi * freq / sample_rate)
+    sub = np.sin(phase)
+    # Add noise transient at the very start (first 80ms)
+    noise = np.random.randn(len(t))
+    noise_env = np.exp(-t * 45) # fast decay
+    noise_layer = noise * noise_env
+    # Combine sub-bass + noise transient
+    signal = sub * 0.75 + noise_layer * 0.25
+    # Exponential decay
+    env = np.exp(-t * 3.5)
+    sfx = signal * env
+    sfx /= np.max(np.abs(sfx)) + 1e-9
+    return (sfx * 32767 * 0.85).astype(np.int16)
+
+
 def create_sfx_track(
     clip_boundary_times: list[float],
     total_duration: float,
@@ -56,7 +79,7 @@ def create_sfx_track(
     whoosh_volume: float = 0.30,
 ) -> str:
     """
-    Build a single WAV track that contains a whoosh at each clip boundary time.
+    Build a single WAV track that contains an impact at t=0, and a whoosh at each clip boundary time.
     This track is mixed into the final video at low volume via FFmpeg amix.
 
     Args:
@@ -74,14 +97,22 @@ def create_sfx_track(
 
     total_samples = int(total_duration * sample_rate)
     track         = np.zeros(total_samples, dtype=np.float64)
-    whoosh        = _synth_whoosh(sample_rate)
 
+    # 1. Opening impact at t=0
+    impact = _synth_impact(sample_rate)
+    end_imp = min(total_samples, len(impact))
+    if end_imp > 0:
+        track[0:end_imp] += (impact[:end_imp].astype(np.float64) / 32767) * 0.75
+
+    # 2. Whooshes at clip boundaries
+    whoosh        = _synth_whoosh(sample_rate)
     for t_sec in clip_boundary_times:
         # Place whoosh 0.12s BEFORE the boundary so it arrives naturally
         start = max(0, int((t_sec - 0.12) * sample_rate))
         end   = min(total_samples, start + len(whoosh))
         length = end - start
-        track[start:end] += (whoosh[:length].astype(np.float64) / 32767) * whoosh_volume
+        if length > 0:
+            track[start:end] += (whoosh[:length].astype(np.float64) / 32767) * whoosh_volume
 
     # Clip to int16
     track_int16 = np.clip(track * 32767, -32768, 32767).astype(np.int16)
@@ -91,5 +122,5 @@ def create_sfx_track(
         wf.setsampwidth(2)
         wf.setframerate(sample_rate)
         wf.writeframes(track_int16.tobytes())
-    print(f"[SFX] SFX track created: {len(clip_boundary_times)} whoosh(es) at {clip_boundary_times}")
+    print(f"[SFX] SFX track created: 1 impact, {len(clip_boundary_times)} whoosh(es) at {clip_boundary_times}")
     return out_path

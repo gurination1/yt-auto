@@ -58,6 +58,17 @@ def _shaker(n_samples, beat_samples):
     return track
 
 
+def _ticking_clock(n_samples, tick_interval_samples):
+    track = np.zeros(n_samples)
+    t_tick = np.linspace(0, 0.015, int(0.015 * SAMPLE_RATE))
+    # A fast-decay sine hit (1500Hz) combined with short noise burst for a crisp clock click
+    tick_sound = np.sin(2 * np.pi * 1500 * t_tick) * np.exp(-t_tick * 400) * 0.08
+    tick_sound += np.random.randn(len(t_tick)) * np.exp(-t_tick * 500) * 0.02
+    for start in range(0, n_samples - len(tick_sound), tick_interval_samples):
+        track[start:start + len(tick_sound)] += tick_sound
+    return track
+
+
 def _fetch_freesound_music(topic: str, duration_seconds: int) -> str | None:
     """Try to download a CC0 ambient track from Freesound. Returns wav path or None."""
     try:
@@ -69,7 +80,7 @@ def _fetch_freesound_music(topic: str, duration_seconds: int) -> str | None:
         return None
 
     search_url = "https://freesound.org/apiv2/search/text/"
-    queries = [f"{topic} ambient", "ambient electronic loop"]
+    queries = [f"{topic} cinematic synth", "cinematic suspense synth", "sci-fi tension loop"]
 
     for query in queries:
         print(f"[Music] Searching Freesound for '{query}' ...")
@@ -160,7 +171,9 @@ def generate_music(topic: str, duration_seconds: int = 35) -> str:
     loop = np.concatenate([_chord(r, q, chord_dur) for r, q in progression])
     reps = int(np.ceil(duration_seconds * SAMPLE_RATE / len(loop))) + 1
     track = np.tile(loop, reps)[: int(duration_seconds * SAMPLE_RATE)]
-    track = track + _shaker(len(track), int(chord_dur * SAMPLE_RATE / 2))
+    # Tick every 0.5s (120 BPM) for high-tension pacing
+    tick_interval = int(0.5 * SAMPLE_RATE)
+    track = track + _shaker(len(track), int(chord_dur * SAMPLE_RATE / 2)) + _ticking_clock(len(track), tick_interval)
 
     track = track / (np.max(np.abs(track)) + 1e-9) * 0.65
     track_int16 = (track * 32767).clip(-32768, 32767).astype(np.int16)

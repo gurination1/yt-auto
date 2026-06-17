@@ -48,12 +48,16 @@ FPS                 = 30
 TOPIC_LOG_SIZE      = 90
 
 HOOK_PATTERNS = [
-    "Did you know {subject}",
-    "The reason {thing} works is NOT what you think",
-    "{seconds} seconds to understand {topic}",
-    "Most people get {topic} completely wrong. Here's why",
-    "{event} happened because of one tiny decision",
+    "Scientists are panicking over this {topic} discovery",
+    "Your entire understanding of {topic} is a complete lie",
+    "What they don't tell you about {topic} will bend your brain",
+    "This one bizarre detail about {topic} changes everything",
+    "The terrifying truth about {topic} that they hid from you",
+    "If you think {topic} is simple, you've been lied to",
+    "We just found something inside {topic} that shouldn't exist",
+    "This is the exact moment we realized {topic} is broken",
 ]
+
 
 YT_CATEGORY_EDUCATION = "27"
 YT_CATEGORY_SCIENCE   = "28"
