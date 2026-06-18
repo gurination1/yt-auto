@@ -541,9 +541,10 @@ def _pollinations_image(query: str, w: int, h: int, img_path: str) -> bool:
     encoded = urllib.parse.quote(query)
     for model in ["flux", "flux-realism", "turbo"]:
         try:
+            seed = random.randint(1, 100000)
             url = (
                 f"https://image.pollinations.ai/prompt/{encoded}"
-                f"?width={w}&height={h}&model={model}&nologo=true"
+                f"?width={w}&height={h}&model={model}&nologo=true&seed={seed}"
             )
             r = requests.get(url, timeout=90)
             if r.status_code == 200 and len(r.content) > 5000:
@@ -781,12 +782,19 @@ def fetch_broll(query: str, format_type: str, segment_index: int, duration: floa
     # ── Fallback 2: image sources (all converted with Ken Burns) ─────────────────────
     print(f"[B-roll] Segment {segment_index}: trying image sources…")
 
-    img_url = (
-        _nasa_image(query)
-        or _nasa_image(fallback_query)
-        or _wikipedia_image(query)
-        or _wikipedia_image(fallback_query)
-    )
+    img_url = None
+    for img_fn, q in [
+        (_nasa_image, query),
+        (_nasa_image, fallback_query),
+        (_wikipedia_image, query),
+        (_wikipedia_image, fallback_query)
+    ]:
+        candidate_img = img_fn(q)
+        if candidate_img and (used_urls is None or candidate_img not in used_urls):
+            img_url = candidate_img
+            if used_urls is not None:
+                used_urls.add(img_url)
+            break
 
     if img_url:
         try:

@@ -121,7 +121,7 @@ def main():
             ]
         }
         
-        max_attempts = 3
+        max_attempts = 15
         attempt = 1
         
         while attempt <= max_attempts:
