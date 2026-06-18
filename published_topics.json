@@ -1,5 +1,7 @@
 {
-  "topics": [],
-  "subcluster_idx": 0,
-  "call_count": 0
+  "topics": [
+    "How Hawking radiation means black holes are not eternal, slowly evaporating over cosmic timescales."
+  ],
+  "subcluster_idx": 1,
+  "call_count": 1
 }
