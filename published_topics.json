@@ -1,5 +1,7 @@
 {
-  "topics": [],
-  "subcluster_idx": 0,
-  "call_count": 0
+  "topics": [
+    "What most people don't know about the Pompeii worm's extreme heat tolerance, thriving at 80\u00b0C (176\u00b0F)."
+  ],
+  "subcluster_idx": 1,
+  "call_count": 1
 }
