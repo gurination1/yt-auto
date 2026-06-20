@@ -4,8 +4,9 @@
     "How the act of quantum measurement *collapses* a particle's wave function, thereby creating its observed reality.",
     "How the quantum phenomenon of **Cooper pairs** allows superconductors to achieve perfect electrical conductivity with zero resistance by overcoming electron scattering.",
     "How gene drive actually works, forcing a specific genetic trait to spread through an entire wild population in just a few generations, potentially altering ecosystems irreversibly.",
-    "Quantum error correction achieves 'below-threshold' performance, where increasing physical qubits reduces logical error rates, moving quantum computing from physics research to engineering discipline."
+    "Quantum error correction achieves 'below-threshold' performance, where increasing physical qubits reduces logical error rates, moving quantum computing from physics research to engineering discipline.",
+    "How gravitational time dilation makes observers near a black hole perceive time as stopping for distant objects, a bizarre consequence of extreme gravity."
   ],
-  "subcluster_idx": 0,
-  "call_count": 5
+  "subcluster_idx": 1,
+  "call_count": 6
 }
