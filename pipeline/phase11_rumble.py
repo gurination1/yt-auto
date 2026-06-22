@@ -233,7 +233,7 @@ def _publish(
         "mediaChannelId": media_channel_id or "1",
         "isGamblingRelated": "false",
         "set_default_channel_id": "0",
-        "sendPush": "1",
+        "sendPush": "0",
         "setFeaturedForUser": "1",
         "setFeaturedForChannel": "0",
         "visibility": "public",
