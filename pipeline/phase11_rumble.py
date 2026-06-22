@@ -255,13 +255,16 @@ def _publish(
     r.raise_for_status()
 
     # Parse response — HTML wrapping JS: uf.response.setSuccess({...}, N)
-    match = re.search(r"uf\.response\.setSuccess\((\{.*?\}),\s*\d+\)", r.text, re.DOTALL)
-    if match:
-        result = json.loads(match.group(1))
-        return result
+    if "setSuccess" in r.text:
+        url_match = re.search(r'url:\s*["\']([^"\']+)["\']', r.text)
+        fid_match = re.search(r'fid:\s*(\d+)', r.text)
+        return {
+            "url": url_match.group(1) if url_match else "",
+            "fid": fid_match.group(1) if fid_match else ""
+        }
 
     # Fallback — check for error
-    if "setError" in r.text:
+    if "setError" in r.text or "setErrors" in r.text:
         raise RuntimeError(f"[Rumble] Publish error. Response: {r.text[:500]}")
 
     # If we can't parse but got 200, log and return partial
