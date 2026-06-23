@@ -9,8 +9,9 @@
     "How quantum tunneling enables stars like our Sun to burn for billions of years, despite not having enough core temperature and pressure to overcome the electromagnetic repulsion between atomic nuclei.",
     "How negative refractive index metamaterials actually work, bending light in the 'wrong' direction to make objects appear closer or even invisible.",
     "How **CRISPR-Cas surveillance systems** can detect diseases with single-molecule precision, turning a gene-editing tool into a diagnostic powerhouse.",
-    "Topological qubits achieve enhanced fault tolerance through 'braiding' Majorana zero modes, offering inherent error resistance for quantum computing."
+    "Topological qubits achieve enhanced fault tolerance through 'braiding' Majorana zero modes, offering inherent error resistance for quantum computing.",
+    "How **Hubble's Law** means the expansion of space can make galaxies permanently unreachable, even if we traveled at light speed."
   ],
-  "subcluster_idx": 0,
-  "call_count": 10
+  "subcluster_idx": 1,
+  "call_count": 11
 }
