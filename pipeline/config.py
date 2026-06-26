@@ -79,6 +79,8 @@ SCIENCE_SUBCLUSTERS = [
 
 YT_CATEGORY_EDUCATION = "27"
 YT_CATEGORY_SCIENCE   = "28"
+NASA_BROLL_ENABLED    = True
+
 
 
 def validate_config():
