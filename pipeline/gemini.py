@@ -466,12 +466,36 @@ class GeminiClient:
         url = f"{GEMINI_API_BASE}/models/{GEMINI_TTS_MODEL}:generateContent?key={{key}}"
         
         tone_prompts = {
-            "dramatic_whisper": "Say this in an intimate, dramatic, atmospheric whisper with clear pronunciation",
-            "suspenseful_mystery": "Say this with intense suspense, intrigue, and dramatic pauses",
-            "energetic_storytelling": "Say this with high energy, enthusiasm, and a warm storytelling tone",
-            "deep_curiosity": "Say this with deep curiosity, awe, and fascination",
+            "dramatic_whisper": (
+                "You are narrating a late-night documentary. Speak in a low, intimate, "
+                "atmospheric whisper — as if revealing a secret to one person in a dark room. "
+                "Every word should feel heavy with meaning. Pause slightly before key reveals. "
+                "Clear pronunciation, but the energy is restrained and magnetic"
+            ),
+            "suspenseful_mystery": (
+                "You are narrating a true-crime or unsolved mystery documentary. "
+                "Build tension with your pacing — slow down before the twist, speed up during action. "
+                "Your tone should make the listener lean in. Use dramatic pauses before shocking facts. "
+                "Think of it like whispering a ghost story around a campfire"
+            ),
+            "energetic_storytelling": (
+                "You are an enthusiastic science communicator on stage. Speak with infectious energy, "
+                "genuine excitement, and warmth — like you just discovered something incredible "
+                "and can't wait to share it. Vary your pitch naturally. Emphasize mind-blowing numbers "
+                "and facts with a slight rise in energy. Make the listener feel your passion"
+            ),
+            "deep_curiosity": (
+                "You are a calm, thoughtful narrator exploring a profound mystery of the universe. "
+                "Speak with wonder and reverence — as if standing at the edge of a canyon, "
+                "contemplating something vast. Your pace is measured, your tone is rich and warm. "
+                "Let moments of silence breathe between big ideas"
+            ),
         }
-        prefix = tone_prompts.get(vocal_tone, "Say this clearly with natural pacing")
+        # Validate vocal_tone — if it's not a recognized key, fall back to default
+        if vocal_tone and vocal_tone not in tone_prompts:
+            print(f"[TTS] Unknown vocal_tone '{vocal_tone}', using default.")
+            vocal_tone = None
+        prefix = tone_prompts.get(vocal_tone, "Say this clearly with natural, engaging pacing")
         
         payload = {
             "contents": [{"role": "user", "parts": [
