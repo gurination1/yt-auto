@@ -18,8 +18,9 @@
     "How the **cosmological constant** (a form of dark energy) could lead to a \"Big Rip\" scenario, tearing apart even atoms as space expands faster than light.",
     "How the Delayed Choice Quantum Eraser experiment suggests future measurements can influence past quantum events, challenging our understanding of causality.",
     "How **shape memory alloys** actually work, where metals \"remember\" their original shape and return to it upon heating, even after severe deformation, due to a reversible solid-state phase change called **martensitic transformation**.",
-    "How **synthetic gene circuits** enable living bacteria to perform complex computations, turning cells into miniature, programmable biological computers."
+    "How **synthetic gene circuits** enable living bacteria to perform complex computations, turning cells into miniature, programmable biological computers.",
+    "Recent breakthroughs in photonic computing chips allow light to perform complex calculations, drastically accelerating AI and reducing energy consumption."
   ],
-  "subcluster_idx": 4,
-  "call_count": 19
+  "subcluster_idx": 0,
+  "call_count": 20
 }
