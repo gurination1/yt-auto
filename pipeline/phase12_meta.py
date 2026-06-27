@@ -70,8 +70,9 @@ def _fb_upload_reel(video_path: str, description: str, page_id: str, page_token:
         data={
             "upload_phase": "finish",
             "video_id": video_id,
+            "title": metadata.get("title", "")[:100],
             "description": description[:2000],
-            "published": "true",
+            "video_state": "PUBLISHED",
             "access_token": page_token,
         },
         timeout=30,
