@@ -1,0 +1,277 @@
+name: X Upload Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-ch1:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Restore cookies cache
+        uses: actions/cache@v4
+        with:
+          path: cookies_ch1.json
+          key: x-cookies-ch1-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            x-cookies-ch1-
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install --upgrade twikit yt-dlp
+
+      - name: Download and upload
+        env:
+          X_USERNAME: ${{ secrets.X_USERNAME_CH1 }}
+          X_EMAIL: ${{ secrets.X_EMAIL_CH1 }}
+          X_PASSWORD: ${{ secrets.X_PASSWORD_CH1 }}
+          YT_URL: ${{ secrets.LAST_YT_URL_CH1 }}
+          COOKIE_FILE: cookies_ch1.json
+        run: |
+          python -c '
+          import os, asyncio, subprocess
+          from twikit import Client
+          async def main():
+              username = os.environ.get("X_USERNAME", "").strip()
+              email = os.environ.get("X_EMAIL", "").strip()
+              password = os.environ.get("X_PASSWORD", "").strip()
+              yt_url = os.environ.get("YT_URL", "").strip()
+              cookie_file = os.environ.get("COOKIE_FILE", "").strip()
+              if not yt_url or not username or not password or not email:
+                  print("Missing credentials or URL. Skipping.")
+                  return
+              print(f"Downloading: {yt_url}")
+              subprocess.run(["yt-dlp", "-o", "output.mp4", "-f", "mp4", yt_url], check=True)
+              client = Client("en-US")
+              if os.path.exists(cookie_file) and os.path.getsize(cookie_file) > 10:
+                  print("Loading cookies...")
+                  try:
+                      client.load_cookies(cookie_file)
+                  except Exception as e:
+                      print(f"Cookie load failed: {e}. Logging in...")
+                      await client.login(auth_info_1=username, auth_info_2=email, password=password)
+                      client.save_cookies(cookie_file)
+              else:
+                  print("Logging in...")
+                  await client.login(auth_info_1=username, auth_info_2=email, password=password)
+                  client.save_cookies(cookie_file)
+              print("Uploading media...")
+              media_id = await client.upload_media("output.mp4")
+              print("Creating tweet...")
+              tweet = await client.create_tweet(text="Check out our latest video!", media_ids=[media_id])
+              print(f"Success! Tweet ID: {tweet.id}")
+          asyncio.run(main())
+          '
+
+  test-ch2:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Restore cookies cache
+        uses: actions/cache@v4
+        with:
+          path: cookies_ch2.json
+          key: x-cookies-ch2-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            x-cookies-ch2-
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install --upgrade twikit yt-dlp
+
+      - name: Download and upload
+        env:
+          X_USERNAME: ${{ secrets.X_USERNAME_CH2 }}
+          X_EMAIL: ${{ secrets.X_EMAIL_CH2 }}
+          X_PASSWORD: ${{ secrets.X_PASSWORD_CH2 }}
+          YT_URL: ${{ secrets.LAST_YT_URL_CH2 }}
+          COOKIE_FILE: cookies_ch2.json
+        run: |
+          python -c '
+          import os, asyncio, subprocess
+          from twikit import Client
+          async def main():
+              username = os.environ.get("X_USERNAME", "").strip()
+              email = os.environ.get("X_EMAIL", "").strip()
+              password = os.environ.get("X_PASSWORD", "").strip()
+              yt_url = os.environ.get("YT_URL", "").strip()
+              cookie_file = os.environ.get("COOKIE_FILE", "").strip()
+              if not yt_url or not username or not password or not email:
+                  print("Missing credentials or URL. Skipping.")
+                  return
+              print(f"Downloading: {yt_url}")
+              subprocess.run(["yt-dlp", "-o", "output.mp4", "-f", "mp4", yt_url], check=True)
+              client = Client("en-US")
+              if os.path.exists(cookie_file) and os.path.getsize(cookie_file) > 10:
+                  print("Loading cookies...")
+                  try:
+                      client.load_cookies(cookie_file)
+                  except Exception as e:
+                      print(f"Cookie load failed: {e}. Logging in...")
+                      await client.login(auth_info_1=username, auth_info_2=email, password=password)
+                      client.save_cookies(cookie_file)
+              else:
+                  print("Logging in...")
+                  await client.login(auth_info_1=username, auth_info_2=email, password=password)
+                  client.save_cookies(cookie_file)
+              print("Uploading media...")
+              media_id = await client.upload_media("output.mp4")
+              print("Creating tweet...")
+              tweet = await client.create_tweet(text="Check out our latest video!", media_ids=[media_id])
+              print(f"Success! Tweet ID: {tweet.id}")
+          asyncio.run(main())
+          '
+
+  test-ch3:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Restore cookies cache
+        uses: actions/cache@v4
+        with:
+          path: cookies_ch3.json
+          key: x-cookies-ch3-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            x-cookies-ch3-
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install --upgrade twikit yt-dlp
+
+      - name: Download and upload
+        env:
+          X_USERNAME: ${{ secrets.X_USERNAME_CH3 }}
+          X_EMAIL: ${{ secrets.X_EMAIL_CH3 }}
+          X_PASSWORD: ${{ secrets.X_PASSWORD_CH3 }}
+          YT_URL: ${{ secrets.LAST_YT_URL_CH3 }}
+          COOKIE_FILE: cookies_ch3.json
+        run: |
+          python -c '
+          import os, asyncio, subprocess
+          from twikit import Client
+          async def main():
+              username = os.environ.get("X_USERNAME", "").strip()
+              email = os.environ.get("X_EMAIL", "").strip()
+              password = os.environ.get("X_PASSWORD", "").strip()
+              yt_url = os.environ.get("YT_URL", "").strip()
+              cookie_file = os.environ.get("COOKIE_FILE", "").strip()
+              if not yt_url or not username or not password or not email:
+                  print("Missing credentials or URL. Skipping.")
+                  return
+              print(f"Downloading: {yt_url}")
+              subprocess.run(["yt-dlp", "-o", "output.mp4", "-f", "mp4", yt_url], check=True)
+              client = Client("en-US")
+              if os.path.exists(cookie_file) and os.path.getsize(cookie_file) > 10:
+                  print("Loading cookies...")
+                  try:
+                      client.load_cookies(cookie_file)
+                  except Exception as e:
+                      print(f"Cookie load failed: {e}. Logging in...")
+                      await client.login(auth_info_1=username, auth_info_2=email, password=password)
+                      client.save_cookies(cookie_file)
+              else:
+                  print("Logging in...")
+                  await client.login(auth_info_1=username, auth_info_2=email, password=password)
+                  client.save_cookies(cookie_file)
+              print("Uploading media...")
+              media_id = await client.upload_media("output.mp4")
+              print("Creating tweet...")
+              tweet = await client.create_tweet(text="Check out our latest video!", media_ids=[media_id])
+              print(f"Success! Tweet ID: {tweet.id}")
+          asyncio.run(main())
+          '
+
+  test-ch4:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Restore cookies cache
+        uses: actions/cache@v4
+        with:
+          path: cookies_ch4.json
+          key: x-cookies-ch4-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            x-cookies-ch4-
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install --upgrade twikit yt-dlp
+
+      - name: Download and upload
+        env:
+          X_USERNAME: ${{ secrets.X_USERNAME_CH4 }}
+          X_EMAIL: ${{ secrets.X_EMAIL_CH4 }}
+          X_PASSWORD: ${{ secrets.X_PASSWORD_CH4 }}
+          YT_URL: ${{ secrets.LAST_YT_URL_CH4 }}
+          COOKIE_FILE: cookies_ch4.json
+        run: |
+          python -c '
+          import os, asyncio, subprocess
+          from twikit import Client
+          async def main():
+              username = os.environ.get("X_USERNAME", "").strip()
+              email = os.environ.get("X_EMAIL", "").strip()
+              password = os.environ.get("X_PASSWORD", "").strip()
+              yt_url = os.environ.get("YT_URL", "").strip()
+              cookie_file = os.environ.get("COOKIE_FILE", "").strip()
+              if not yt_url or not username or not password or not email:
+                  print("Missing credentials or URL. Skipping.")
+                  return
+              print(f"Downloading: {yt_url}")
+              subprocess.run(["yt-dlp", "-o", "output.mp4", "-f", "mp4", yt_url], check=True)
+              client = Client("en-US")
+              if os.path.exists(cookie_file) and os.path.getsize(cookie_file) > 10:
+                  print("Loading cookies...")
+                  try:
+                      client.load_cookies(cookie_file)
+                  except Exception as e:
+                      print(f"Cookie load failed: {e}. Logging in...")
+                      await client.login(auth_info_1=username, auth_info_2=email, password=password)
+                      client.save_cookies(cookie_file)
+              else:
+                  print("Logging in...")
+                  await client.login(auth_info_1=username, auth_info_2=email, password=password)
+                  client.save_cookies(cookie_file)
+              print("Uploading media...")
+              media_id = await client.upload_media("output.mp4")
+              print("Creating tweet...")
+              tweet = await client.create_tweet(text="Check out our latest video!", media_ids=[media_id])
+              print(f"Success! Tweet ID: {tweet.id}")
+          asyncio.run(main())
+          '
