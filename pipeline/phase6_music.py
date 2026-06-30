@@ -29,6 +29,32 @@ _PROGRESSIONS = [
 ]
 
 
+def _clean_music_query(topic: str) -> str:
+    if ":" in topic:
+        topic = topic.split(":")[0]
+    
+    clean = topic.strip().lower()
+    intros = [
+        "what most people don't know about",
+        "what most people don't know about the",
+        "the hidden truth about",
+        "the hidden truth about the",
+        "the secret of",
+        "the secret of the",
+        "the mystery of",
+        "the mystery of the",
+        "what you didn't know about",
+        "what you didn't know about the",
+        "scientists found something inside",
+        "scientists found something inside the",
+    ]
+    for intro in intros:
+        if clean.startswith(intro):
+            clean = clean[len(intro):].strip()
+            break
+    return clean
+
+
 def _adsr(n, attack, release):
     env = np.ones(n)
     a, r = min(attack, n // 2), min(release, n // 2)
@@ -98,16 +124,18 @@ def _fetch_freesound_music(topic: str, duration_seconds: int) -> str | None:
     except ImportError:
         pass
 
+    clean_topic = _clean_music_query(topic)
+
     if "wedding" in topic.lower() or "marriage" in topic.lower() or "romantic" in topic.lower():
-        queries = [f"{topic} ambient", "romantic wedding ambient", "indian wedding instrumental"]
+        queries = [f"{clean_topic} ambient", "romantic wedding ambient", "indian wedding instrumental"]
     elif is_history:
-        queries = [f"{topic} orchestral tension", "cinematic historical music", "medieval tension ambient", "ancient history ambient"]
+        queries = [f"{clean_topic} orchestral tension", "cinematic historical music", "medieval tension ambient", "ancient history ambient"]
     elif is_engineering:
-        queries = [f"{topic} industrial tech", "machinery industrial ambient", "cinematic suspense synth", "ambient tech synth"]
+        queries = [f"{clean_topic} industrial tech", "machinery industrial ambient", "cinematic suspense synth", "ambient tech synth"]
     elif is_natural:
-        queries = [f"{topic} nature ambient", "wildlife cinematic music", "calm flute ambient", "earth atmospheric loop"]
+        queries = [f"{clean_topic} nature ambient", "wildlife cinematic music", "calm flute ambient", "earth atmospheric loop"]
     else:
-        queries = [f"{topic} space cinematic", "cinematic suspense synth", "sci-fi tension loop", "ambient space synth"]
+        queries = [f"{clean_topic} space cinematic", "cinematic suspense synth", "sci-fi tension loop", "ambient space synth"]
 
 
 
@@ -177,10 +205,11 @@ def _fetch_freesound_music(topic: str, duration_seconds: int) -> str | None:
 def _archive_audio(topic: str) -> str | None:
     try:
         import requests
+        clean_topic = _clean_music_query(topic)
         r = requests.get(
             "https://archive.org/advancedsearch.php",
             params={
-                "q": f'({topic} ambient) AND mediatype:audio AND licenseurl:"https://creativecommons.org/publicdomain/zero/1.0/"',
+                "q": f'({clean_topic} ambient) AND mediatype:audio AND licenseurl:"https://creativecommons.org/publicdomain/zero/1.0/"',
                 "fl[]": "identifier",
                 "rows": 5,
                 "output": "json",
