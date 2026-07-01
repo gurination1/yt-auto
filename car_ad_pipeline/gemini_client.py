@@ -20,6 +20,31 @@ class GeminiClient:
         self.current_key_idx = (self.current_key_idx + 1) % len(self.keys)
         print(f"[GeminiClient] Rotated to key slot {self.current_key_idx + 1}/{len(self.keys)}")
 
+    def _execute_with_retry(self, request_fn, max_retries=6, retry_sleep=8):
+        """
+        Executes a request function (which returns a response object).
+        If 429 is encountered, sleeps and retries with the SAME key.
+        If it fails after max_retries, rotates the key and starts over.
+        """
+        for rotate_attempt in range(len(self.keys)):
+            key = self.get_key()
+            for attempt in range(max_retries):
+                try:
+                    response = request_fn(key)
+                    if response.status_code == 429:
+                        print(f"[GeminiClient] 429 Rate Limit encountered. Sleeping {retry_sleep}s (attempt {attempt+1}/{max_retries}) using key {key[:10]}...")
+                        time.sleep(retry_sleep)
+                        continue
+                    return response
+                except requests.RequestException as e:
+                    print(f"[GeminiClient] Request exception: {e}. Retrying same key...")
+                    time.sleep(2)
+            
+            print(f"[GeminiClient] Key {key[:10]} exhausted or failed repeatedly. Rotating key.")
+            self.rotate_key()
+            
+        raise RuntimeError("All Gemini API keys exhausted or failed.")
+
     def upload_file(self, filepath: str) -> str:
         mime_type, _ = mimetypes.guess_type(filepath)
         if not mime_type:
@@ -30,8 +55,7 @@ class GeminiClient:
         
         print(f"Uploading file '{filename}' ({file_size / (1024*1024):.2f} MB) to Gemini Files API...")
         
-        for attempt in range(len(self.keys) * 2):
-            key = self.get_key()
+        def make_request(key):
             url = f"https://generativelanguage.googleapis.com/upload/v1beta/files?uploadType=media&key={key}"
             headers = {
                 "Content-Type": mime_type,
@@ -39,37 +63,27 @@ class GeminiClient:
                 "X-Goog-Upload-Header-Content-Length": str(file_size),
                 "X-Goog-Upload-Header-Content-Type": mime_type,
             }
-            try:
-                with open(filepath, "rb") as f:
-                    file_bytes = f.read()
-                response = requests.post(url, headers=headers, data=file_bytes, timeout=300)
-                if response.status_code == 429:
-                    print(f"[GeminiClient] File upload returned 429. Rotating key and retrying.")
-                    self.rotate_key()
-                    continue
-                response.raise_for_status()
-                res_data = response.json()
-                file_name = res_data["file"]["name"]
-                file_uri = res_data["file"]["uri"]
-                print(f"Uploaded successfully: {file_name} -> {file_uri}")
-                return file_name, file_uri
-            except Exception as e:
-                print(f"[GeminiClient] Upload failed: {e}. Rotating key.")
-                self.rotate_key()
-                time.sleep(2)
-        raise RuntimeError("Failed to upload file to Gemini Files API after multiple key rotations.")
+            with open(filepath, "rb") as f:
+                file_bytes = f.read()
+            return requests.post(url, headers=headers, data=file_bytes, timeout=300)
+            
+        response = self._execute_with_retry(make_request)
+        response.raise_for_status()
+        res_data = response.json()
+        file_name = res_data["file"]["name"]
+        file_uri = res_data["file"]["uri"]
+        print(f"Uploaded successfully: {file_name} -> {file_uri}")
+        return file_name, file_uri
 
     def wait_for_file_active(self, file_name: str, max_timeout_seconds: int = 180) -> bool:
         start_time = time.time()
         while time.time() - start_time < max_timeout_seconds:
-            key = self.get_key()
-            url = f"{GEMINI_API_BASE}/{file_name}?key={key}"
+            def make_request(key):
+                url = f"{GEMINI_API_BASE}/{file_name}?key={key}"
+                return requests.get(url, timeout=30)
+                
             try:
-                response = requests.get(url, timeout=30)
-                if response.status_code == 429:
-                    self.rotate_key()
-                    time.sleep(5)
-                    continue
+                response = self._execute_with_retry(make_request, max_retries=3, retry_sleep=5)
                 response.raise_for_status()
                 data = response.json()
                 state = data.get("state")
@@ -88,46 +102,30 @@ class GeminiClient:
 
     def generate_content(self, contents: list, response_schema: dict = None, low_res: bool = False, model: str = None) -> str:
         model_name = model or GEMINI_MODEL
-        for attempt in range(len(self.keys) * 3):
-            key = self.get_key()
+        
+        def make_request(key):
             url = f"{GEMINI_API_BASE}/models/{model_name}:generateContent?key={key}"
-            
             gen_config = {
                 "temperature": 0.2 if response_schema else 0.7,
             }
             if response_schema:
                 gen_config["responseMimeType"] = "application/json"
                 gen_config["responseSchema"] = response_schema
-
-
-
             payload = {
                 "contents": contents,
                 "generationConfig": gen_config
             }
-
-            try:
-                response = requests.post(url, json=payload, timeout=180)
-                if response.status_code == 429:
-                    print(f"[GeminiClient] generateContent returned 429. Rotating key.")
-                    self.rotate_key()
-                    time.sleep(5)
-                    continue
-                response.raise_for_status()
-                res_data = response.json()
-                text = res_data["candidates"][0]["content"]["parts"][0]["text"]
-                return text
-            except Exception as e:
-                print(f"[GeminiClient] generateContent failed: {e}. Rotating key.")
-                self.rotate_key()
-                time.sleep(2)
-        raise RuntimeError("Failed to generate content from Gemini after multiple key rotations.")
+            return requests.post(url, json=payload, timeout=180)
+            
+        response = self._execute_with_retry(make_request)
+        response.raise_for_status()
+        res_data = response.json()
+        text = res_data["candidates"][0]["content"]["parts"][0]["text"]
+        return text
 
     def generate_tts(self, text: str, voice: str = "Aoede", vocal_tone: str = "confident") -> bytes:
-        for attempt in range(len(self.keys) * 2):
-            key = self.get_key()
+        def make_request(key):
             url = f"{GEMINI_API_BASE}/models/{GEMINI_TTS_MODEL}:generateContent?key={key}"
-            
             director_instructions = (
                 f"Vocal Delivery Guide: Speak in a salesman tone: confident, conversational, and persuasive. "
                 f"Pitch is natural, pacing has deliberate short pauses for dramatic effect. "
@@ -137,7 +135,6 @@ class GeminiClient:
                 f"Director Instructions:\n{director_instructions}\n\n"
                 f"Narration text to speak (Speak ONLY the following Hindi text): {text}"
             )
-            
             payload = {
                 "contents": [{"role": "user", "parts": [{"text": full_prompt}]}],
                 "generationConfig": {
@@ -147,18 +144,10 @@ class GeminiClient:
                     },
                 },
             }
-            try:
-                response = requests.post(url, json=payload, timeout=120)
-                if response.status_code == 429:
-                    self.rotate_key()
-                    time.sleep(5)
-                    continue
-                response.raise_for_status()
-                res_data = response.json()
-                inline = res_data["candidates"][0]["content"]["parts"][0]["inlineData"]
-                return base64.b64decode(inline["data"])
-            except Exception as e:
-                print(f"[GeminiClient] generate_tts failed: {e}. Rotating key.")
-                self.rotate_key()
-                time.sleep(2)
-        raise RuntimeError("Failed to generate TTS from Gemini after multiple key rotations.")
+            return requests.post(url, json=payload, timeout=120)
+            
+        response = self._execute_with_retry(make_request)
+        response.raise_for_status()
+        res_data = response.json()
+        inline = res_data["candidates"][0]["content"]["parts"][0]["inlineData"]
+        return base64.b64decode(inline["data"])
