@@ -12,6 +12,7 @@ class GeminiClient:
         self.current_key_idx = 0
         if not self.keys:
             raise RuntimeError("No Gemini API keys found. Configure GEMINI_API_KEY or GEMINI_API_KEYS.")
+        self.uploaded_files = {}  # file_uri -> (filepath, file_name)
 
     def get_key(self) -> str:
         return self.keys[self.current_key_idx]
@@ -20,7 +21,7 @@ class GeminiClient:
         self.current_key_idx = (self.current_key_idx + 1) % len(self.keys)
         print(f"[GeminiClient] Rotated to key slot {self.current_key_idx + 1}/{len(self.keys)}")
 
-    def _execute_with_retry(self, request_fn, max_retries=6, retry_sleep=8):
+    def _execute_with_retry(self, request_fn, payload=None, max_retries=6, retry_sleep=8):
         """
         Executes a request function (which returns a response object).
         If 429 is encountered, sleeps and retries with the SAME key.
@@ -36,7 +37,7 @@ class GeminiClient:
                         time.sleep(retry_sleep)
                         continue
                     if response.status_code == 403:
-                        print(f"[GeminiClient] 403 Forbidden for key {key[:10]}. Key may be invalid. Rotating immediately.")
+                        print(f"[GeminiClient] 403 Forbidden for key {key[:10]}. Key may be invalid or unauthorized. Rotating immediately.")
                         break  # break inner loop to rotate key
                     return response
                 except requests.RequestException as e:
@@ -45,8 +46,83 @@ class GeminiClient:
             
             print(f"[GeminiClient] Key {key[:10]} exhausted or failed repeatedly. Rotating key.")
             self.rotate_key()
+            if payload:
+                self._reupload_payload_files(payload)
             
         raise RuntimeError("All Gemini API keys exhausted or failed.")
+
+    def _reupload_payload_files(self, payload):
+        # Find all fileUris in the payload that we have local files for
+        uris_to_replace = {}
+        
+        def find_uris(obj):
+            if isinstance(obj, dict):
+                if "fileData" in obj and isinstance(obj["fileData"], dict):
+                    uri = obj["fileData"].get("fileUri")
+                    if uri and uri in self.uploaded_files:
+                        uris_to_replace[uri] = self.uploaded_files[uri]
+                else:
+                    for v in obj.values():
+                        find_uris(v)
+            elif isinstance(obj, list):
+                for item in obj:
+                    find_uris(item)
+                    
+        find_uris(payload)
+        
+        if not uris_to_replace:
+            return
+            
+        # Re-upload each file using the new key
+        uri_mapping = {}
+        for old_uri, (filepath, old_name) in uris_to_replace.items():
+            print(f"[GeminiClient] Re-uploading {filepath} on new key to resolve authorization mismatch...")
+            new_name, new_uri = self._upload_file_direct(filepath)
+            if self.wait_for_file_active(new_name):
+                uri_mapping[old_uri] = new_uri
+                self.uploaded_files[new_uri] = (filepath, new_name)
+            else:
+                raise RuntimeError(f"Re-uploaded file {filepath} failed to become active.")
+                
+        # Update the payload with new URIs
+        def replace_uris(obj):
+            if isinstance(obj, dict):
+                if "fileData" in obj and isinstance(obj["fileData"], dict):
+                    uri = obj["fileData"].get("fileUri")
+                    if uri in uri_mapping:
+                        obj["fileData"]["fileUri"] = uri_mapping[uri]
+                else:
+                    for v in obj.values():
+                        replace_uris(v)
+            elif isinstance(obj, list):
+                for item in obj:
+                    replace_uris(item)
+                    
+        replace_uris(payload)
+
+    def _upload_file_direct(self, filepath: str) -> tuple[str, str]:
+        mime_type, _ = mimetypes.guess_type(filepath)
+        if not mime_type:
+            mime_type = "video/mp4"
+            
+        file_size = os.path.getsize(filepath)
+        filename = os.path.basename(filepath)
+        key = self.get_key()
+        url = f"https://generativelanguage.googleapis.com/upload/v1beta/files?uploadType=media&key={key}"
+        headers = {
+            "Content-Type": mime_type,
+            "Content-Length": str(file_size),
+            "X-Goog-Upload-Header-Content-Length": str(file_size),
+            "X-Goog-Upload-Header-Content-Type": mime_type,
+        }
+        with open(filepath, "rb") as f:
+            file_bytes = f.read()
+        response = requests.post(url, headers=headers, data=file_bytes, timeout=300)
+        response.raise_for_status()
+        res_data = response.json()
+        file_name = res_data["file"]["name"]
+        file_uri = res_data["file"]["uri"]
+        return file_name, file_uri
 
     def upload_file(self, filepath: str) -> str:
         mime_type, _ = mimetypes.guess_type(filepath)
@@ -76,6 +152,7 @@ class GeminiClient:
         file_name = res_data["file"]["name"]
         file_uri = res_data["file"]["uri"]
         print(f"Uploaded successfully: {file_name} -> {file_uri}")
+        self.uploaded_files[file_uri] = (filepath, file_name)
         return file_name, file_uri
 
     def wait_for_file_active(self, file_name: str, max_timeout_seconds: int = 180) -> bool:
@@ -120,7 +197,7 @@ class GeminiClient:
             }
             return requests.post(url, json=payload, timeout=180)
             
-        response = self._execute_with_retry(make_request)
+        response = self._execute_with_retry(make_request, payload=contents)
         response.raise_for_status()
         res_data = response.json()
         text = res_data["candidates"][0]["content"]["parts"][0]["text"]
