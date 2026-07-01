@@ -11,7 +11,7 @@ from car_ad_pipeline.voice_generator import generate_voiceover
 from car_ad_pipeline.subtitle_generator import align_subtitles, generate_ass_subtitles
 from car_ad_pipeline.video_editor import compile_ad
 
-def run_pipeline(video_path: str, output_dir: str):
+def run_pipeline(video_path: str, output_dir: str, resume: bool = False):
     print(f"Starting Car Ad Video Pipeline for {video_path}...")
     start_time = time.time()
     
@@ -22,43 +22,50 @@ def run_pipeline(video_path: str, output_dir: str):
     # Step 1: Initialize client
     client = GeminiClient()
     
-    # Step 2c: Transcribe original audio (as timing anchor)
-    print("\n--- STEP 2c: Extracting & Transcribing Audio Anchor ---")
-    audio_path = os.path.join(temp_dir, "original_audio.wav")
-    transcript_path = os.path.join(temp_dir, "original_transcript.json")
-    
-    audio_transcript = None
-    try:
-        extract_audio(video_path, audio_path)
-        audio_transcript = transcribe_audio(audio_path)
-        with open(transcript_path, "w", encoding="utf-8") as f:
-            json.dump(audio_transcript, f, indent=2, ensure_ascii=False)
-        print("Audio transcription successful.")
-    except Exception as e:
-        print(f"Warning: Audio transcription anchor failed or skipped: {e}")
-        
-    # Step 2: Upload video to Gemini Files API
-    print("\n--- STEP 2: Uploading Video to Gemini Files API ---")
-    file_name, file_uri = client.upload_file(video_path)
-    if not client.wait_for_file_active(file_name):
-        raise RuntimeError("Video processing timed out on Gemini Files API.")
-        
-    # Step 2: Generate Ad Script and Scene Cues
-    print("\n--- STEP 2: Generating Script and Scene Cues ---")
-    ad_script = generate_script(client, video_path, file_uri, audio_transcript)
     script_output_path = os.path.join(output_dir, "ad_script.json")
-    with open(script_output_path, "w", encoding="utf-8") as f:
-        json.dump(ad_script, f, indent=2, ensure_ascii=False)
-    print(f"Ad script written to {script_output_path}")
     
-    # Step 3: Market price lookup
-    print("\n--- STEP 3: Market Price Grounding ---")
-    market_query = ad_script.get("overall_market_query", "Range Rover Sport 2021 price India")
-    market_report = lookup_market_price(client, market_query)
-    market_path = os.path.join(output_dir, "market_price_report.txt")
-    with open(market_path, "w", encoding="utf-8") as f:
-        f.write(market_report)
-    print(f"Market price report saved to {market_path}")
+    if resume and os.path.exists(script_output_path):
+        print("\n--- RESUME MODE: Loading existing ad_script.json ---")
+        with open(script_output_path, "r", encoding="utf-8") as f:
+            ad_script = json.load(f)
+        print(f"Loaded script with {len(ad_script.get('scene_cues', []))} scenes.")
+    else:
+        # Step 2c: Transcribe original audio (as timing anchor)
+        print("\n--- STEP 2c: Extracting & Transcribing Audio Anchor ---")
+        audio_path = os.path.join(temp_dir, "original_audio.wav")
+        transcript_path = os.path.join(temp_dir, "original_transcript.json")
+        
+        audio_transcript = None
+        try:
+            extract_audio(video_path, audio_path)
+            audio_transcript = transcribe_audio(audio_path)
+            with open(transcript_path, "w", encoding="utf-8") as f:
+                json.dump(audio_transcript, f, indent=2, ensure_ascii=False)
+            print("Audio transcription successful.")
+        except Exception as e:
+            print(f"Warning: Audio transcription anchor failed or skipped: {e}")
+            
+        # Step 2: Upload video to Gemini Files API
+        print("\n--- STEP 2: Uploading Video to Gemini Files API ---")
+        file_name, file_uri = client.upload_file(video_path)
+        if not client.wait_for_file_active(file_name):
+            raise RuntimeError("Video processing timed out on Gemini Files API.")
+            
+        # Step 2: Generate Ad Script and Scene Cues
+        print("\n--- STEP 2: Generating Script and Scene Cues ---")
+        ad_script = generate_script(client, video_path, file_uri, audio_transcript)
+        with open(script_output_path, "w", encoding="utf-8") as f:
+            json.dump(ad_script, f, indent=2, ensure_ascii=False)
+        print(f"Ad script written to {script_output_path}")
+        
+        # Step 3: Market price lookup
+        print("\n--- STEP 3: Market Price Grounding ---")
+        market_query = ad_script.get("overall_market_query", "Range Rover Sport 2021 price India")
+        market_report = lookup_market_price(client, market_query)
+        market_path = os.path.join(output_dir, "market_price_report.txt")
+        with open(market_path, "w", encoding="utf-8") as f:
+            f.write(market_report)
+        print(f"Market price report saved to {market_path}")
     
     # Step 4: Generate Voiceover using Gemini TTS
     print("\n--- STEP 4: Generating Voiceover ---")
@@ -94,6 +101,8 @@ def run_pipeline(video_path: str, output_dir: str):
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
-        print("Usage: python pipeline.py <video_path> <output_dir>")
+        print("Usage: python pipeline.py <video_path> <output_dir> [--resume]")
         sys.exit(1)
-    run_pipeline(sys.argv[1], sys.argv[2])
+    resume = "--resume" in sys.argv
+    run_pipeline(sys.argv[1], sys.argv[2], resume=resume)
+

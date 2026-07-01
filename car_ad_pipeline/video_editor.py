@@ -52,7 +52,10 @@ def build_scene_clip(raw_video: str, start: float, end: float, tts_audio: str, o
             temp_v
         ]
         
-    subprocess.run(cmd_v, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    result = subprocess.run(cmd_v, capture_output=True)
+    if result.returncode != 0:
+        print(f"FFmpeg scene video stderr: {result.stderr.decode()[-500:]}")
+        raise RuntimeError(f"FFmpeg scene video cut failed with exit code {result.returncode}")
     
     # Merge video and TTS audio
     cmd_merge = [
@@ -65,7 +68,10 @@ def build_scene_clip(raw_video: str, start: float, end: float, tts_audio: str, o
         "-map", "1:a",
         output_path
     ]
-    subprocess.run(cmd_merge, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    result = subprocess.run(cmd_merge, capture_output=True)
+    if result.returncode != 0:
+        print(f"FFmpeg merge stderr: {result.stderr.decode()[-500:]}")
+        raise RuntimeError(f"FFmpeg merge failed with exit code {result.returncode}")
     
     if os.path.exists(temp_v):
         os.remove(temp_v)

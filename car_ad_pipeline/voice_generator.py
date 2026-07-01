@@ -1,7 +1,22 @@
 import os
 import json
 import time
+import subprocess
 from car_ad_pipeline.gemini_client import GeminiClient
+
+def _pcm_to_wav(pcm_data: bytes, wav_path: str, sample_rate: int = 24000):
+    """Convert raw PCM (s16le, mono, 24kHz) bytes to a proper WAV file via ffmpeg."""
+    pcm_path = wav_path + ".pcm"
+    with open(pcm_path, "wb") as f:
+        f.write(pcm_data)
+    cmd = [
+        "ffmpeg", "-y",
+        "-f", "s16le", "-ar", str(sample_rate), "-ac", "1",
+        "-i", pcm_path,
+        wav_path
+    ]
+    subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    os.remove(pcm_path)
 
 def generate_voiceover(client: GeminiClient, scene_cues: list, output_dir: str) -> list:
     print("Generating voiceover audio segments using Gemini TTS...")
@@ -22,25 +37,20 @@ def generate_voiceover(client: GeminiClient, scene_cues: list, output_dir: str) 
             
         print(f"Generating TTS for Scene {i+1}: '{ad_copy}'...")
         
-        # We can clean emotional direction tags like [excited], [pause] from TTS text, 
-        # but the prompt walkthrough says: "natural-language style direction, inline tags ([excited], [confident], [pause])"
-        # Wait, does the voice model understand them? Yes, sometimes the prompt says the tags are kept in text 
-        # or we instruct the model to interpret them. We keep them in the text as directed by the walkthrough.
-        
         audio_data = client.generate_tts(ad_copy, voice="Aoede")
         
-        # Log token usage estimation (roughly 4 characters per token for prose, and output audio is about 20 tokens per second of audio)
-        # We can approximate prompt tokens based on prompt length, and output tokens based on audio file size.
+        # Log token usage estimation
         prompt_est = len(ad_copy) // 2
-        output_est = len(audio_data) // 800  # rough estimate for audio bytes to tokens
+        output_est = len(audio_data) // 800
         
         total_prompt_tokens += prompt_est
         total_output_tokens += output_est
         
         audio_filename = f"scene_{i+1}_tts.wav"
         audio_path = os.path.join(output_dir, audio_filename)
-        with open(audio_path, "wb") as f:
-            f.write(audio_data)
+        
+        # Convert raw PCM to proper WAV
+        _pcm_to_wav(audio_data, audio_path)
             
         print(f"Saved: {audio_path}")
         audio_paths.append(audio_path)

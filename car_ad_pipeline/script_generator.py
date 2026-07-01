@@ -157,7 +157,12 @@ Original JSON: {json.dumps(result)}
 Return the updated JSON conforming to the original schema.
 """
                     updated_json_str = client.generate_content(
-                        [{"text": correction_prompt}],
+                        [
+                            {
+                                "role": "user",
+                                "parts": [{"text": correction_prompt}]
+                            }
+                        ],
                         response_schema=SCHEMA
                     )
                     result = json.loads(updated_json_str)
