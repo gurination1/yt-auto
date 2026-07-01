@@ -26,6 +26,9 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
 
+      - name: Setup FFmpeg
+        uses: FedericoTerzi/setup-ffmpeg@v3
+
       - name: Cache Whisper Models
         uses: actions/cache@v4
         with:
