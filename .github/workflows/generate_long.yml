@@ -33,9 +33,9 @@ jobs:
 
       - name: Install Bebas Neue Font
         run: |
-          mkdir -p ~/.local/share/fonts
-          wget -O ~/.local/share/fonts/BebasNeue-Regular.ttf https://raw.githubusercontent.com/google/fonts/main/ofl/bebasneue/BebasNeue-Regular.ttf
-          fc-cache -fv
+          sudo mkdir -p /usr/local/share/fonts
+          sudo wget -O /usr/local/share/fonts/BebasNeue-Regular.ttf https://raw.githubusercontent.com/google/fonts/main/ofl/bebasneue/BebasNeue-Regular.ttf
+          sudo fc-cache -fv
 
 
       - name: Cache faster-whisper models
