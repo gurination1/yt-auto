@@ -95,7 +95,7 @@ Generate the output strictly conforming to the specified JSON schema.
 """
 
     contents = [
-        {"file_data": {"mime_type": "video/mp4", "file_uri": file_uri}},
+        {"fileData": {"mimeType": "video/mp4", "fileUri": file_uri}},
         {"text": prompt}
     ]
     
@@ -131,7 +131,7 @@ Generate the output strictly conforming to the specified JSON schema.
                     print(f"Querying clip at DEFAULT resolution: {re_read_query}")
                     clip_prompt = f"Analyze this short video clip. {re_read_query} Give a direct answer with precise numbers."
                     clip_contents = [
-                        {"file_data": {"mime_type": "video/mp4", "file_uri": clip_uri}},
+                        {"fileData": {"mimeType": "video/mp4", "fileUri": clip_uri}},
                         {"text": clip_prompt}
                     ]
                     # Default media resolution call
