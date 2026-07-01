@@ -9,7 +9,7 @@ def align_subtitles(tts_audio_path: str, hinglish_text: str) -> list:
     from faster_whisper import WhisperModel
     
     print(f"Transcribing generated TTS {tts_audio_path} for timing alignment...")
-    model = WhisperModel("base", device="cpu", compute_type="float32")
+    model = WhisperModel("tiny", device="cpu", compute_type="int8")
     segments, _ = model.transcribe(tts_audio_path, beam_size=5, word_timestamps=True)
     
     transcribed_words = []

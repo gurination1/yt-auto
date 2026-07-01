@@ -32,7 +32,7 @@ class GeminiClient:
         
         for attempt in range(len(self.keys) * 2):
             key = self.get_key()
-            url = f"{GEMINI_API_BASE}/upload/v1beta/files?uploadType=media&key={key}"
+            url = f"https://generativelanguage.googleapis.com/upload/v1beta/files?uploadType=media&key={key}"
             headers = {
                 "Content-Type": mime_type,
                 "Content-Length": str(file_size),

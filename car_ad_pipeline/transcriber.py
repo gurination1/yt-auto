@@ -22,7 +22,7 @@ def transcribe_audio(audio_path: str) -> dict:
     from faster_whisper import WhisperModel
     
     # Use float16 on GPU, float32 on CPU (GHA runner is CPU)
-    model = WhisperModel("base", device="cpu", compute_type="float32")
+    model = WhisperModel("tiny", device="cpu", compute_type="int8")
     
     segments, info = model.transcribe(audio_path, beam_size=5, language="hi", word_timestamps=True)
     
