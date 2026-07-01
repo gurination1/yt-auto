@@ -1,11 +1,48 @@
 import os
 import soundfile as sf
 
+POWER_WORDS = {"TRUTH", "SECRET", "SHOCKING", "DANGEROUS", "CRITICAL", "BRUTAL", "SURPRISING", "REVEALED", "WARNING", "CAUTION", "ACCIDENT", "CRASH", "SAFE", "SAFETY", "IMPOSSIBLE", "MYSTERY", "KILL", "DIED", "ALIVE", "DEATH", "BANNED", "PROVEN", "HIDDEN", "DESTROYED", "BREAKTHROUGH", "DISCOVERY", "UNCOVERED", "LIE", "LIES"}
+
 def fmt_time(seconds):
     h = int(seconds // 3600)
     m = int((seconds % 3600) // 60)
     s = seconds % 60
     return f"{h}:{m:02d}:{s:05.2f}"
+
+def align_words(script_words: list[str], whisper_words: list[dict]) -> list[dict]:
+    aligned = []
+    ns = len(script_words)
+    nw = len(whisper_words)
+    if ns == 0:
+        return []
+    if nw == 0:
+        return []
+    w_idx = 0
+    for s_idx, s_word in enumerate(script_words):
+        best_w_idx = w_idx
+        best_score = 0
+        for candidate_idx in range(max(0, w_idx - 2), min(nw, w_idx + 4)):
+            w_word = whisper_words[candidate_idx]["text"].strip(".,!?\"'()").upper()
+            s_word_clean = s_word.strip(".,!?\"'()").upper()
+            if w_word == s_word_clean:
+                score = 3
+            elif w_word in s_word_clean or s_word_clean in w_word:
+                score = 2
+            else:
+                score = 0
+            if score > best_score:
+                best_score = score
+                best_w_idx = candidate_idx
+        if best_score > 0:
+            w_idx = best_w_idx
+        clamped_w_idx = min(max(0, w_idx), nw - 1)
+        aligned.append({
+            "word": s_word,
+            "start": whisper_words[clamped_w_idx]["start"],
+            "end": whisper_words[clamped_w_idx]["end"]
+        })
+        w_idx = clamped_w_idx + 1
+    return aligned
 
 def generate_captions(audio_files: list[str], script: dict, format_type: str = "short") -> str:
     ass_events = []
@@ -23,19 +60,64 @@ def generate_captions(audio_files: list[str], script: dict, format_type: str = "
                 
             segments_out, info = model.transcribe(audio_path, word_timestamps=True)
             
+            whisper_words = []
             for whisper_seg in segments_out:
                 if whisper_seg.words:
                     for word_info in whisper_seg.words:
-                        word  = word_info.word.strip().upper()
-                        if not word:
-                            continue
-                        start = time_offset + word_info.start
-                        end   = time_offset + word_info.end
-                        ass_events.append(f"Dialogue: 0,{fmt_time(start)},{fmt_time(end)},Default,,0,0,0,,"
-                                           f"{{\\blur2\\1c&H00D4FF&\\fscx120\\fscy120\\t(0,80,\\fscx100\\fscy100)}}{word}")
+                        w_text = word_info.word.strip()
+                        if w_text:
+                            whisper_words.append({
+                                "text": w_text,
+                                "start": word_info.start,
+                                "end": word_info.end
+                            })
+            
+            script_words = seg["narration"].split()
+            aligned_words = align_words(script_words, whisper_words)
             
             data, sr = sf.read(audio_path)
             duration = len(data) / sr
+            
+            # If alignment returned empty, fallback to even distribution
+            if not aligned_words:
+                aligned_words = []
+                if script_words:
+                    word_dur = duration / len(script_words)
+                    for w_idx, word in enumerate(script_words):
+                        aligned_words.append({
+                            "word": word,
+                            "start": w_idx * word_dur,
+                            "end": (w_idx + 1) * word_dur
+                        })
+            
+            # Generate sliding window subtitles
+            for idx, word_info in enumerate(aligned_words):
+                start = time_offset + word_info["start"]
+                end = time_offset + word_info["end"]
+                
+                # Subtitle window of 3 words: 1 before, active, 1 after
+                start_win = max(0, idx - 1)
+                end_win = min(len(aligned_words), idx + 2)
+                
+                styled_parts = []
+                for w_idx in range(start_win, end_win):
+                    curr_word = aligned_words[w_idx]["word"]
+                    curr_word_clean = curr_word.strip(".,!?\"'()").upper()
+                    if w_idx == idx:
+                        # Highlight active word
+                        if curr_word_clean in POWER_WORDS:
+                            # Neon Green for power words
+                            styled_parts.append(f"{{\\c&H0033FF33&\\fscx115\\fscy115}}{curr_word.upper()}{{\\r}}")
+                        else:
+                            # Yellow-Orange for standard active word
+                            styled_parts.append(f"{{\\c&H0000E5FF&\\fscx110\\fscy110}}{curr_word.upper()}{{\\r}}")
+                    else:
+                        # White for surrounding context
+                        styled_parts.append(f"{{\\c&HFFFFFF&}}{curr_word.upper()}{{\\r}}")
+                        
+                styled_text = " ".join(styled_parts)
+                ass_events.append(f"Dialogue: 0,{fmt_time(start)},{fmt_time(end)},Default,,0,0,0,,{styled_text}")
+            
             time_offset += duration
             print(f"Segment {seg['id']} duration: {duration:.2f}s, Cumulative offset: {time_offset:.2f}s")
             
@@ -48,17 +130,38 @@ def generate_captions(audio_files: list[str], script: dict, format_type: str = "
             data, sr = sf.read(audio_path)
             duration = len(data) / sr
             
-            words = seg["narration"].split()
-            if words:
-                word_dur = duration / len(words)
-                for w_idx, word in enumerate(words):
-                    word_clean = word.strip().upper()
-                    if not word_clean:
-                        continue
-                    w_start = time_offset + w_idx * word_dur
-                    w_end = w_start + word_dur
-                    ass_events.append(f"Dialogue: 0,{fmt_time(w_start)},{fmt_time(w_end)},Default,,0,0,0,,"
-                                       f"{{\\blur2\\1c&H00D4FF&\\fscx120\\fscy120\\t(0,80,\\fscx100\\fscy100)}}{word_clean}")
+            script_words = seg["narration"].split()
+            aligned_words = []
+            if script_words:
+                word_dur = duration / len(script_words)
+                for w_idx, word in enumerate(script_words):
+                    aligned_words.append({
+                        "word": word,
+                        "start": w_idx * word_dur,
+                        "end": (w_idx + 1) * word_dur
+                    })
+            
+            for idx, word_info in enumerate(aligned_words):
+                start = time_offset + word_info["start"]
+                end = time_offset + word_info["end"]
+                
+                start_win = max(0, idx - 1)
+                end_win = min(len(aligned_words), idx + 2)
+                
+                styled_parts = []
+                for w_idx in range(start_win, end_win):
+                    curr_word = aligned_words[w_idx]["word"]
+                    curr_word_clean = curr_word.strip(".,!?\"'()").upper()
+                    if w_idx == idx:
+                        if curr_word_clean in POWER_WORDS:
+                            styled_parts.append(f"{{\\c&H0033FF33&\\fscx115\\fscy115}}{curr_word.upper()}{{\\r}}")
+                        else:
+                            styled_parts.append(f"{{\\c&H0000E5FF&\\fscx110\\fscy110}}{curr_word.upper()}{{\\r}}")
+                    else:
+                        styled_parts.append(f"{{\\c&HFFFFFF&}}{curr_word.upper()}{{\\r}}")
+                        
+                styled_text = " ".join(styled_parts)
+                ass_events.append(f"Dialogue: 0,{fmt_time(start)},{fmt_time(end)},Default,,0,0,0,,{styled_text}")
                     
             time_offset += duration
             print(f"Segment {seg['id']} duration: {duration:.2f}s (rule-timed), Cumulative offset: {time_offset:.2f}s")
