@@ -99,9 +99,8 @@ class GeminiClient:
                 gen_config["responseMimeType"] = "application/json"
                 gen_config["responseSchema"] = response_schema
 
-            # media_resolution parameter in generationConfig
             if low_res:
-                gen_config["mediaResolution"] = "MEDIA_RESOLUTION_LOW"
+                gen_config["mediaResolution"] = "LOW"
 
             payload = {
                 "contents": contents,
