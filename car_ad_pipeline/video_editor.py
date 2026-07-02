@@ -166,7 +166,7 @@ def compile_ad(raw_video: str, scene_cues: list, tts_audios: list, bg_music: str
     except Exception as e:
         print(f"Warning: Failed to create SFX track: {e}")
         
-    vf_filter = f"ass={subtitle_ass},eq=contrast=1.05:saturation=1.1"
+    vf_filter = f"ass={subtitle_ass},eq=contrast=1.08:saturation=1.18:brightness=0.01"
     
     if sfx_track_path and os.path.exists(sfx_track_path):
         print("Mixing Main Audio + BGM + SFX...")

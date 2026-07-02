@@ -119,13 +119,13 @@ def get_upbeat_bgm(output_dir: str) -> str:
                     break
                     
     if freesound_key:
-        queries = ["upbeat car commercial music", "energetic driving background music", "happy corporate instrumental"]
+        queries = ["upbeat corporate music", "happy background music", "positive corporate instrumental"]
         search_url = "https://freesound.org/apiv2/search/text/"
         for q in queries:
             print(f"[Music Search] Querying Freesound for: {q}")
             params = {
                 "query": q,
-                "filter": 'duration:[30 TO 120] license:"Creative Commons 0"',
+                "filter": "duration:[30 TO 120]",
                 "fields": "id,name,duration,previews",
                 "page_size": 3,
                 "token": freesound_key,
