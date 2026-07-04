@@ -34,8 +34,9 @@
     "New direct detection experiments for axion dark matter utilize semiconductor quantum wells, offering a novel approach to probe previously inaccessible mass ranges.",
     "How **self-healing polymers** actually work, repairing microscopic cracks on their own through embedded microcapsules or reversible covalent bonds, preventing catastrophic failure.",
     "Engineered adeno-associated virus (AAV) capsids achieve unprecedented precision in delivering gene-editing tools to specific cell types, drastically improving targeting efficiency and reducing off-target effects.",
-    "Recent breakthroughs in spintronic devices demonstrate ultra-low power data processing by manipulating electron spin, paving the way for significantly more energy-efficient computers."
+    "Recent breakthroughs in spintronic devices demonstrate ultra-low power data processing by manipulating electron spin, paving the way for significantly more energy-efficient computers.",
+    "How Rayleigh scattering makes our Sun appear yellow from Earth, despite it being a white star."
   ],
-  "subcluster_idx": 0,
-  "call_count": 35
+  "subcluster_idx": 1,
+  "call_count": 36
 }
