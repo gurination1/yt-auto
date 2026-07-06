@@ -38,8 +38,9 @@
     "How Rayleigh scattering makes our Sun appear yellow from Earth, despite it being a white star.",
     "Scientists are making quantum time appear to flow backward, challenging fundamental notions of the universe's arrow of time.",
     "Engineers slash diesel pollution by over 60% with simple water-infused fuel, revolutionizing clean energy chemistry.",
-    "How **directed evolution** actually works, creating enzymes with capabilities far beyond what natural selection could achieve, by deliberately introducing controlled errors into DNA sequences to accelerate beneficial mutations."
+    "How **directed evolution** actually works, creating enzymes with capabilities far beyond what natural selection could achieve, by deliberately introducing controlled errors into DNA sequences to accelerate beneficial mutations.",
+    "Neuromorphic chips like Intel's Loihi 3 and BrainChip's Akida 2.0 are now enabling energy-efficient, real-time autonomous robotics, with commercial applications shipping in 2026 for drones and industrial automation."
   ],
-  "subcluster_idx": 4,
-  "call_count": 39
+  "subcluster_idx": 0,
+  "call_count": 40
 }
