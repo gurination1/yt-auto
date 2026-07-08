@@ -42,8 +42,9 @@
     "Neuromorphic chips like Intel's Loihi 3 and BrainChip's Akida 2.0 are now enabling energy-efficient, real-time autonomous robotics, with commercial applications shipping in 2026 for drones and industrial automation.",
     "James Webb Space Telescope detects a mysterious, never-before-seen chemical absorption line in the atmospheres of Pluto and Titan, hinting at an unknown molecule that challenges current planetary models.",
     "How quantum **decoherence** actually works, making the bizarre quantum world disappear and giving rise to our classical reality.",
-    "Researchers are rapidly advancing alternative battery chemistries like zinc-ion and sodium-ion, promising safer, more sustainable, and abundant energy storage solutions beyond traditional lithium-ion technology."
+    "Researchers are rapidly advancing alternative battery chemistries like zinc-ion and sodium-ion, promising safer, more sustainable, and abundant energy storage solutions beyond traditional lithium-ion technology.",
+    "Scientists create 'SpudCells,' the first fully synthetic cells from non-living chemicals capable of growth and reproduction, blurring the lines of what defines life itself."
   ],
-  "subcluster_idx": 3,
-  "call_count": 43
+  "subcluster_idx": 4,
+  "call_count": 44
 }
