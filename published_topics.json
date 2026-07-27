@@ -83,8 +83,9 @@
     "How the Sun's atmosphere, the corona, is millions of degrees hotter than its surface, a mystery solved by magnetic reconnection heating.",
     "Quantum Internet Leaves the Lab: First real-world demonstration of quantum entanglement over busy telecom fiber, proving its viability outside of controlled laboratory settings.",
     "AI and robotics are accelerating scientific discovery, with a $20 million initiative establishing self-driving labs for chemistry and materials science.",
-    "How **CRISPR-interference (CRISPRi)** can precisely turn off genes without ever cutting DNA, revealing a new frontier in genetic control by manipulating gene expression directly."
+    "How **CRISPR-interference (CRISPRi)** can precisely turn off genes without ever cutting DNA, revealing a new frontier in genetic control by manipulating gene expression directly.",
+    "Nvidia's new platform dramatically reduces data center cabling, boosting efficiency."
   ],
-  "subcluster_idx": 4,
-  "call_count": 84
+  "subcluster_idx": 0,
+  "call_count": 85
 }
