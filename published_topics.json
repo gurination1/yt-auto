@@ -84,8 +84,9 @@
     "Quantum Internet Leaves the Lab: First real-world demonstration of quantum entanglement over busy telecom fiber, proving its viability outside of controlled laboratory settings.",
     "AI and robotics are accelerating scientific discovery, with a $20 million initiative establishing self-driving labs for chemistry and materials science.",
     "How **CRISPR-interference (CRISPRi)** can precisely turn off genes without ever cutting DNA, revealing a new frontier in genetic control by manipulating gene expression directly.",
-    "Nvidia's new platform dramatically reduces data center cabling, boosting efficiency."
+    "Nvidia's new platform dramatically reduces data center cabling, boosting efficiency.",
+    "China's Tianwen-1 Mars orbiter captures unprecedented close-up images of the interstellar comet 3I/ATLAS as it passed near Mars, offering unique data on its composition and origin far beyond our solar system."
   ],
-  "subcluster_idx": 0,
-  "call_count": 85
+  "subcluster_idx": 1,
+  "call_count": 86
 }
