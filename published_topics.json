@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How Hawking radiation means black holes are not eternal, slowly evaporating over cosmic timescales.",
     "How the act of quantum measurement *collapses* a particle's wave function, thereby creating its observed reality.",
     "How the quantum phenomenon of **Cooper pairs** allows superconductors to achieve perfect electrical conductivity with zero resistance by overcoming electron scattering.",
     "How gene drive actually works, forcing a specific genetic trait to spread through an entire wild population in just a few generations, potentially altering ecosystems irreversibly.",
@@ -89,8 +88,9 @@
     "What if black holes aren't smooth spheres but **quantum firewalls**, where anything falling in is instantly incinerated at the event horizon, a radical answer to the information paradox?",
     "Molten Salt Method Unlocks \"Impossible\" Nanocrystals, Revolutionizing Flexible Electronics",
     "AI model Evo 2 autonomously learns DNA grammar, identifying mutations and synthesizing genomes without explicit instruction.",
-    "What if computing could leverage **excitonic superfluidity**, where 'light-matter' particles flow without resistance, potentially enabling ultra-dense, ultra-fast, and energy-efficient data transfer at near-room temperatures."
+    "What if computing could leverage **excitonic superfluidity**, where 'light-matter' particles flow without resistance, potentially enabling ultra-dense, ultra-fast, and energy-efficient data transfer at near-room temperatures.",
+    "X-ray spacecraft detects 36-million-degree 'breath' of ancient black holes, revealing the scorching exhaust from the earliest quasars."
   ],
-  "subcluster_idx": 0,
-  "call_count": 90
+  "subcluster_idx": 1,
+  "call_count": 91
 }
