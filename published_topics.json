@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How the quantum phenomenon of **Cooper pairs** allows superconductors to achieve perfect electrical conductivity with zero resistance by overcoming electron scattering.",
     "How gene drive actually works, forcing a specific genetic trait to spread through an entire wild population in just a few generations, potentially altering ecosystems irreversibly.",
     "Quantum error correction achieves 'below-threshold' performance, where increasing physical qubits reduces logical error rates, moving quantum computing from physics research to engineering discipline.",
     "How gravitational time dilation makes observers near a black hole perceive time as stopping for distant objects, a bizarre consequence of extreme gravity.",
@@ -89,8 +88,9 @@
     "AI model Evo 2 autonomously learns DNA grammar, identifying mutations and synthesizing genomes without explicit instruction.",
     "What if computing could leverage **excitonic superfluidity**, where 'light-matter' particles flow without resistance, potentially enabling ultra-dense, ultra-fast, and energy-efficient data transfer at near-room temperatures.",
     "X-ray spacecraft detects 36-million-degree 'breath' of ancient black holes, revealing the scorching exhaust from the earliest quasars.",
-    "Quantum entanglement theory, dormant for two decades, is now experimentally confirmed using a novel 'quantum bath' method, providing a scalable pathway for future quantum computing architectures."
+    "Quantum entanglement theory, dormant for two decades, is now experimentally confirmed using a novel 'quantum bath' method, providing a scalable pathway for future quantum computing architectures.",
+    "How **gamma-prime (\u03b3') phase strengthening** allows certain nickel-based superalloys to become *stronger* as they get hotter, defying the typical weakening of metals at high temperatures and enabling jet engines."
   ],
-  "subcluster_idx": 2,
-  "call_count": 92
+  "subcluster_idx": 3,
+  "call_count": 93
 }
