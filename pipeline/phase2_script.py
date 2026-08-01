@@ -64,17 +64,21 @@ COMPANION LAYER - NICHE & FORMAT UPGRADE (SHORT):
   * CONTINUOUS CURIOSITY LOOP: Every 2-3 segments, give a new reason to stay with a new question (e.g., "But here's where it gets interesting...").
 
 For every `broll_query` field, write a SHORT, SPECIFIC, STOCK-FOOTAGE-FRIENDLY
-search term of 3-6 words MAXIMUM. Write exactly what a human would type into
-a stock video search bar (Pexels, Pixabay, etc). Use concrete nouns and visual
-objects — NOT instructions or descriptions of what you want.
+search term of 1-3 CONCRETE PHYSICAL NOUNS MAXIMUM (e.g., "water pipes", "ancient scroll", "mummy coffin", "sea sponges", "gold jewelry").
+Write exactly what a human would type into a stock video search bar. Use concrete nouns and visual objects — NOT instructions, verbs, or descriptions of what you want.
 
-CORRECT examples: "Stephen Hawking wheelchair smiling", "DNA double helix blue",
-"quantum computer chip closeup", "black hole space vortex", "astronaut spacewalk ISS",
-"brain neurons firing", "atom particle collider", "coral reef fish colorful"
+CRITICAL BROLL QUERY RULES:
+- MUST be 1-3 simple, concrete physical nouns (e.g. "water pipes", "ancient scroll", "mummy coffin", "sea sponges", "gold jewelry", "smartphone").
+- NEVER include abstract adjectives, verbs, or meta-words like "animated", "defect", "dramatic", "unraveling", "stuck", "shattered", "cross section", "concept", "visualization", "illustration".
+- Write queries that represent real physical footage found in stock video libraries or YouTube documentaries.
+
+CORRECT examples: "Stephen Hawking wheelchair", "DNA double helix",
+"quantum computer chip", "black hole space", "astronaut spacewalk",
+"brain neurons firing", "atom particle collider", "coral reef fish"
 
 WRONG examples: "visually jarring close-up of the topic", "macro b-roll of scientific
 element", "closing beautiful shot returning to start", "diagram concept visualization",
-"TMAO molecular structure" (too specific for stock footage), "chemical" (too ambiguous, returns factories)
+"animated gate valve defect", "ancient scroll unraveling dramatic", "cross section stuck"
 
 IMPORTANT B-ROLL RULES:
 - Stock video sites DO NOT HAVE specific molecules or rare deep-sea fish by name.
