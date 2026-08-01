@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Quantum error correction achieves 'below-threshold' performance, where increasing physical qubits reduces logical error rates, moving quantum computing from physics research to engineering discipline.",
     "How gravitational time dilation makes observers near a black hole perceive time as stopping for distant objects, a bizarre consequence of extreme gravity.",
     "How quantum tunneling enables stars like our Sun to burn for billions of years, despite not having enough core temperature and pressure to overcome the electromagnetic repulsion between atomic nuclei.",
     "How negative refractive index metamaterials actually work, bending light in the 'wrong' direction to make objects appear closer or even invisible.",
@@ -89,8 +88,9 @@
     "X-ray spacecraft detects 36-million-degree 'breath' of ancient black holes, revealing the scorching exhaust from the earliest quasars.",
     "Quantum entanglement theory, dormant for two decades, is now experimentally confirmed using a novel 'quantum bath' method, providing a scalable pathway for future quantum computing architectures.",
     "How **gamma-prime (\u03b3') phase strengthening** allows certain nickel-based superalloys to become *stronger* as they get hotter, defying the typical weakening of metals at high temperatures and enabling jet engines.",
-    "Engineered proteins from rattlesnake venom demonstrate a tenfold increase in antivenom potency during recent lab tests, revolutionizing snakebite treatment."
+    "Engineered proteins from rattlesnake venom demonstrate a tenfold increase in antivenom potency during recent lab tests, revolutionizing snakebite treatment.",
+    "Google's \"Willow\" quantum processor employs reinforcement learning for real-time self-tuning, detecting drift, and autonomously reducing logical errors without halting computation."
   ],
-  "subcluster_idx": 4,
-  "call_count": 94
+  "subcluster_idx": 0,
+  "call_count": 95
 }
