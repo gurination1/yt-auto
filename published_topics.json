@@ -1,12 +1,5 @@
 {
   "topics": [
-    "How **Hubble's Law** means the expansion of space can make galaxies permanently unreachable, even if we traveled at light speed.",
-    "How *gravitational lensing* reveals the invisible universe, where dark matter bends light but isn't seen.",
-    "How **molecular chirality** means a drug's mirror image can be deadly, despite identical atomic composition.",
-    "How **Xeno Nucleic Acids (XNAs)** reveal that life might not be limited to DNA and RNA, challenging biology's central dogma.",
-    "Neuromorphic computing chips mimic the brain's energy efficiency for AI, processing information with vastly less power than traditional architectures.",
-    "How the **cosmological constant** (a form of dark energy) could lead to a \"Big Rip\" scenario, tearing apart even atoms as space expands faster than light.",
-    "How the Delayed Choice Quantum Eraser experiment suggests future measurements can influence past quantum events, challenging our understanding of causality.",
     "How **shape memory alloys** actually work, where metals \"remember\" their original shape and return to it upon heating, even after severe deformation, due to a reversible solid-state phase change called **martensitic transformation**.",
     "How **synthetic gene circuits** enable living bacteria to perform complex computations, turning cells into miniature, programmable biological computers.",
     "Recent breakthroughs in photonic computing chips allow light to perform complex calculations, drastically accelerating AI and reducing energy consumption.",
@@ -89,8 +82,15 @@
     "Physicists at ETH Zurich achieved perfect randomness in quantum systems, eliminating patterns for impenetrable data encryption.",
     "Living building materials that sequester atmospheric carbon dioxide, actively strengthening themselves over time through cyanobacteria-driven mineral accumulation.",
     "How **human brain organoids** can spontaneously develop functional neural networks that learn to play video games, revealing emergent intelligence outside of a complete organism.",
-    "AI-driven materials discovery, leveraging advanced models like conditional diffusion, is revolutionizing the design of next-generation materials by accelerating the visualization and scaling of new atomic arrangements, drastically cutting development timelines."
+    "AI-driven materials discovery, leveraging advanced models like conditional diffusion, is revolutionizing the design of next-generation materials by accelerating the visualization and scaling of new atomic arrangements, drastically cutting development timelines.",
+    "Astronomers discover two supernovas originating from a single binary star system, a cosmic first challenging stellar evolution models.",
+    "What if the **Holographic Principle** suggests our entire 3D universe is actually an information-rich projection from a distant 2D surface, much like a cosmic hologram?",
+    "New chemical process transforms plastic waste into high-purity hydrogen fuel at lower temperatures, simultaneously trapping carbon.",
+    "Scientists have uncovered a naturally occurring gene that confers antibacterial resistance, a crucial finding in the escalating battle against drug-resistant pathogens.",
+    "How **time crystals** could enable computers to maintain perpetual motion in their lowest energy state, defying traditional thermodynamic equilibrium.",
+    "NASA's Curiosity rover uncovers a vast 'sea' of intricate honeycomb-like textures across a Martian valley, revealing new clues about the Red Planet's ancient geological and hydrological history.",
+    "IBM's claim of achieving 'quantum advantage' in useful computations, challenging the limits of classical supercomputers."
   ],
-  "subcluster_idx": 0,
-  "call_count": 100
+  "subcluster_idx": 2,
+  "call_count": 107
 }
