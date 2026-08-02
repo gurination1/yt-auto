@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Topological qubits achieve enhanced fault tolerance through 'braiding' Majorana zero modes, offering inherent error resistance for quantum computing.",
     "How **Hubble's Law** means the expansion of space can make galaxies permanently unreachable, even if we traveled at light speed.",
     "How *gravitational lensing* reveals the invisible universe, where dark matter bends light but isn't seen.",
     "How **molecular chirality** means a drug's mirror image can be deadly, despite identical atomic composition.",
@@ -89,8 +88,9 @@
     "How the **Pioneer Anomaly** was finally solved by accounting for anisotropic thermal radiation from its RTGs, revealing how minute, constant forces can alter trajectories over billions of miles.",
     "Physicists at ETH Zurich achieved perfect randomness in quantum systems, eliminating patterns for impenetrable data encryption.",
     "Living building materials that sequester atmospheric carbon dioxide, actively strengthening themselves over time through cyanobacteria-driven mineral accumulation.",
-    "How **human brain organoids** can spontaneously develop functional neural networks that learn to play video games, revealing emergent intelligence outside of a complete organism."
+    "How **human brain organoids** can spontaneously develop functional neural networks that learn to play video games, revealing emergent intelligence outside of a complete organism.",
+    "AI-driven materials discovery, leveraging advanced models like conditional diffusion, is revolutionizing the design of next-generation materials by accelerating the visualization and scaling of new atomic arrangements, drastically cutting development timelines."
   ],
-  "subcluster_idx": 4,
-  "call_count": 99
+  "subcluster_idx": 0,
+  "call_count": 100
 }
