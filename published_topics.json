@@ -1,6 +1,5 @@
 {
   "topics": [
-    "New direct detection experiments for axion dark matter utilize semiconductor quantum wells, offering a novel approach to probe previously inaccessible mass ranges.",
     "How **self-healing polymers** actually work, repairing microscopic cracks on their own through embedded microcapsules or reversible covalent bonds, preventing catastrophic failure.",
     "Engineered adeno-associated virus (AAV) capsids achieve unprecedented precision in delivering gene-editing tools to specific cell types, drastically improving targeting efficiency and reducing off-target effects.",
     "Recent breakthroughs in spintronic devices demonstrate ultra-low power data processing by manipulating electron spin, paving the way for significantly more energy-efficient computers.",
@@ -89,8 +88,9 @@
     "Solar Wind Cosmic Shields Science #1785689679",
     "How dark energy expands the observable universe cosmos #195",
     "How **nonlinear optics** actually allows light to 'think' by interacting with itself, creating logic gates without electrons, through phenomena like the **Kerr effect**, defying the typical non-interaction of photons.",
-    "Scientists have identified LHAASO J1912+1014u as a powerful cosmic accelerator, capable of propelling protons to energies exceeding one quadrillion electron volts, pushing the boundaries of our understanding of extreme astrophysical phenomena."
+    "Scientists have identified LHAASO J1912+1014u as a powerful cosmic accelerator, capable of propelling protons to energies exceeding one quadrillion electron volts, pushing the boundaries of our understanding of extreme astrophysical phenomena.",
+    "The creation of the world's first all-optical photonic time crystal is revolutionizing light control, opening new avenues for ultrafast computing and communication."
   ],
-  "subcluster_idx": 1,
-  "call_count": 121
+  "subcluster_idx": 2,
+  "call_count": 122
 }
