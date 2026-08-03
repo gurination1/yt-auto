@@ -1634,9 +1634,16 @@ def fetch_broll(query: str, format_type: str, segment_index: int, duration: floa
             from pipeline.vision_match import vision_rank_broll
             best_idx, match_found = vision_rank_broll(thumbs, narration, query)
 
+            # Sort valid_candidates so best_idx is first, followed by remaining candidates
+            candidate_order = []
             if match_found and best_idx is not None and best_idx < len(valid_candidates):
-                chosen = valid_candidates[best_idx]
-                print(f"[B-roll] Winner chosen! Source: {chosen.get('source', 'Unknown')} (Index: {best_idx}). Downloading video…")
+                candidate_order.append(valid_candidates[best_idx])
+                candidate_order.extend([c for i, c in enumerate(valid_candidates) if i != best_idx])
+            else:
+                candidate_order = valid_candidates
+
+            for chosen in candidate_order:
+                print(f"[B-roll] Attempting download for source: {chosen.get('source', 'Unknown')} ({chosen['video_url'][:50]}...)")
                 temp_video_path = f"output/temp_video_{segment_index}.mp4"
                 if _download_video_robust(chosen["video_url"], temp_video_path, segment_index):
                     if used_urls is not None:
@@ -1649,10 +1656,8 @@ def fetch_broll(query: str, format_type: str, segment_index: int, duration: floa
                         except Exception:
                             pass
                     return out_path
-            else:
-                print(f"[B-roll] None of the {len(valid_candidates)} candidates passed strict Vision Match.")
-        else:
-            print(f"[B-roll] No candidates with valid thumbnails for Segment {segment_index}.")
+                else:
+                    print(f"[B-roll] Video download failed for {chosen['video_url'][:50]}, trying next candidate...")
 
     # ── Fallback 1: Single Frame fallback search on other videos waterfall ─────────────────
     print(f"[B-roll] Segment {segment_index}: falling back to parallel waterfall search...")
