@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How **self-healing polymers** actually work, repairing microscopic cracks on their own through embedded microcapsules or reversible covalent bonds, preventing catastrophic failure.",
     "Engineered adeno-associated virus (AAV) capsids achieve unprecedented precision in delivering gene-editing tools to specific cell types, drastically improving targeting efficiency and reducing off-target effects.",
     "Recent breakthroughs in spintronic devices demonstrate ultra-low power data processing by manipulating electron spin, paving the way for significantly more energy-efficient computers.",
     "How Rayleigh scattering makes our Sun appear yellow from Earth, despite it being a white star.",
@@ -89,8 +88,9 @@
     "How dark energy expands the observable universe cosmos #195",
     "How **nonlinear optics** actually allows light to 'think' by interacting with itself, creating logic gates without electrons, through phenomena like the **Kerr effect**, defying the typical non-interaction of photons.",
     "Scientists have identified LHAASO J1912+1014u as a powerful cosmic accelerator, capable of propelling protons to energies exceeding one quadrillion electron volts, pushing the boundaries of our understanding of extreme astrophysical phenomena.",
-    "The creation of the world's first all-optical photonic time crystal is revolutionizing light control, opening new avenues for ultrafast computing and communication."
+    "The creation of the world's first all-optical photonic time crystal is revolutionizing light control, opening new avenues for ultrafast computing and communication.",
+    "What if materials could have \"forbidden\" symmetries? How **quasicrystals** actually work, exhibiting atomic patterns with five-fold rotational symmetry, previously thought impossible in crystals."
   ],
-  "subcluster_idx": 2,
-  "call_count": 122
+  "subcluster_idx": 3,
+  "call_count": 123
 }
