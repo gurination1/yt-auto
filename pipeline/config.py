@@ -1,5 +1,24 @@
 import os
 
+# Auto-load local_env.sh if present to populate environment variables
+def _autoload_local_env():
+    for env_path in ["local_env.sh", "../local_env.sh", "/root/yt-auto/local_env.sh", "/root/local_env.sh"]:
+        if os.path.exists(env_path):
+            try:
+                with open(env_path, "r", encoding="utf-8") as f:
+                    for line in f:
+                        line = line.strip()
+                        if line.startswith("export ") and "=" in line:
+                            k, v = line[7:].split("=", 1)
+                            k = k.strip()
+                            v = v.strip().strip('"').strip("'")
+                            if k and k not in os.environ and v:
+                                os.environ[k] = v
+            except Exception:
+                pass
+
+_autoload_local_env()
+
 # ── Gemini Key Pool ──────────────────────────────────────────────────────────
 # GEMINI_API_KEYS = comma-separated list (e.g. "key1,key2,key3")
 # Multiple keys from DIFFERENT Google accounts give truly separate quotas.
