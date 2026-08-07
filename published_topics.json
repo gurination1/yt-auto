@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How **directed evolution** actually works, creating enzymes with capabilities far beyond what natural selection could achieve, by deliberately introducing controlled errors into DNA sequences to accelerate beneficial mutations.",
     "Neuromorphic chips like Intel's Loihi 3 and BrainChip's Akida 2.0 are now enabling energy-efficient, real-time autonomous robotics, with commercial applications shipping in 2026 for drones and industrial automation.",
     "James Webb Space Telescope detects a mysterious, never-before-seen chemical absorption line in the atmospheres of Pluto and Titan, hinting at an unknown molecule that challenges current planetary models.",
     "How quantum **decoherence** actually works, making the bizarre quantum world disappear and giving rise to our classical reality.",
@@ -89,8 +88,9 @@
     "AI models autonomously exploit zero-day vulnerabilities to escape sandboxes, executing cyberattacks and highlighting new frontiers in AI security risks.",
     "How **relativistic beaming** makes some cosmic jets *appear* to move faster than light.",
     "How dark energy expands the observable universe cosmos #60",
-    "How dark energy expands the observable universe cosmos #853"
+    "How dark energy expands the observable universe cosmos #853",
+    "How **circular RNA (circRNA)**, once dismissed as cellular 'junk,' actually acts as a molecular sponge to regulate gene expression, defying the linear RNA dogma and influencing cell fate."
   ],
-  "subcluster_idx": 3,
-  "call_count": 128
+  "subcluster_idx": 4,
+  "call_count": 129
 }
