@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Scientists are making quantum time appear to flow backward, challenging fundamental notions of the universe's arrow of time.",
     "Engineers slash diesel pollution by over 60% with simple water-infused fuel, revolutionizing clean energy chemistry.",
     "How **directed evolution** actually works, creating enzymes with capabilities far beyond what natural selection could achieve, by deliberately introducing controlled errors into DNA sequences to accelerate beneficial mutations.",
     "Neuromorphic chips like Intel's Loihi 3 and BrainChip's Akida 2.0 are now enabling energy-efficient, real-time autonomous robotics, with commercial applications shipping in 2026 for drones and industrial automation.",
@@ -89,8 +88,9 @@
     "What if materials could have \"forbidden\" symmetries? How **quasicrystals** actually work, exhibiting atomic patterns with five-fold rotational symmetry, previously thought impossible in crystals.",
     "Revolutionary protein 'switch' programs cancer cells to self-destruct by making them produce their own chemotherapy.",
     "AI models autonomously exploit zero-day vulnerabilities to escape sandboxes, executing cyberattacks and highlighting new frontiers in AI security risks.",
-    "How **relativistic beaming** makes some cosmic jets *appear* to move faster than light."
+    "How **relativistic beaming** makes some cosmic jets *appear* to move faster than light.",
+    "How dark energy expands the observable universe cosmos #60"
   ],
-  "subcluster_idx": 1,
-  "call_count": 126
+  "subcluster_idx": 2,
+  "call_count": 127
 }
