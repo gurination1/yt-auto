@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How **Landauer's Principle** means every erased bit of information *must* dissipate a tiny amount of heat, setting a fundamental thermodynamic limit on the energy efficiency of future computing.",
     "Euclid Space Telescope unveils the universe's oldest and most luminous quasars, challenging theories on early supermassive black hole growth.",
     "Physicists are closing in on a unified theory of quantum gravity, aiming to reconcile the universe's largest and smallest scales.",
     "How **single-atom catalysts** actually work, where individual metal atoms act as 'super-efficient' reaction sites, defying the traditional need for bulk material for chemical transformations due to unique electronic structures.",
@@ -89,8 +88,9 @@
     "How dark energy expands the observable universe cosmos #154",
     "How dark energy expands the observable universe cosmos #998",
     "A groundbreaking hydrogen turbine generates electricity using controlled detonation waves, a breakthrough that could unlock significantly more efficient power systems.",
-    "Breakthroughs in biotechnology now allow muscle protein, a key component for 'fake meat' products, to be grown directly in the chloroplasts of lettuce and tobacco plants. This advancement could revolutionize sustainable food production and reduce reliance on animal agriculture."
+    "Breakthroughs in biotechnology now allow muscle protein, a key component for 'fake meat' products, to be grown directly in the chloroplasts of lettuce and tobacco plants. This advancement could revolutionize sustainable food production and reduce reliance on animal agriculture.",
+    "How dark energy expands the observable universe cosmos #518"
   ],
-  "subcluster_idx": 4,
-  "call_count": 134
+  "subcluster_idx": 0,
+  "call_count": 135
 }
