@@ -1,6 +1,5 @@
 {
   "topics": [
-    "James Webb Space Telescope detects a mysterious, never-before-seen chemical absorption line in the atmospheres of Pluto and Titan, hinting at an unknown molecule that challenges current planetary models.",
     "How quantum **decoherence** actually works, making the bizarre quantum world disappear and giving rise to our classical reality.",
     "Researchers are rapidly advancing alternative battery chemistries like zinc-ion and sodium-ion, promising safer, more sustainable, and abundant energy storage solutions beyond traditional lithium-ion technology.",
     "Scientists create 'SpudCells,' the first fully synthetic cells from non-living chemicals capable of growth and reproduction, blurring the lines of what defines life itself.",
@@ -89,8 +88,9 @@
     "How dark energy expands the observable universe cosmos #60",
     "How dark energy expands the observable universe cosmos #853",
     "How **circular RNA (circRNA)**, once dismissed as cellular 'junk,' actually acts as a molecular sponge to regulate gene expression, defying the linear RNA dogma and influencing cell fate.",
-    "Researchers leveraged AI to generate complete viral genomes, successfully creating functional bacteriophages, raising both the promise of new antibiotic treatments and urgent global biosecurity concerns over AI's ability to engineer biological threats."
+    "Researchers leveraged AI to generate complete viral genomes, successfully creating functional bacteriophages, raising both the promise of new antibiotic treatments and urgent global biosecurity concerns over AI's ability to engineer biological threats.",
+    "How dark energy expands the observable universe cosmos #154"
   ],
-  "subcluster_idx": 0,
-  "call_count": 130
+  "subcluster_idx": 1,
+  "call_count": 131
 }
