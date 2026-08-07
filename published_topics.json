@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Scientists create 'SpudCells,' the first fully synthetic cells from non-living chemicals capable of growth and reproduction, blurring the lines of what defines life itself.",
     "How **Landauer's Principle** means every erased bit of information *must* dissipate a tiny amount of heat, setting a fundamental thermodynamic limit on the energy efficiency of future computing.",
     "Euclid Space Telescope unveils the universe's oldest and most luminous quasars, challenging theories on early supermassive black hole growth.",
     "Physicists are closing in on a unified theory of quantum gravity, aiming to reconcile the universe's largest and smallest scales.",
@@ -89,8 +88,9 @@
     "Researchers leveraged AI to generate complete viral genomes, successfully creating functional bacteriophages, raising both the promise of new antibiotic treatments and urgent global biosecurity concerns over AI's ability to engineer biological threats.",
     "How dark energy expands the observable universe cosmos #154",
     "How dark energy expands the observable universe cosmos #998",
-    "A groundbreaking hydrogen turbine generates electricity using controlled detonation waves, a breakthrough that could unlock significantly more efficient power systems."
+    "A groundbreaking hydrogen turbine generates electricity using controlled detonation waves, a breakthrough that could unlock significantly more efficient power systems.",
+    "Breakthroughs in biotechnology now allow muscle protein, a key component for 'fake meat' products, to be grown directly in the chloroplasts of lettuce and tobacco plants. This advancement could revolutionize sustainable food production and reduce reliance on animal agriculture."
   ],
-  "subcluster_idx": 3,
-  "call_count": 133
+  "subcluster_idx": 4,
+  "call_count": 134
 }
