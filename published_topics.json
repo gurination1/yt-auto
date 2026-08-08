@@ -1,6 +1,5 @@
 {
   "topics": [
-    "New 'Viral ORFeome' tools enable unprecedented, large-scale analysis of viral proteins, accelerating disease research and pandemic preparedness.",
     "Major tech giants unleash next-gen AI agents, capable of autonomous multi-step planning and advanced coding, redefining how humans interact with digital systems.",
     "How **radiogenic heating** and thick hydrogen atmospheres could allow rogue planets to harbor subsurface oceans and potential life, despite drifting in interstellar space without a star.",
     "Decades-old dark matter claim, suggesting a seasonal signal, is definitively ruled out by new experiments, intensifying the mystery of dark matter's true nature.",
@@ -89,8 +88,9 @@
     "How dark energy expands the observable universe cosmos #518",
     "NASA extends the historic Voyager 2 mission by another year through a groundbreaking 'Big Bang' power-saving maneuver, with similar plans underway for Voyager 1, showcasing unprecedented interstellar mission longevity.",
     "The quantum eraser experiment offers new evidence suggesting delayed measurements can retroactively influence past particle behavior, unsettling causality.",
-    "How **vitrimer polymers** actually work, self-healing and reprocessing like thermoplastics but possessing the strength of thermosets, by dynamically rearranging their covalent bonds through a **transesterification** or similar exchange reaction at elevated temperatures."
+    "How **vitrimer polymers** actually work, self-healing and reprocessing like thermoplastics but possessing the strength of thermosets, by dynamically rearranging their covalent bonds through a **transesterification** or similar exchange reaction at elevated temperatures.",
+    "The complete genetic blueprint of zoysia grass has been fully mapped, unlocking new possibilities for engineering highly drought-tolerant turf and sustainable agriculture."
   ],
-  "subcluster_idx": 3,
-  "call_count": 138
+  "subcluster_idx": 4,
+  "call_count": 139
 }
