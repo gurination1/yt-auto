@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Euclid Space Telescope unveils the universe's oldest and most luminous quasars, challenging theories on early supermassive black hole growth.",
     "Physicists are closing in on a unified theory of quantum gravity, aiming to reconcile the universe's largest and smallest scales.",
     "How **single-atom catalysts** actually work, where individual metal atoms act as 'super-efficient' reaction sites, defying the traditional need for bulk material for chemical transformations due to unique electronic structures.",
     "New 'Viral ORFeome' tools enable unprecedented, large-scale analysis of viral proteins, accelerating disease research and pandemic preparedness.",
@@ -89,8 +88,9 @@
     "How dark energy expands the observable universe cosmos #998",
     "A groundbreaking hydrogen turbine generates electricity using controlled detonation waves, a breakthrough that could unlock significantly more efficient power systems.",
     "Breakthroughs in biotechnology now allow muscle protein, a key component for 'fake meat' products, to be grown directly in the chloroplasts of lettuce and tobacco plants. This advancement could revolutionize sustainable food production and reduce reliance on animal agriculture.",
-    "How dark energy expands the observable universe cosmos #518"
+    "How dark energy expands the observable universe cosmos #518",
+    "NASA extends the historic Voyager 2 mission by another year through a groundbreaking 'Big Bang' power-saving maneuver, with similar plans underway for Voyager 1, showcasing unprecedented interstellar mission longevity."
   ],
-  "subcluster_idx": 0,
-  "call_count": 135
+  "subcluster_idx": 1,
+  "call_count": 136
 }
