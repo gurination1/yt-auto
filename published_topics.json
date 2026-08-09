@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How **DNA origami** allows scientists to fold genetic material into complex 3D nanostructures, turning life's blueprint into a programmable building block for molecular machines.",
     "Autonomous AI Agents Shift from Copilots to Workflow Execution, Prompting New Governance Challenges",
     "Hubble and Webb discover a stellar-mass black hole in Omega Centauri, challenging black hole formation theories.",
     "How the **Strong CP Problem** reveals a puzzling absence of a specific neutron electric dipole moment, suggesting a fundamental symmetry (CP-symmetry) is unexpectedly preserved in the strong nuclear force, defying theoretical predictions.",
@@ -89,8 +88,9 @@
     "DARPA's successful AI-controlled F-16 flight redefines autonomous combat aviation, raising urgent questions about the future of warfare and human-AI collaboration in critical defense systems.",
     "What if the **Alcubierre Drive** could allow faster-than-light travel by warping spacetime around a spacecraft, a concept that paradoxically requires \"negative mass\" or exotic energy to function?",
     "Heat defies randomness, traveling through crystals in focused, wave-like rays at room temperature, challenging fundamental understanding of thermal energy.",
-    "Nanostructured Carbon Catalysts Revolutionize Fuel Cell Efficiency with Minimal Platinum Use"
+    "Nanostructured Carbon Catalysts Revolutionize Fuel Cell Efficiency with Minimal Platinum Use",
+    "How **anti-CRISPR proteins** actually work, allowing viruses to completely disable a bacterium's (and our) advanced gene-editing machinery, revealing a molecular arms race at the heart of microbial defense."
   ],
-  "subcluster_idx": 3,
-  "call_count": 143
+  "subcluster_idx": 4,
+  "call_count": 144
 }
