@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How **valleytronics** exploits a quantum property of electrons, beyond charge or spin, to create ultra-efficient, low-energy computing by manipulating 'valleys' in materials like graphene.",
     "Astronomers discover erythrulose, a complex sugar found in raspberries, in interstellar space, hinting at the universe's chemical capacity to form life's building blocks.",
     "Scientists discover a new fundamental 'space-time limit' in quantum physics, challenging our understanding of the universe's ultimate boundaries.",
     "How **negative thermal expansion materials** actually work, shrinking when heated and expanding when cooled, defying the laws of common experience due to unique crystal lattice vibrations.",
@@ -89,8 +88,9 @@
     "The August 12th total solar eclipse promises unprecedented views, with astronomers anticipating the revelation of previously unobserved solar phenomena.",
     "How **quantum tunneling** actually allows particles to 'teleport' through impossible energy barriers, a phenomenon vital for nuclear fusion in stars and the functioning of modern electronics.",
     "A significant advancement in green chemistry allows for cleaner chemical reactions that utilize oxygen and produce only water as a byproduct, signaling a major step towards sustainable manufacturing.",
-    "A newly identified miniature CRISPR enzyme, Al3Cas12f, enables precision gene editing directly inside the body, overcoming major delivery hurdles for in-vivo therapies."
+    "A newly identified miniature CRISPR enzyme, Al3Cas12f, enables precision gene editing directly inside the body, overcoming major delivery hurdles for in-vivo therapies.",
+    "How **dendritic computing** in human neurons actually allows a single dendrite to act as a complex computational unit, performing non-linear operations that defy the simple 'neuron as a switch' model, inspiring ultra-efficient neuromorphic chips."
   ],
-  "subcluster_idx": 4,
-  "call_count": 149
+  "subcluster_idx": 0,
+  "call_count": 150
 }
