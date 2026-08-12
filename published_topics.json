@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Why quantum computers don't melt at absolute zero",
     "The aggressive price war among major AI model developers like OpenAI, xAI, Meta, and Google is dramatically slashing inference costs, making advanced AI more accessible than ever before and fundamentally reshaping the competitive landscape of the AI industry.",
     "How **cosmic voids** actually accelerate the universe's expansion, not just sit there, due to a subtle 'negative pressure' effect on spacetime.",
     "A new theory proposes dark matter resonates within a hidden fifth dimension, offering novel targets in the hunt for this elusive cosmic glue.",
@@ -89,8 +88,9 @@
     "How **dendritic computing** in human neurons actually allows a single dendrite to act as a complex computational unit, performing non-linear operations that defy the simple 'neuron as a switch' model, inspiring ultra-efficient neuromorphic chips.",
     "The Daniel K. Inouye Solar Telescope has captured the sharpest-ever images of the Sun's surface, revealing previously unseen 'magnetic whirlpools' and turbulent plasma flows that could unlock secrets about solar flares and space weather.",
     "The 'measurement problem' in quantum mechanics explodes on social media, reigniting debate on how observation shapes reality.",
-    "How **supramolecular self-assembly** allows complex materials to spontaneously construct themselves from disordered components, driven solely by non-covalent interactions, mimicking nature's emergent order."
+    "How **supramolecular self-assembly** allows complex materials to spontaneously construct themselves from disordered components, driven solely by non-covalent interactions, mimicking nature's emergent order.",
+    "AI-designed proteins self-assemble into virus-like nanostructures for targeted drug delivery, revolutionizing biomedical transport."
   ],
-  "subcluster_idx": 3,
-  "call_count": 153
+  "subcluster_idx": 4,
+  "call_count": 154
 }
