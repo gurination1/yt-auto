@@ -5,6 +5,8 @@ import sys
 import traceback
 import subprocess
 
+os.environ["DISABLE_HYPERFRAMES"] = "1"
+
 from pipeline.config import validate_config
 import pipeline.phase1_topics as phase1
 import pipeline.phase2_script as phase2

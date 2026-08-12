@@ -150,46 +150,12 @@ def assemble_video(broll_files: list[str], tts_files: list[str], captions_ass: s
             except Exception as cerr:
                 print(f"[Assemble] Warning: Could not parse credit file {credit_file}: {cerr}")
 
-        # Select randomized cinematic camera motion (Ken Burns / Pan / Zoom)
-        import random as _rnd
-        motion_idx = _rnd.randint(0, 4)
-        
-        # Base scale-crop to cover full bleed with unsharp masking for enhanced clarity
-        if motion_idx == 0:
-            # 1. Slow Cinematic Diagonal Pan Up-Right
-            vf_chain = (
-                f"scale=trunc({w}*1.15/2)*2:trunc({h}*1.15/2)*2:force_original_aspect_ratio=increase,"
-                f"crop={w}:{h}:'(in_w-out_w)/2 + (t-{duration}/2)*15':'(in_h-out_h)/2 + (t-{duration}/2)*15',"
-                f"eq=contrast=1.06:saturation=1.12:gamma=0.96,unsharp=5:5:0.8:5:5:0.4,vignette=angle=0.4,setsar=1" + drawtext_chain
-            )
-        elif motion_idx == 1:
-            # 2. Slow Panning Upward
-            vf_chain = (
-                f"scale=trunc({w}*1.15/2)*2:trunc({h}*1.15/2)*2:force_original_aspect_ratio=increase,"
-                f"crop={w}:{h}:'(in_w-out_w)/2':'(in_h-out_h)/2 + (t-{duration}/2)*22',"
-                f"eq=contrast=1.06:saturation=1.12:gamma=0.96,unsharp=5:5:0.8:5:5:0.4,vignette=angle=0.4,setsar=1" + drawtext_chain
-            )
-        elif motion_idx == 2:
-            # 3. Slow Panning Downward
-            vf_chain = (
-                f"scale=trunc({w}*1.15/2)*2:trunc({h}*1.15/2)*2:force_original_aspect_ratio=increase,"
-                f"crop={w}:{h}:'(in_w-out_w)/2':'(in_h-out_h)/2 - (t-{duration}/2)*22',"
-                f"eq=contrast=1.06:saturation=1.12:gamma=0.96,unsharp=5:5:0.8:5:5:0.4,vignette=angle=0.4,setsar=1" + drawtext_chain
-            )
-        elif motion_idx == 3:
-            # 4. Slow Panning Right
-            vf_chain = (
-                f"scale=trunc({w}*1.15/2)*2:trunc({h}*1.15/2)*2:force_original_aspect_ratio=increase,"
-                f"crop={w}:{h}:'(in_w-out_w)/2 + (t-{duration}/2)*22':'(in_h-out_h)/2',"
-                f"eq=contrast=1.06:saturation=1.12:gamma=0.96,unsharp=5:5:0.8:5:5:0.4,vignette=angle=0.4,setsar=1" + drawtext_chain
-            )
-        else:
-            # 5. Slow Panning Left
-            vf_chain = (
-                f"scale=trunc({w}*1.15/2)*2:trunc({h}*1.15/2)*2:force_original_aspect_ratio=increase,"
-                f"crop={w}:{h}:'(in_w-out_w)/2 - (t-{duration}/2)*22':'(in_h-out_h)/2',"
-                f"eq=contrast=1.06:saturation=1.12:gamma=0.96,unsharp=5:5:0.8:5:5:0.4,vignette=angle=0.4,setsar=1" + drawtext_chain
-            )
+        # Clean centered framing to keep subject 100% in frame
+        vf_chain = (
+            f"scale=trunc({w}/2)*2:trunc({h}/2)*2:force_original_aspect_ratio=increase,"
+            f"crop={w}:{h}:'(in_w-out_w)/2':'(in_h-out_h)/2',"
+            f"eq=contrast=1.04:saturation=1.08:gamma=0.98,setsar=1" + drawtext_chain
+        )
             
         cmd = [
             "ffmpeg", "-y", "-ss", f"{ss_offset:.3f}", "-stream_loop", "-1", "-i", broll_path, "-t", f"{duration:.3f}",

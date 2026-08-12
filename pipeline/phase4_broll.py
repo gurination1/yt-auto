@@ -920,7 +920,7 @@ def _download_video_robust(url: str, out_path: str, segment_index: int, candidat
                     "yt-dlp",
                     "--download-sections", section_arg,
                     "--extractor-args", f"youtube:player_client={client_name}",
-                    "--format", "bestvideo[height<=1080]+bestaudio/best[height<=1080]/best",
+                    "--format", "bestvideo[height>=720][height<=1080]+bestaudio/bestvideo[height<=1080]+bestaudio/best[height<=1080]/best",
                     "--merge-output-format", "mp4",
                     "--user-agent", user_agent,
                     "--no-check-certificates",
@@ -1433,22 +1433,22 @@ def _score_candidate(item: dict, query: str, target_duration: float = 8.0) -> fl
         dur_score = max(0.0, 20.0 - 2.0 * diff)
         
     source_weights = {
-        "youtube": 250.0,
-        "nasa": 30.0,
-        "dvids": 18.0,
-        "wikimedia": 16.0,
-        "archive": 14.0,
-        "coverr": 18.0,
-        "pexels": 15.0,
-        "pixabay": 14.0,
-        "klipy": 8.0
+        "youtube": 120.0,
+        "nasa": 140.0,
+        "pexels": 130.0,
+        "coverr": 125.0,
+        "pixabay": 115.0,
+        "dvids": 50.0,
+        "wikimedia": 40.0,
+        "archive": 30.0,
+        "klipy": 20.0
     }
     source_lower = str(item.get("source", "")).lower()
     source_score = source_weights.get(source_lower, 10.0)
     
     # Extra Fair Use bonus if YouTube candidate has verified uploader handle for attribution
     if source_lower == "youtube" and item.get("uploader_handle"):
-        source_score += 50.0
+        source_score += 20.0
     
     return float(overlap_score + res_score + dur_score + source_score)
 
