@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How **negative thermal expansion materials** actually work, shrinking when heated and expanding when cooled, defying the laws of common experience due to unique crystal lattice vibrations.",
     "Why quantum computers don't melt at absolute zero",
     "The aggressive price war among major AI model developers like OpenAI, xAI, Meta, and Google is dramatically slashing inference costs, making advanced AI more accessible than ever before and fundamentally reshaping the competitive landscape of the AI industry.",
     "How **cosmic voids** actually accelerate the universe's expansion, not just sit there, due to a subtle 'negative pressure' effect on spacetime.",
@@ -89,8 +88,9 @@
     "A newly identified miniature CRISPR enzyme, Al3Cas12f, enables precision gene editing directly inside the body, overcoming major delivery hurdles for in-vivo therapies.",
     "How **dendritic computing** in human neurons actually allows a single dendrite to act as a complex computational unit, performing non-linear operations that defy the simple 'neuron as a switch' model, inspiring ultra-efficient neuromorphic chips.",
     "The Daniel K. Inouye Solar Telescope has captured the sharpest-ever images of the Sun's surface, revealing previously unseen 'magnetic whirlpools' and turbulent plasma flows that could unlock secrets about solar flares and space weather.",
-    "The 'measurement problem' in quantum mechanics explodes on social media, reigniting debate on how observation shapes reality."
+    "The 'measurement problem' in quantum mechanics explodes on social media, reigniting debate on how observation shapes reality.",
+    "How **supramolecular self-assembly** allows complex materials to spontaneously construct themselves from disordered components, driven solely by non-covalent interactions, mimicking nature's emergent order."
   ],
-  "subcluster_idx": 2,
-  "call_count": 152
+  "subcluster_idx": 3,
+  "call_count": 153
 }
