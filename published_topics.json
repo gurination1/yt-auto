@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The aggressive price war among major AI model developers like OpenAI, xAI, Meta, and Google is dramatically slashing inference costs, making advanced AI more accessible than ever before and fundamentally reshaping the competitive landscape of the AI industry.",
     "How **cosmic voids** actually accelerate the universe's expansion, not just sit there, due to a subtle 'negative pressure' effect on spacetime.",
     "A new theory proposes dark matter resonates within a hidden fifth dimension, offering novel targets in the hunt for this elusive cosmic glue.",
     "A new ultra-clean fabrication technique uses natural mineral mica to precisely stack 2D heterostructures, overcoming contamination issues critical for next-generation quantum technology and electronics.",
@@ -89,8 +88,9 @@
     "The Daniel K. Inouye Solar Telescope has captured the sharpest-ever images of the Sun's surface, revealing previously unseen 'magnetic whirlpools' and turbulent plasma flows that could unlock secrets about solar flares and space weather.",
     "The 'measurement problem' in quantum mechanics explodes on social media, reigniting debate on how observation shapes reality.",
     "How **single-atom catalysts** can perform chemical reactions with unprecedented efficiency and selectivity, making a single metal atom do the work of thousands by exposing every atom as an active site.",
-    "AI-Generated Novel Viruses: A New Form of Life Emerges"
+    "AI-Generated Novel Viruses: A New Form of Life Emerges",
+    "Breakthrough 6G chips are now achieving data transfer speeds of 100 gigabits per second, a staggering 10,000 times faster than current 5G, promising a revolution in communication and real-time connectivity."
   ],
-  "subcluster_idx": 4,
-  "call_count": 154
+  "subcluster_idx": 0,
+  "call_count": 155
 }
