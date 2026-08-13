@@ -1,6 +1,5 @@
 {
   "topics": [
-    "A new theory proposes dark matter resonates within a hidden fifth dimension, offering novel targets in the hunt for this elusive cosmic glue.",
     "A new ultra-clean fabrication technique uses natural mineral mica to precisely stack 2D heterostructures, overcoming contamination issues critical for next-generation quantum technology and electronics.",
     "How **optogenetics** allows scientists to control specific brain functions, memories, and even behaviors in living organisms by precisely activating or deactivating neurons with flashes of light.",
     "LSU physicists develop the first room-temperature quantum material capable of distinguishing and transporting different quantum states of light, overcoming a major challenge in quantum materials research.",
@@ -89,8 +88,9 @@
     "How **single-atom catalysts** can perform chemical reactions with unprecedented efficiency and selectivity, making a single metal atom do the work of thousands by exposing every atom as an active site.",
     "AI-Generated Novel Viruses: A New Form of Life Emerges",
     "Breakthrough 6G chips are now achieving data transfer speeds of 100 gigabits per second, a staggering 10,000 times faster than current 5G, promising a revolution in communication and real-time connectivity.",
-    "What if planets don't stay put? How **planetary migration** explains 'Hot Jupiters' by revealing how gas giants can move inward through a protoplanetary disk due to gravitational interactions, completely reshaping a solar system's architecture."
+    "What if planets don't stay put? How **planetary migration** explains 'Hot Jupiters' by revealing how gas giants can move inward through a protoplanetary disk due to gravitational interactions, completely reshaping a solar system's architecture.",
+    "Scientists have recently discovered quantum entanglement within a crystal visible to the naked eye, challenging long-held beliefs about the scale at which quantum phenomena can exist in everyday objects."
   ],
-  "subcluster_idx": 1,
-  "call_count": 156
+  "subcluster_idx": 2,
+  "call_count": 157
 }
