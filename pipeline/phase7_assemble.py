@@ -329,7 +329,7 @@ def assemble_video(broll_files: list[str], tts_files: list[str], captions_ass: s
         "-map", "0:v",
         "-map", "[audio_final]",
         "-c:v", "copy",
-        "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
+        "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
         "-shortest", "-movflags", "+faststart",
         final_output_path,
     ]

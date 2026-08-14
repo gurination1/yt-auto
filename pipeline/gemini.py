@@ -320,9 +320,8 @@ def _post_with_rotation(
                         print(f"[GeminiClient] 429 on slot {slot}: raw={resp.text[:200]}")
 
                     if _is_daily_quota_exhausted(resp):
-                        print(f"[GeminiClient] 429 rate limit on slot {slot}. Cooldown 15s & rotating key...")
-                        _shared_pool.mark_failed(key, 429, transient=True)
-                        _shared_pool._idx += 1
+                        print(f"[GeminiClient] 429 rate limit on slot {slot}. Daily quota exhausted, rotating key...")
+                        _shared_pool.mark_failed(key, 429, transient=False)
                         break  # Break inner loop to rotate key
                     else:
                         # RPM limit: retry with backoff or rotate if out of attempts
@@ -334,7 +333,6 @@ def _post_with_rotation(
                         else:
                             print(f"[GeminiClient] 429 RPM limit persisted on key slot {slot}. Rotating…")
                             _shared_pool.mark_failed(key, 429, transient=True)
-                            _shared_pool._idx += 1
                             break
                             
                 elif resp.status_code in (500, 502, 503, 504):
@@ -346,7 +344,6 @@ def _post_with_rotation(
                     else:
                         print(f"[GeminiClient] {resp.status_code} persisted on key slot {slot}. Rotating…")
                         _shared_pool.mark_failed(key, resp.status_code, transient=True)
-                        _shared_pool._idx += 1
                         break
                         
                 elif resp.status_code in (400, 403):
