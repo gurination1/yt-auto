@@ -1,6 +1,5 @@
 {
   "topics": [
-    "LSU physicists develop the first room-temperature quantum material capable of distinguishing and transporting different quantum states of light, overcoming a major challenge in quantum materials research.",
     "India's private Vikram-1 rocket successfully completes its debut orbital launch, marking a new milestone in commercial space capabilities.",
     "How the **Quantum Zeno Effect** reveals that repeatedly observing an unstable quantum system can paradoxically prevent it from decaying, essentially freezing its evolution.",
     "New methods for breaking down stubborn \"forever chemicals\" (PFAS) are revolutionizing environmental cleanup, offering powerful solutions to a pervasive global pollutant.",
@@ -89,8 +88,9 @@
     "What if planets don't stay put? How **planetary migration** explains 'Hot Jupiters' by revealing how gas giants can move inward through a protoplanetary disk due to gravitational interactions, completely reshaping a solar system's architecture.",
     "Scientists have recently discovered quantum entanglement within a crystal visible to the naked eye, challenging long-held beliefs about the scale at which quantum phenomena can exist in everyday objects.",
     "Breakthrough materials combining graphene and lithium cobalt oxide promise batteries that perform flawlessly from -40\u00b0C to +80\u00b0C, revolutionizing electronics and EVs for extreme environments.",
-    "What if **DNA digital data storage** could archive the world's information for millennia within a few sugar cubes, leveraging the molecule of life to store petabytes of data far denser and more durable than any silicon chip."
+    "What if **DNA digital data storage** could archive the world's information for millennia within a few sugar cubes, leveraging the molecule of life to store petabytes of data far denser and more durable than any silicon chip.",
+    "LG to unveil next-generation bipedal humanoid robot, built on NVIDIA Isaac GR00T, marking a significant leap in physical AI deployment."
   ],
-  "subcluster_idx": 4,
-  "call_count": 159
+  "subcluster_idx": 0,
+  "call_count": 160
 }
