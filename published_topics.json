@@ -1,6 +1,5 @@
 {
   "topics": [
-    "India's private Vikram-1 rocket successfully completes its debut orbital launch, marking a new milestone in commercial space capabilities.",
     "How the **Quantum Zeno Effect** reveals that repeatedly observing an unstable quantum system can paradoxically prevent it from decaying, essentially freezing its evolution.",
     "New methods for breaking down stubborn \"forever chemicals\" (PFAS) are revolutionizing environmental cleanup, offering powerful solutions to a pervasive global pollutant.",
     "Scribe Therapeutics' IPO for CRISPR-based preventative heart therapy, targeting permanent genetic modification.",
@@ -89,8 +88,9 @@
     "Scientists have recently discovered quantum entanglement within a crystal visible to the naked eye, challenging long-held beliefs about the scale at which quantum phenomena can exist in everyday objects.",
     "Breakthrough materials combining graphene and lithium cobalt oxide promise batteries that perform flawlessly from -40\u00b0C to +80\u00b0C, revolutionizing electronics and EVs for extreme environments.",
     "What if **DNA digital data storage** could archive the world's information for millennia within a few sugar cubes, leveraging the molecule of life to store petabytes of data far denser and more durable than any silicon chip.",
-    "LG to unveil next-generation bipedal humanoid robot, built on NVIDIA Isaac GR00T, marking a significant leap in physical AI deployment."
+    "LG to unveil next-generation bipedal humanoid robot, built on NVIDIA Isaac GR00T, marking a significant leap in physical AI deployment.",
+    "SpaceX rocket body impacts the Moon, highlighting tangible operational risks for future lunar settlements and missions."
   ],
-  "subcluster_idx": 0,
-  "call_count": 160
+  "subcluster_idx": 1,
+  "call_count": 161
 }
