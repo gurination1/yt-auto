@@ -38,10 +38,17 @@ def generate_script(topic: dict, format_type: str) -> dict:
             topic=topic.get("topic", "science"),
             event="A discovery"
         )
-        
+        lang_instruction = ""
+        target_lang = os.environ.get("LANGUAGE", "").lower() or topic.get("language", "").lower()
+        if target_lang == "punjabi" or "punjabi" in topic.get("topic", "").lower():
+            lang_instruction = (
+                "\nCRITICAL LANGUAGE REQUIREMENT: Write the 'narration' for every segment in authentic, natural conversational Punjabi (ਪੰਜਾਬੀ). "
+                "Keep 'broll_query', 'broll_queries', and 'title' in English so video search engines find 4K footage.\n"
+            )
+            
         prompt = f"""Generate an extremely viral, high-retention 25-35 second YouTube Short educational script on the topic: "{topic['topic']}".
 Use the following hook concept as your core theme: "{hook_formatted}" (short hook: "{topic.get('short_hook', '')}").
-
+{lang_instruction}
 Narration Style Requirements (with CH1 EduFun Niche Quality Signals):
 1. Pacing & Punchiness: 5 to 15 words per segment's narration. CRITICAL: NEVER split a single sentence across multiple segments! Each segment MUST contain 1 or 2 complete, self-contained sentences. If you split a sentence, the voiceover will pause awkwardly mid-sentence.
 2. Conversational & Extreme Simplicity: Use ONLY 5th-grade vocabulary. Extremely simple words, no complex grammar, no SAT words. Must be so simple a 10-year-old understands instantly.

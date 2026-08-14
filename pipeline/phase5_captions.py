@@ -200,24 +200,32 @@ def generate_captions(audio_files: list[str], script: dict, format_type: str = "
         time_offset += duration
         print(f"Segment {seg['id']} duration: {duration:.2f}s, Cumulative offset: {time_offset:.2f}s")
         
-    # Dynamic ASS subtitle configuration based on format
-    fonts_pool = [
-        ("Bebas Neue", "https://github.com/google/fonts/raw/main/ofl/bebasneue/BebasNeue-Regular.ttf"),
-        ("Anton", "https://github.com/google/fonts/raw/main/ofl/anton/Anton-Regular.ttf"),
-        ("Oswald", "https://github.com/google/fonts/raw/main/ofl/oswald/static/Oswald-Bold.ttf"),
-        ("Montserrat Bold", "https://github.com/google/fonts/raw/main/ofl/montserrat/Montserrat-Bold.ttf"),
-        ("Archivo Black", "https://github.com/google/fonts/raw/main/ofl/archivoblack/ArchivoBlack-Regular.ttf")
-    ]
-    import random
-    picked_font, picked_url = random.choice(fonts_pool)
-    try:
-        download_font(picked_font, picked_url)
-        script["font_name"] = picked_font
-        print(f"[Font] Picked and installed font: {picked_font}")
-    except Exception as e:
-        picked_font = "Bebas Neue"
-        script["font_name"] = "Bebas Neue"
-        print(f"[Font] Error downloading, falling back to Bebas Neue: {e}")
+    # Check if script contains Gurmukhi script characters
+    has_gurmukhi = any(any(0x0A00 <= ord(c) <= 0x0A7F for c in seg.get("narration", "")) for seg in script.get("segments", []))
+    
+    if has_gurmukhi:
+        picked_font = "Noto Sans Gurmukhi"
+        script["font_name"] = "Noto Sans Gurmukhi"
+        print(f"[Font] Gurmukhi script detected. Using font: {picked_font}")
+    else:
+        # Dynamic ASS subtitle configuration based on format
+        fonts_pool = [
+            ("Bebas Neue", "https://github.com/google/fonts/raw/main/ofl/bebasneue/BebasNeue-Regular.ttf"),
+            ("Anton", "https://github.com/google/fonts/raw/main/ofl/anton/Anton-Regular.ttf"),
+            ("Oswald", "https://github.com/google/fonts/raw/main/ofl/oswald/static/Oswald-Bold.ttf"),
+            ("Montserrat Bold", "https://github.com/google/fonts/raw/main/ofl/montserrat/Montserrat-Bold.ttf"),
+            ("Archivo Black", "https://github.com/google/fonts/raw/main/ofl/archivoblack/ArchivoBlack-Regular.ttf")
+        ]
+        import random
+        picked_font, picked_url = random.choice(fonts_pool)
+        try:
+            download_font(picked_font, picked_url)
+            script["font_name"] = picked_font
+            print(f"[Font] Picked and installed font: {picked_font}")
+        except Exception as e:
+            picked_font = "Bebas Neue"
+            script["font_name"] = "Bebas Neue"
+            print(f"[Font] Error downloading, falling back to Bebas Neue: {e}")
 
     ass_header = f"""[Script Info]
 ScriptType: v4.00+
