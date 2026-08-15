@@ -1,6 +1,5 @@
 {
   "topics": [
-    "What if 'utility fog' made of billions of **pico-scale swarm robots** could dynamically reconfigure into any physical object on demand, challenging the very notion of static matter itself through emergent properties.",
     "Electrically charged dust storms on Mars pose an unprecedented threat to future robotic and human exploration, potentially blinding missions and blocking vital sunlight.",
     "A new quantum effect dramatically boosts energy transfer between quantum dots and molecules via a proton-assisted mechanism.",
     "How the **Lotus Effect** allows water to literally bounce off surfaces, transforming everyday materials into self-cleaning wonders by trapping air pockets beneath droplets.",
@@ -89,8 +88,9 @@
     "SpaceX rocket body impacts the Moon, highlighting tangible operational risks for future lunar settlements and missions.",
     "How the **Unruh Effect** reveals that an accelerating observer perceives a thermal bath of particles, even in a perfect vacuum, fundamentally linking acceleration, temperature, and quantum fields in a bizarre cosmic illusion.",
     "Engineers have developed a new cobalt-aluminum alloy that is up to 10 times stronger than steel while remaining surprisingly flexible, challenging traditional material limitations.",
-    "How dark energy expands the observable universe cosmos #605"
+    "How dark energy expands the observable universe cosmos #605",
+    "How dark energy expands the observable universe cosmos #409"
   ],
-  "subcluster_idx": 4,
-  "call_count": 164
+  "subcluster_idx": 0,
+  "call_count": 165
 }
