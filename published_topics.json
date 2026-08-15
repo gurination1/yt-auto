@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How the **Quantum Zeno Effect** reveals that repeatedly observing an unstable quantum system can paradoxically prevent it from decaying, essentially freezing its evolution.",
     "New methods for breaking down stubborn \"forever chemicals\" (PFAS) are revolutionizing environmental cleanup, offering powerful solutions to a pervasive global pollutant.",
     "Scribe Therapeutics' IPO for CRISPR-based preventative heart therapy, targeting permanent genetic modification.",
     "What if 'utility fog' made of billions of **pico-scale swarm robots** could dynamically reconfigure into any physical object on demand, challenging the very notion of static matter itself through emergent properties.",
@@ -89,8 +88,9 @@
     "Breakthrough materials combining graphene and lithium cobalt oxide promise batteries that perform flawlessly from -40\u00b0C to +80\u00b0C, revolutionizing electronics and EVs for extreme environments.",
     "What if **DNA digital data storage** could archive the world's information for millennia within a few sugar cubes, leveraging the molecule of life to store petabytes of data far denser and more durable than any silicon chip.",
     "LG to unveil next-generation bipedal humanoid robot, built on NVIDIA Isaac GR00T, marking a significant leap in physical AI deployment.",
-    "SpaceX rocket body impacts the Moon, highlighting tangible operational risks for future lunar settlements and missions."
+    "SpaceX rocket body impacts the Moon, highlighting tangible operational risks for future lunar settlements and missions.",
+    "How the **Unruh Effect** reveals that an accelerating observer perceives a thermal bath of particles, even in a perfect vacuum, fundamentally linking acceleration, temperature, and quantum fields in a bizarre cosmic illusion."
   ],
-  "subcluster_idx": 1,
-  "call_count": 161
+  "subcluster_idx": 2,
+  "call_count": 162
 }
