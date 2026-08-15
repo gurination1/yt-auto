@@ -1,7 +1,7 @@
 {
   "0": {
     "cooldown_until": 1786867200.0,
-    "failures": 5,
+    "failures": 4,
     "status": "daily_exhausted"
   },
   "1": {
@@ -11,7 +11,7 @@
   },
   "2": {
     "cooldown_until": 1786867200.0,
-    "failures": 5,
+    "failures": 4,
     "status": "daily_exhausted"
   },
   "3": {
@@ -31,7 +31,7 @@
   },
   "6": {
     "cooldown_until": 1786867200.0,
-    "failures": 5,
+    "failures": 4,
     "status": "daily_exhausted"
   },
   "7": {
@@ -41,7 +41,7 @@
   },
   "8": {
     "cooldown_until": 1786867200.0,
-    "failures": 5,
+    "failures": 4,
     "status": "daily_exhausted"
   },
   "9": {

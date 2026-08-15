@@ -30,40 +30,67 @@ def fmt_time(seconds):
     s = seconds % 60
     return f"{h}:{m:02d}:{s:05.2f}"
 
-def align_words(script_words: list[str], whisper_words: list[dict]) -> list[dict]:
-    aligned = []
+def align_words(script_words: list[str], whisper_words: list[dict], total_dur: float) -> list[dict]:
     ns = len(script_words)
     nw = len(whisper_words)
     if ns == 0:
         return []
     if nw == 0:
-        return []
-    w_idx = 0
-    for s_idx, s_word in enumerate(script_words):
-        best_w_idx = w_idx
-        best_score = 0
-        for candidate_idx in range(max(0, w_idx - 4), min(nw, w_idx + 15)):
-            w_word = whisper_words[candidate_idx]["text"].strip(".,!?\"'()").upper()
-            s_word_clean = s_word.strip(".,!?\"'()").upper()
-            if w_word == s_word_clean:
-                score = 3
-            elif w_word in s_word_clean or s_word_clean in w_word:
-                score = 2
-            else:
-                score = 0
-            if score > best_score:
-                best_score = score
-                best_w_idx = candidate_idx
-        if best_score > 0:
-            w_idx = best_w_idx
-        clamped_w_idx = min(max(0, w_idx), nw - 1)
-        aligned.append({
-            "word": s_word,
-            "start": whisper_words[clamped_w_idx]["start"],
-            "end": whisper_words[clamped_w_idx]["end"]
-        })
-        w_idx = clamped_w_idx + 1
-    return aligned
+        word_dur = total_dur / max(1, ns)
+        return [{"word": w, "start": i * word_dur, "end": (i + 1) * word_dur} for i, w in enumerate(script_words)]
+
+    # Check direct text matches
+    direct_matches = 0
+    for s_w in script_words:
+        s_clean = s_w.strip(".,!?\"'()").upper()
+        if any(s_clean == w["text"].strip(".,!?\"'()").upper() for w in whisper_words):
+            direct_matches += 1
+
+    if direct_matches >= max(1, int(ns * 0.4)):
+        # High direct match rate (English / Latin scripts)
+        aligned = []
+        w_idx = 0
+        for s_idx, s_word in enumerate(script_words):
+            best_w_idx = w_idx
+            best_score = 0
+            for candidate_idx in range(max(0, w_idx - 3), min(nw, w_idx + 10)):
+                w_word = whisper_words[candidate_idx]["text"].strip(".,!?\"'()").upper()
+                s_word_clean = s_word.strip(".,!?\"'()").upper()
+                if w_word == s_word_clean:
+                    score = 3
+                elif w_word in s_word_clean or s_word_clean in w_word:
+                    score = 2
+                else:
+                    score = 0
+                if score > best_score:
+                    best_score = score
+                    best_w_idx = candidate_idx
+            if best_score > 0:
+                w_idx = best_w_idx
+            clamped_w_idx = min(max(0, w_idx), nw - 1)
+            aligned.append({
+                "word": s_word,
+                "start": whisper_words[clamped_w_idx]["start"],
+                "end": whisper_words[clamped_w_idx]["end"]
+            })
+            w_idx = clamped_w_idx + 1
+        return aligned
+    else:
+        # Non-Latin / Punjabi / Transliterated speech:
+        # Map script words directly to Whisper's exact acoustic word timeline
+        aligned = []
+        for i, sword in enumerate(script_words):
+            w_start_idx = min(int(i * nw / ns), nw - 1)
+            w_end_idx = min(int((i + 1) * nw / ns) - 1, nw - 1)
+            if w_end_idx < w_start_idx:
+                w_end_idx = w_start_idx
+
+            aligned.append({
+                "word": sword,
+                "start": whisper_words[w_start_idx]["start"],
+                "end": whisper_words[w_end_idx]["end"]
+            })
+        return aligned
 
 def generate_captions(audio_files: list[str], script: dict, format_type: str = "short") -> str:
     if format_type == "short":
@@ -130,8 +157,10 @@ def generate_captions(audio_files: list[str], script: dict, format_type: str = "
 
         if model is not None:
             try:
-                print(f"Transcribing TTS file: {audio_path}...")
-                segments_out, info = model.transcribe(audio_path, word_timestamps=True)
+                has_gurmukhi = any(0x0A00 <= ord(c) <= 0x0A7F for c in seg["narration"])
+                lang_code = 'pa' if has_gurmukhi else (os.environ.get("LANGUAGE", "en")[:2].lower())
+                print(f"Transcribing TTS file: {audio_path} (lang={lang_code})...")
+                segments_out, info = model.transcribe(audio_path, language=lang_code, word_timestamps=True)
                 whisper_words = []
                 for whisper_seg in segments_out:
                     if whisper_seg.words:
@@ -143,7 +172,7 @@ def generate_captions(audio_files: list[str], script: dict, format_type: str = "
                                     "start": word_info.start,
                                     "end": word_info.end
                                 })
-                aligned_words = align_words(script_words, whisper_words)
+                aligned_words = align_words(script_words, whisper_words, duration)
             except Exception as seg_err:
                 print(f"Warning: Whisper failed for segment {seg['id']} ({seg_err}). Using rule-based timing.")
 

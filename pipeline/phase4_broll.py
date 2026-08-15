@@ -963,9 +963,10 @@ def _download_video_robust(url: str, out_path: str, segment_index: int, candidat
                     "--extractor-args", "youtube:player_client=android",
                     "--user-agent", "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36",
                     "--no-check-certificates",
+                    "--socket-timeout", "4",
                     url
                 ]
-                res_info = subprocess.run(cmd_info, capture_output=True, text=True, check=True)
+                res_info = subprocess.run(cmd_info, capture_output=True, text=True, check=True, timeout=5)
                 info = json.loads(res_info.stdout)
                 duration_secs = float(info.get("duration", 0.0))
             except Exception as e:
@@ -985,12 +986,10 @@ def _download_video_robust(url: str, out_path: str, segment_index: int, candidat
                 
             section_arg = f"*{start_time:.1f}-{end_time:.1f}"
             
-            # 3. Try multiple client extractors (android -> ios -> mweb -> tv) in waterfall loop
+            # 3. Try top client extractors (android -> ios) in waterfall loop
             clients_to_try = [
                 ("android", "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36"),
-                ("ios", "Mozilla/5.0 (iPhone; CPU iPhone OS 17_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Mobile/15E148 Safari/604.1"),
-                ("mweb", "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36"),
-                ("tv", "Mozilla/5.0 (SMART-TV; Linux; Tizen 5.0) AppleWebKit/537.36 (KHTML, like Gecko) Version/5.0 TV Safari/537.36")
+                ("ios", "Mozilla/5.0 (iPhone; CPU iPhone OS 17_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Mobile/15E148 Safari/604.1")
             ]
             
             for client_name, user_agent in clients_to_try:
@@ -1002,12 +1001,16 @@ def _download_video_robust(url: str, out_path: str, segment_index: int, candidat
                     "--merge-output-format", "mp4",
                     "--user-agent", user_agent,
                     "--no-check-certificates",
-                    "--retries", "3",
+                    "--retries", "1",
+                    "--socket-timeout", "4",
                     "--output", out_path,
                     url
                 ]
                 print(f"[B-roll] Running yt-dlp section download ({client_name} client)...")
-                subprocess.run(cmd_dl, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                try:
+                    subprocess.run(cmd_dl, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=5)
+                except subprocess.TimeoutExpired:
+                    print(f"[B-roll] yt-dlp section download ({client_name}) timed out after 5s.")
                 if os.path.exists(out_path) and os.path.getsize(out_path) > 10_000:
                     print(f"[B-roll] YouTube slice download SUCCESS with {client_name} client!")
                     break
