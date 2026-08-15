@@ -81,7 +81,7 @@ def generate_captions(audio_files: list[str], script: dict, format_type: str = "
     pos_y = play_res_y - margin_v
     pos_tag = f"{{\\pos({pos_x},{pos_y})}}"
 
-    ass_events = []
+    all_chunks = []
     ass_events = []
     time_offset = 0.0
 
@@ -157,42 +157,50 @@ def generate_captions(audio_files: list[str], script: dict, format_type: str = "
                     "end": (w_idx + 1) * word_dur
                 })
 
-        # Group words into clean, readable 2-3 word phrases (prevents rapid flickering and collisions)
+        # Group words into clean 2-word phrases per segment
         chunk_size = 2 if format_type == "short" else 3
-        word_chunks = [aligned_words[i:i + chunk_size] for i in range(0, len(aligned_words), chunk_size)]
-
-        last_end = time_offset
-        for chunk in word_chunks:
+        for c_idx in range(0, len(aligned_words), chunk_size):
+            chunk = aligned_words[c_idx:c_idx + chunk_size]
             if not chunk:
                 continue
             phrase_text = " ".join(w["word"] for w in chunk).strip()
             if not phrase_text:
                 continue
-
-            c_start = time_offset + chunk[0]["start"]
-            c_end = time_offset + chunk[-1]["end"]
-
-            # Ensure start timestamp never precedes previous end timestamp
-            if c_start < last_end:
-                c_start = last_end
-            if c_end <= c_start:
-                c_end = c_start + 1.0
-
-            # Minimum display duration for readability
-            if c_end - c_start < 0.8:
-                c_end = c_start + 0.8
-
-            last_end = c_end
-
-            # Clean styling with subtle pop animation and high-contrast yellow/white colors
             has_power = any(w["word"].strip(".,!?\"'()").upper() in POWER_WORDS for w in chunk)
-            color_tag = "\\c&H0000E5FF&" if has_power else "\\c&H00FFFFFF&"
-            
-            styled_text = f"{{\\fscx95\\fscy95\\t(0,60,1.1,\\fscx105\\fscy105)\\t(60,120,1,\\fscx100\\fscy100){color_tag}}}{phrase_text}{{\\r}}"
-            ass_events.append(f"Dialogue: 0,{fmt_time(c_start)},{fmt_time(c_end)},Default,,0,0,0,,{styled_text}")
+            all_chunks.append({
+                "text": phrase_text,
+                "start": time_offset + chunk[0]["start"],
+                "raw_end": time_offset + chunk[-1]["end"],
+                "has_power": has_power
+            })
 
         time_offset += duration
         print(f"Segment {seg['id']} duration: {duration:.2f}s, Cumulative offset: {time_offset:.2f}s")
+
+    # Build strictly non-overlapping, sequential ASS dialogue events across all segments
+    ass_events = []
+    last_end = 0.0
+    for idx, c in enumerate(all_chunks):
+        c_start = c["start"]
+        if idx > 0 and c_start < last_end:
+            c_start = last_end
+
+        if idx + 1 < len(all_chunks):
+            next_start = all_chunks[idx + 1]["start"]
+            if next_start <= c_start:
+                next_start = c_start + 0.4
+            c_end = min(max(c_start + 0.3, c["raw_end"]), next_start)
+        else:
+            c_end = max(c_start + 0.4, c["raw_end"])
+
+        if c_end <= c_start:
+            c_end = c_start + 0.4
+
+        last_end = c_end
+
+        color_tag = "\\c&H0000E5FF&" if c["has_power"] else "\\c&H00FFFFFF&"
+        styled_text = f"{{\\fscx95\\fscy95\\t(0,60,1.08,\\fscx104\\fscy104)\\t(60,120,1,\\fscx100\\fscy100){color_tag}}}{c['text']}{{\\r}}"
+        ass_events.append(f"Dialogue: 0,{fmt_time(c_start)},{fmt_time(c_end)},Default,,0,0,0,,{styled_text}")
         
     # Check if script contains Gurmukhi script characters
     has_gurmukhi = any(any(0x0A00 <= ord(c) <= 0x0A7F for c in seg.get("narration", "")) for seg in script.get("segments", []))
@@ -221,6 +229,9 @@ def generate_captions(audio_files: list[str], script: dict, format_type: str = "
             script["font_name"] = "Bebas Neue"
             print(f"[Font] Error downloading, falling back to Bebas Neue: {e}")
 
+    font_size = 62 if format_type == "short" else 54
+    margin_v = 360 if format_type == "short" else 130
+
     ass_header = f"""[Script Info]
 ScriptType: v4.00+
 PlayResX: {play_res_x}
@@ -228,7 +239,7 @@ PlayResY: {play_res_y}
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Default,{picked_font},{font_size},&H00FFFFFF,&H000000FF,&H00000000,&H90000000,-1,0,0,0,100,100,0,0,1,8,2,2,30,30,{margin_v},1
+Style: Default,{picked_font},{font_size},&H00FFFFFF,&H000000FF,&H00000000,&H00000000,-1,0,0,0,100,100,0,0,1,5,0,2,40,40,{margin_v},1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
