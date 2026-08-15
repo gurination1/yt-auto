@@ -1471,6 +1471,16 @@ def _score_candidate(item: dict, query: str, target_duration: float = 8.0) -> fl
     if str(item.get("source", "")).lower() == "youtube":
         overlap_score += 100.0
         
+    # Negative penalty for watermarked previews, timecode overlays, vlogs, podcasts, reactions
+    bad_keywords = [
+        "stock footage", "preview", "watermark", "shutterstock", "getty", "pond5", 
+        "storyblocks", "adobe stock", "timecode", "sample", "vlog", "podcast", 
+        "interview", "talking head", "reaction", "daily vlog", "my day", "unboxing", "review", "vlogger"
+    ]
+    for bad_w in bad_keywords:
+        if bad_w in text_to_check.lower():
+            overlap_score -= 150.0
+
     width = item.get("width")
     height = item.get("height")
     res_score = 5.0
@@ -1511,11 +1521,11 @@ def _score_candidate(item: dict, query: str, target_duration: float = 8.0) -> fl
         dur_score = max(0.0, 20.0 - 2.0 * diff)
         
     source_weights = {
-        "youtube": 120.0,
-        "nasa": 140.0,
-        "pexels": 130.0,
-        "coverr": 125.0,
-        "pixabay": 115.0,
+        "nasa": 160.0,
+        "pexels": 150.0,
+        "pixabay": 140.0,
+        "coverr": 135.0,
+        "youtube": 125.0,
         "dvids": 50.0,
         "wikimedia": 40.0,
         "archive": 30.0,

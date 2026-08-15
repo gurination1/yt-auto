@@ -149,7 +149,7 @@ def generate_captions(audio_files: list[str], script: dict, format_type: str = "
 
         # Fallback to even distribution if Whisper was unavailable, failed, or produced empty alignment
         if not aligned_words and script_words:
-            word_dur = duration / len(script_words)
+            word_dur = duration / max(1, len(script_words))
             for w_idx, word in enumerate(script_words):
                 aligned_words.append({
                     "word": word,
@@ -157,45 +157,39 @@ def generate_captions(audio_files: list[str], script: dict, format_type: str = "
                     "end": (w_idx + 1) * word_dur
                 })
 
-        # Generate non-colliding single/2-word ASS captions
-        last_end = 0.0
-        for idx, word_info in enumerate(aligned_words):
-            start = time_offset + word_info["start"]
-            end = time_offset + word_info["end"]
+        # Group words into clean, readable 2-3 word phrases (prevents rapid flickering and collisions)
+        chunk_size = 2 if format_type == "short" else 3
+        word_chunks = [aligned_words[i:i + chunk_size] for i in range(0, len(aligned_words), chunk_size)]
 
-            # Clamp start so it never overlaps previous line's end timestamp (prevents libass vertical stacking collision)
-            if start < last_end:
-                start = last_end
-            if end <= start:
-                end = start + 0.25
+        last_end = time_offset
+        for chunk in word_chunks:
+            if not chunk:
+                continue
+            phrase_text = " ".join(w["word"] for w in chunk).strip()
+            if not phrase_text:
+                continue
 
-            # Set end to start of next word if next word starts earlier than current end
-            if idx + 1 < len(aligned_words):
-                next_start = time_offset + aligned_words[idx + 1]["start"]
-                if next_start > start:
-                    end = min(end, next_start)
+            c_start = time_offset + chunk[0]["start"]
+            c_end = time_offset + chunk[-1]["end"]
 
-            last_end = end
+            # Ensure start timestamp never precedes previous end timestamp
+            if c_start < last_end:
+                c_start = last_end
+            if c_end <= c_start:
+                c_end = c_start + 1.0
 
-            word_dur_ms = int((end - start) * 1000)
-            pop_end = min(70, max(20, int(word_dur_ms * 0.45)))
-            settle_end = min(150, max(40, word_dur_ms))
+            # Minimum display duration for readability
+            if c_end - c_start < 0.8:
+                c_end = c_start + 0.8
 
-            curr_word = word_info["word"]
-            curr_word_clean = curr_word.strip(".,!?\"'()").upper()
+            last_end = c_end
+
+            # Clean styling with subtle pop animation and high-contrast yellow/white colors
+            has_power = any(w["word"].strip(".,!?\"'()").upper() in POWER_WORDS for w in chunk)
+            color_tag = "\\c&H0000E5FF&" if has_power else "\\c&H00FFFFFF&"
             
-            if curr_word_clean in POWER_WORDS:
-                styled_text = (
-                    f"{{\\fscx90\\fscy90\\t(0,{pop_end},1.2,\\fscx122\\fscy122)"
-                    f"\\t({pop_end},{settle_end},1,\\fscx100\\fscy100)\\c&H0033FF33&}}{curr_word.upper()}{{\\r}}"
-                )
-            else:
-                styled_text = (
-                    f"{{\\fscx90\\fscy90\\t(0,{pop_end},1.2,\\fscx112\\fscy112)"
-                    f"\\t({pop_end},{settle_end},1,\\fscx100\\fscy100)\\c&H0000E5FF&}}{curr_word.upper()}{{\\r}}"
-                )
-
-            ass_events.append(f"Dialogue: 0,{fmt_time(start)},{fmt_time(end)},Default,,0,0,0,,{pos_tag}{styled_text}")
+            styled_text = f"{{\\fscx95\\fscy95\\t(0,60,1.1,\\fscx105\\fscy105)\\t(60,120,1,\\fscx100\\fscy100){color_tag}}}{phrase_text}{{\\r}}"
+            ass_events.append(f"Dialogue: 0,{fmt_time(c_start)},{fmt_time(c_end)},Default,,0,0,0,,{styled_text}")
 
         time_offset += duration
         print(f"Segment {seg['id']} duration: {duration:.2f}s, Cumulative offset: {time_offset:.2f}s")
