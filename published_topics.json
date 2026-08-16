@@ -1,6 +1,5 @@
 {
   "topics": [
-    "A new quantum effect dramatically boosts energy transfer between quantum dots and molecules via a proton-assisted mechanism.",
     "How the **Lotus Effect** allows water to literally bounce off surfaces, transforming everyday materials into self-cleaning wonders by trapping air pockets beneath droplets.",
     "Engineered enzyme dramatically reverses aging hallmarks by up to 70% in human tissue samples, offering unprecedented insights into longevity.",
     "AI's unseen power crisis: Data centers to consume 20% of US electricity by 2035, driving a \"digital casino\" effect in entertainment.",
@@ -89,8 +88,9 @@
     "Engineers have developed a new cobalt-aluminum alloy that is up to 10 times stronger than steel while remaining surprisingly flexible, challenging traditional material limitations.",
     "How dark energy expands the observable universe cosmos #605",
     "How dark energy expands the observable universe cosmos #409",
-    "A 170lb meteor exploded over Washington state at 33,000 mph, generating a sonic boom, rattling homes, and potentially scattering fragments, becoming a viral event as NASA confirms its significant energy release."
+    "A 170lb meteor exploded over Washington state at 33,000 mph, generating a sonic boom, rattling homes, and potentially scattering fragments, becoming a viral event as NASA confirms its significant energy release.",
+    "How dark energy expands the observable universe cosmos #637"
   ],
-  "subcluster_idx": 1,
-  "call_count": 166
+  "subcluster_idx": 2,
+  "call_count": 167
 }
