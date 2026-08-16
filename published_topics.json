@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Engineered enzyme dramatically reverses aging hallmarks by up to 70% in human tissue samples, offering unprecedented insights into longevity.",
     "AI's unseen power crisis: Data centers to consume 20% of US electricity by 2035, driving a \"digital casino\" effect in entertainment.",
     "How the Sun's atmosphere, the corona, is millions of degrees hotter than its surface, a mystery solved by magnetic reconnection heating.",
     "Quantum Internet Leaves the Lab: First real-world demonstration of quantum entanglement over busy telecom fiber, proving its viability outside of controlled laboratory settings.",
@@ -89,8 +88,9 @@
     "How dark energy expands the observable universe cosmos #409",
     "A 170lb meteor exploded over Washington state at 33,000 mph, generating a sonic boom, rattling homes, and potentially scattering fragments, becoming a viral event as NASA confirms its significant energy release.",
     "How dark energy expands the observable universe cosmos #637",
-    "How **supercritical fluids** like CO2 can transform into a 'tunable solvent' that dissolves intractable substances, yet completely disappears without residue, by existing beyond their critical point."
+    "How **supercritical fluids** like CO2 can transform into a 'tunable solvent' that dissolves intractable substances, yet completely disappears without residue, by existing beyond their critical point.",
+    "Breakthroughs in engineered cells allow for rapid adjustment of circadian rhythms, potentially offering a novel and efficient solution for jet lag and shift work."
   ],
-  "subcluster_idx": 3,
-  "call_count": 168
+  "subcluster_idx": 4,
+  "call_count": 169
 }
