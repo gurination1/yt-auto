@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How the **Lotus Effect** allows water to literally bounce off surfaces, transforming everyday materials into self-cleaning wonders by trapping air pockets beneath droplets.",
     "Engineered enzyme dramatically reverses aging hallmarks by up to 70% in human tissue samples, offering unprecedented insights into longevity.",
     "AI's unseen power crisis: Data centers to consume 20% of US electricity by 2035, driving a \"digital casino\" effect in entertainment.",
     "How the Sun's atmosphere, the corona, is millions of degrees hotter than its surface, a mystery solved by magnetic reconnection heating.",
@@ -89,8 +88,9 @@
     "How dark energy expands the observable universe cosmos #605",
     "How dark energy expands the observable universe cosmos #409",
     "A 170lb meteor exploded over Washington state at 33,000 mph, generating a sonic boom, rattling homes, and potentially scattering fragments, becoming a viral event as NASA confirms its significant energy release.",
-    "How dark energy expands the observable universe cosmos #637"
+    "How dark energy expands the observable universe cosmos #637",
+    "How **supercritical fluids** like CO2 can transform into a 'tunable solvent' that dissolves intractable substances, yet completely disappears without residue, by existing beyond their critical point."
   ],
-  "subcluster_idx": 2,
-  "call_count": 167
+  "subcluster_idx": 3,
+  "call_count": 168
 }
