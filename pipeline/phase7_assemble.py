@@ -150,12 +150,46 @@ def assemble_video(broll_files: list[str], tts_files: list[str], captions_ass: s
             except Exception as cerr:
                 print(f"[Assemble] Warning: Could not parse credit file {credit_file}: {cerr}")
 
-        # Clean centered framing to keep subject 100% in frame
-        vf_chain = (
-            f"scale=trunc({w}/2)*2:trunc({h}/2)*2:force_original_aspect_ratio=increase,"
-            f"crop={w}:{h}:'(in_w-out_w)/2':'(in_h-out_h)/2',"
-            f"eq=contrast=1.04:saturation=1.08:gamma=0.98,setsar=1" + drawtext_chain
-        )
+        # Select randomized cinematic camera motion (Ken Burns / Pan / Zoom)
+        import random as _rnd
+        motion_idx = _rnd.randint(0, 4)
+        
+        # Base scale-crop to cover full bleed with unsharp masking for enhanced clarity
+        if motion_idx == 0:
+            # 1. Slow Cinematic Diagonal Pan Up-Right
+            vf_chain = (
+                f"scale=trunc({w}*1.15/2)*2:trunc({h}*1.15/2)*2:force_original_aspect_ratio=increase,"
+                f"crop={w}:{h}:'(in_w-out_w)/2 + (t-{duration}/2)*15':'(in_h-out_h)/2 + (t-{duration}/2)*15',"
+                f"eq=contrast=1.06:saturation=1.12:gamma=0.96,unsharp=5:5:0.8:5:5:0.4,vignette=angle=0.4,setsar=1" + drawtext_chain
+            )
+        elif motion_idx == 1:
+            # 2. Slow Panning Upward
+            vf_chain = (
+                f"scale=trunc({w}*1.15/2)*2:trunc({h}*1.15/2)*2:force_original_aspect_ratio=increase,"
+                f"crop={w}:{h}:'(in_w-out_w)/2':'(in_h-out_h)/2 + (t-{duration}/2)*22',"
+                f"eq=contrast=1.06:saturation=1.12:gamma=0.96,unsharp=5:5:0.8:5:5:0.4,vignette=angle=0.4,setsar=1" + drawtext_chain
+            )
+        elif motion_idx == 2:
+            # 3. Slow Panning Downward
+            vf_chain = (
+                f"scale=trunc({w}*1.15/2)*2:trunc({h}*1.15/2)*2:force_original_aspect_ratio=increase,"
+                f"crop={w}:{h}:'(in_w-out_w)/2':'(in_h-out_h)/2 - (t-{duration}/2)*22',"
+                f"eq=contrast=1.06:saturation=1.12:gamma=0.96,unsharp=5:5:0.8:5:5:0.4,vignette=angle=0.4,setsar=1" + drawtext_chain
+            )
+        elif motion_idx == 3:
+            # 4. Slow Panning Right
+            vf_chain = (
+                f"scale=trunc({w}*1.15/2)*2:trunc({h}*1.15/2)*2:force_original_aspect_ratio=increase,"
+                f"crop={w}:{h}:'(in_w-out_w)/2 + (t-{duration}/2)*22':'(in_h-out_h)/2',"
+                f"eq=contrast=1.06:saturation=1.12:gamma=0.96,unsharp=5:5:0.8:5:5:0.4,vignette=angle=0.4,setsar=1" + drawtext_chain
+            )
+        else:
+            # 5. Slow Panning Left
+            vf_chain = (
+                f"scale=trunc({w}*1.15/2)*2:trunc({h}*1.15/2)*2:force_original_aspect_ratio=increase,"
+                f"crop={w}:{h}:'(in_w-out_w)/2 - (t-{duration}/2)*22':'(in_h-out_h)/2',"
+                f"eq=contrast=1.06:saturation=1.12:gamma=0.96,unsharp=5:5:0.8:5:5:0.4,vignette=angle=0.4,setsar=1" + drawtext_chain
+            )
             
         cmd = [
             "ffmpeg", "-y", "-ss", f"{ss_offset:.3f}", "-stream_loop", "-1", "-i", broll_path, "-t", f"{duration:.3f}",
@@ -227,27 +261,65 @@ def assemble_video(broll_files: list[str], tts_files: list[str], captions_ass: s
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
     # Step 5: Adding premium hook overlays and transitions
-    # Step 5: Clean transition handling
-    print("Step 5: Finalizing video filters...")
+    print("Step 5: Adding premium hook overlays and transitions...")
     assembled_flashed_path = "output/assembled_flashed.mp4"
     if format_type == "short":
+        clean_title = "".join(c for c in script.get("title", "").upper() if c.isalnum() or c.isspace()).strip()
+        
         filters = []
-        # Pattern interrupt flashes at the start of each segment (0.12s subtle overlay)
-        overlay_colors = ["white@0.2", "black@0.3", "white@0.15"]
-        for idx, t_start in enumerate(boundary_times):
+        # 1. Pattern interrupt flashes at the start of each segment (0.15s transparent white/black/color overlay)
+        overlay_colors = ["white@0.3", "black@0.45", "yellow@0.15", "orange@0.2"]
+        for idx, t_start in enumerate([0.0] + boundary_times):
             color = overlay_colors[idx % len(overlay_colors)]
-            filters.append(f"drawbox=y=0:color={color}:t=fill:enable='between(t,{t_start:.3f},{t_start+0.12:.3f})'")
+            filters.append(f"drawbox=y=0:color={color}:t=fill:enable='between(t,{t_start:.3f},{t_start+0.15:.3f})'")
             
-        if filters:
-            cmd = [
-                "ffmpeg", "-y", "-i", assembled_capped_path,
-                "-vf", ",".join(filters),
-                "-c:v", "libx264", "-preset", "superfast", "-crf", "18", "-pix_fmt", "yuv420p",
-                assembled_flashed_path
-            ]
-            subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        else:
-            shutil.copyfile(assembled_capped_path, assembled_flashed_path)
+        # Get font name as a separate variable to avoid backslash inside f-string expression (unsupported in Python 3.11)
+        font_name = script.get('font_name', 'Bebas Neue')
+            
+        # 2. Big title hook card (first 1.5s) - Yellow font with premium box padding
+        # Clamp title to max 28 chars per line to prevent overflow, reduce fontsize if very long
+        words = clean_title.split()
+        title_lines = []
+        current_line = ""
+        for word in words:
+            test_line = f"{current_line} {word}".strip() if current_line else word
+            if len(test_line) <= 22:
+                current_line = test_line
+            else:
+                if current_line:
+                    title_lines.append(current_line)
+                current_line = word
+        if current_line:
+            title_lines.append(current_line)
+        
+        # Use smaller font if title is multi-line
+        title_fontsize = 64 if len(title_lines) <= 1 else 50
+        y_start = 0.16
+        for t_idx, line in enumerate(title_lines):
+            clean_l = line.replace("'", "").replace(":", "\\:").strip()
+            y_pos = f"h*{y_start + t_idx * 0.06:.2f}"
+            filters.append(
+                f"drawtext=text='{clean_l}':fontsize={title_fontsize}:fontcolor=yellow:font='{font_name}':"
+                f"x=(w-text_w)/2:y={y_pos}:enable='between(t,0,1.8)':shadowcolor=black@0.9:shadowx=4:shadowy=4:borderw=4:bordercolor=black"
+            )
+                       
+        if len(durations) >= 4:
+            seg4_start = sum(durations[:3])
+            seg4_end = seg4_start + 0.8
+            # 3. Rewatch trigger positioned cleanly at lower third
+            filters.append(
+                f"drawtext=text='PAUSE - CATCH THE DETAIL':fontsize=42:fontcolor=yellow:font='{font_name}':"
+                f"x=(w-text_w)/2:y=h*0.82:enable='between(t,{seg4_start:.3f},{seg4_end:.3f})':"
+                f"shadowcolor=black@0.9:shadowx=3:shadowy=3:borderw=3:bordercolor=black"
+            )
+            
+        cmd = [
+            "ffmpeg", "-y", "-i", assembled_capped_path,
+            "-vf", ",".join(filters),
+            "-c:v", "libx264", "-preset", "superfast", "-crf", "18", "-pix_fmt", "yuv420p",
+            assembled_flashed_path
+        ]
+        subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     else:
         # For long form, apply subtle black dip transitions at boundaries (0.25s)
         filters = []
@@ -291,7 +363,7 @@ def assemble_video(broll_files: list[str], tts_files: list[str], captions_ass: s
         "-map", "0:v",
         "-map", "[audio_final]",
         "-c:v", "copy",
-        "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
+        "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
         "-shortest", "-movflags", "+faststart",
         final_output_path,
     ]

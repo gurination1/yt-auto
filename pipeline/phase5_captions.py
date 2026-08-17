@@ -30,67 +30,40 @@ def fmt_time(seconds):
     s = seconds % 60
     return f"{h}:{m:02d}:{s:05.2f}"
 
-def align_words(script_words: list[str], whisper_words: list[dict], total_dur: float) -> list[dict]:
+def align_words(script_words: list[str], whisper_words: list[dict]) -> list[dict]:
+    aligned = []
     ns = len(script_words)
     nw = len(whisper_words)
     if ns == 0:
         return []
     if nw == 0:
-        word_dur = total_dur / max(1, ns)
-        return [{"word": w, "start": i * word_dur, "end": (i + 1) * word_dur} for i, w in enumerate(script_words)]
-
-    # Check direct text matches
-    direct_matches = 0
-    for s_w in script_words:
-        s_clean = s_w.strip(".,!?\"'()").upper()
-        if any(s_clean == w["text"].strip(".,!?\"'()").upper() for w in whisper_words):
-            direct_matches += 1
-
-    if direct_matches >= max(1, int(ns * 0.4)):
-        # High direct match rate (English / Latin scripts)
-        aligned = []
-        w_idx = 0
-        for s_idx, s_word in enumerate(script_words):
-            best_w_idx = w_idx
-            best_score = 0
-            for candidate_idx in range(max(0, w_idx - 3), min(nw, w_idx + 10)):
-                w_word = whisper_words[candidate_idx]["text"].strip(".,!?\"'()").upper()
-                s_word_clean = s_word.strip(".,!?\"'()").upper()
-                if w_word == s_word_clean:
-                    score = 3
-                elif w_word in s_word_clean or s_word_clean in w_word:
-                    score = 2
-                else:
-                    score = 0
-                if score > best_score:
-                    best_score = score
-                    best_w_idx = candidate_idx
-            if best_score > 0:
-                w_idx = best_w_idx
-            clamped_w_idx = min(max(0, w_idx), nw - 1)
-            aligned.append({
-                "word": s_word,
-                "start": whisper_words[clamped_w_idx]["start"],
-                "end": whisper_words[clamped_w_idx]["end"]
-            })
-            w_idx = clamped_w_idx + 1
-        return aligned
-    else:
-        # Non-Latin / Punjabi / Transliterated speech:
-        # Map script words directly to Whisper's exact acoustic word timeline
-        aligned = []
-        for i, sword in enumerate(script_words):
-            w_start_idx = min(int(i * nw / ns), nw - 1)
-            w_end_idx = min(int((i + 1) * nw / ns) - 1, nw - 1)
-            if w_end_idx < w_start_idx:
-                w_end_idx = w_start_idx
-
-            aligned.append({
-                "word": sword,
-                "start": whisper_words[w_start_idx]["start"],
-                "end": whisper_words[w_end_idx]["end"]
-            })
-        return aligned
+        return []
+    w_idx = 0
+    for s_idx, s_word in enumerate(script_words):
+        best_w_idx = w_idx
+        best_score = 0
+        for candidate_idx in range(max(0, w_idx - 4), min(nw, w_idx + 15)):
+            w_word = whisper_words[candidate_idx]["text"].strip(".,!?\"'()").upper()
+            s_word_clean = s_word.strip(".,!?\"'()").upper()
+            if w_word == s_word_clean:
+                score = 3
+            elif w_word in s_word_clean or s_word_clean in w_word:
+                score = 2
+            else:
+                score = 0
+            if score > best_score:
+                best_score = score
+                best_w_idx = candidate_idx
+        if best_score > 0:
+            w_idx = best_w_idx
+        clamped_w_idx = min(max(0, w_idx), nw - 1)
+        aligned.append({
+            "word": s_word,
+            "start": whisper_words[clamped_w_idx]["start"],
+            "end": whisper_words[clamped_w_idx]["end"]
+        })
+        w_idx = clamped_w_idx + 1
+    return aligned
 
 def generate_captions(audio_files: list[str], script: dict, format_type: str = "short") -> str:
     if format_type == "short":
@@ -108,7 +81,7 @@ def generate_captions(audio_files: list[str], script: dict, format_type: str = "
     pos_y = play_res_y - margin_v
     pos_tag = f"{{\\pos({pos_x},{pos_y})}}"
 
-    all_chunks = []
+    ass_events = []
     ass_events = []
     time_offset = 0.0
 
@@ -157,10 +130,8 @@ def generate_captions(audio_files: list[str], script: dict, format_type: str = "
 
         if model is not None:
             try:
-                has_gurmukhi = any(0x0A00 <= ord(c) <= 0x0A7F for c in seg["narration"])
-                lang_code = 'pa' if has_gurmukhi else (os.environ.get("LANGUAGE", "en")[:2].lower())
-                print(f"Transcribing TTS file: {audio_path} (lang={lang_code})...")
-                segments_out, info = model.transcribe(audio_path, language=lang_code, word_timestamps=True)
+                print(f"Transcribing TTS file: {audio_path}...")
+                segments_out, info = model.transcribe(audio_path, word_timestamps=True)
                 whisper_words = []
                 for whisper_seg in segments_out:
                     if whisper_seg.words:
@@ -172,13 +143,13 @@ def generate_captions(audio_files: list[str], script: dict, format_type: str = "
                                     "start": word_info.start,
                                     "end": word_info.end
                                 })
-                aligned_words = align_words(script_words, whisper_words, duration)
+                aligned_words = align_words(script_words, whisper_words)
             except Exception as seg_err:
                 print(f"Warning: Whisper failed for segment {seg['id']} ({seg_err}). Using rule-based timing.")
 
         # Fallback to even distribution if Whisper was unavailable, failed, or produced empty alignment
         if not aligned_words and script_words:
-            word_dur = duration / max(1, len(script_words))
+            word_dur = duration / len(script_words)
             for w_idx, word in enumerate(script_words):
                 aligned_words.append({
                     "word": word,
@@ -186,80 +157,67 @@ def generate_captions(audio_files: list[str], script: dict, format_type: str = "
                     "end": (w_idx + 1) * word_dur
                 })
 
-        # Group words into clean 2-word phrases per segment
-        chunk_size = 2 if format_type == "short" else 3
-        for c_idx in range(0, len(aligned_words), chunk_size):
-            chunk = aligned_words[c_idx:c_idx + chunk_size]
-            if not chunk:
-                continue
-            phrase_text = " ".join(w["word"] for w in chunk).strip()
-            if not phrase_text:
-                continue
-            has_power = any(w["word"].strip(".,!?\"'()").upper() in POWER_WORDS for w in chunk)
-            all_chunks.append({
-                "text": phrase_text,
-                "start": time_offset + chunk[0]["start"],
-                "raw_end": time_offset + chunk[-1]["end"],
-                "has_power": has_power
-            })
+        # Generate non-colliding single/2-word ASS captions
+        last_end = 0.0
+        for idx, word_info in enumerate(aligned_words):
+            start = time_offset + word_info["start"]
+            end = time_offset + word_info["end"]
+
+            # Clamp start so it never overlaps previous line's end timestamp (prevents libass vertical stacking collision)
+            if start < last_end:
+                start = last_end
+            if end <= start:
+                end = start + 0.25
+
+            # Set end to start of next word if next word starts earlier than current end
+            if idx + 1 < len(aligned_words):
+                next_start = time_offset + aligned_words[idx + 1]["start"]
+                if next_start > start:
+                    end = min(end, next_start)
+
+            last_end = end
+
+            word_dur_ms = int((end - start) * 1000)
+            pop_end = min(70, max(20, int(word_dur_ms * 0.45)))
+            settle_end = min(150, max(40, word_dur_ms))
+
+            curr_word = word_info["word"]
+            curr_word_clean = curr_word.strip(".,!?\"'()").upper()
+            
+            if curr_word_clean in POWER_WORDS:
+                styled_text = (
+                    f"{{\\fscx90\\fscy90\\t(0,{pop_end},1.2,\\fscx122\\fscy122)"
+                    f"\\t({pop_end},{settle_end},1,\\fscx100\\fscy100)\\c&H0033FF33&}}{curr_word.upper()}{{\\r}}"
+                )
+            else:
+                styled_text = (
+                    f"{{\\fscx90\\fscy90\\t(0,{pop_end},1.2,\\fscx112\\fscy112)"
+                    f"\\t({pop_end},{settle_end},1,\\fscx100\\fscy100)\\c&H0000E5FF&}}{curr_word.upper()}{{\\r}}"
+                )
+
+            ass_events.append(f"Dialogue: 0,{fmt_time(start)},{fmt_time(end)},Default,,0,0,0,,{pos_tag}{styled_text}")
 
         time_offset += duration
         print(f"Segment {seg['id']} duration: {duration:.2f}s, Cumulative offset: {time_offset:.2f}s")
-
-    # Build strictly non-overlapping, sequential ASS dialogue events across all segments
-    ass_events = []
-    last_end = 0.0
-    for idx, c in enumerate(all_chunks):
-        c_start = c["start"]
-        if idx > 0 and c_start < last_end:
-            c_start = last_end
-
-        if idx + 1 < len(all_chunks):
-            next_start = all_chunks[idx + 1]["start"]
-            if next_start <= c_start:
-                next_start = c_start + 0.4
-            c_end = min(max(c_start + 0.3, c["raw_end"]), next_start)
-        else:
-            c_end = max(c_start + 0.4, c["raw_end"])
-
-        if c_end <= c_start:
-            c_end = c_start + 0.4
-
-        last_end = c_end
-
-        color_tag = "\\c&H0000E5FF&" if c["has_power"] else "\\c&H00FFFFFF&"
-        styled_text = f"{{\\fscx95\\fscy95\\t(0,60,1.08,\\fscx104\\fscy104)\\t(60,120,1,\\fscx100\\fscy100){color_tag}}}{c['text']}{{\\r}}"
-        ass_events.append(f"Dialogue: 0,{fmt_time(c_start)},{fmt_time(c_end)},Default,,0,0,0,,{styled_text}")
         
-    # Check if script contains Gurmukhi script characters
-    has_gurmukhi = any(any(0x0A00 <= ord(c) <= 0x0A7F for c in seg.get("narration", "")) for seg in script.get("segments", []))
-    
-    if has_gurmukhi:
-        picked_font = "Noto Sans Gurmukhi"
-        script["font_name"] = "Noto Sans Gurmukhi"
-        print(f"[Font] Gurmukhi script detected. Using font: {picked_font}")
-    else:
-        # Dynamic ASS subtitle configuration based on format
-        fonts_pool = [
-            ("Bebas Neue", "https://github.com/google/fonts/raw/main/ofl/bebasneue/BebasNeue-Regular.ttf"),
-            ("Anton", "https://github.com/google/fonts/raw/main/ofl/anton/Anton-Regular.ttf"),
-            ("Oswald", "https://github.com/google/fonts/raw/main/ofl/oswald/static/Oswald-Bold.ttf"),
-            ("Montserrat Bold", "https://github.com/google/fonts/raw/main/ofl/montserrat/Montserrat-Bold.ttf"),
-            ("Archivo Black", "https://github.com/google/fonts/raw/main/ofl/archivoblack/ArchivoBlack-Regular.ttf")
-        ]
-        import random
-        picked_font, picked_url = random.choice(fonts_pool)
-        try:
-            download_font(picked_font, picked_url)
-            script["font_name"] = picked_font
-            print(f"[Font] Picked and installed font: {picked_font}")
-        except Exception as e:
-            picked_font = "Bebas Neue"
-            script["font_name"] = "Bebas Neue"
-            print(f"[Font] Error downloading, falling back to Bebas Neue: {e}")
-
-    font_size = 62 if format_type == "short" else 54
-    margin_v = 360 if format_type == "short" else 130
+    # Dynamic ASS subtitle configuration based on format
+    fonts_pool = [
+        ("Bebas Neue", "https://github.com/google/fonts/raw/main/ofl/bebasneue/BebasNeue-Regular.ttf"),
+        ("Anton", "https://github.com/google/fonts/raw/main/ofl/anton/Anton-Regular.ttf"),
+        ("Oswald", "https://github.com/google/fonts/raw/main/ofl/oswald/static/Oswald-Bold.ttf"),
+        ("Montserrat Bold", "https://github.com/google/fonts/raw/main/ofl/montserrat/Montserrat-Bold.ttf"),
+        ("Archivo Black", "https://github.com/google/fonts/raw/main/ofl/archivoblack/ArchivoBlack-Regular.ttf")
+    ]
+    import random
+    picked_font, picked_url = random.choice(fonts_pool)
+    try:
+        download_font(picked_font, picked_url)
+        script["font_name"] = picked_font
+        print(f"[Font] Picked and installed font: {picked_font}")
+    except Exception as e:
+        picked_font = "Bebas Neue"
+        script["font_name"] = "Bebas Neue"
+        print(f"[Font] Error downloading, falling back to Bebas Neue: {e}")
 
     ass_header = f"""[Script Info]
 ScriptType: v4.00+
@@ -268,7 +226,7 @@ PlayResY: {play_res_y}
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Default,{picked_font},{font_size},&H00FFFFFF,&H000000FF,&H00000000,&H00000000,-1,0,0,0,100,100,0,0,1,5,0,2,40,40,{margin_v},1
+Style: Default,{picked_font},{font_size},&H00FFFFFF,&H000000FF,&H00000000,&H90000000,-1,0,0,0,100,100,0,0,1,8,2,2,30,30,{margin_v},1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
