@@ -2125,7 +2125,7 @@ def _has_baked_text_ocr(frame_path: str) -> bool:
 
     cmd_procedural = [
         "ffmpeg", "-y", "-f", "lavfi",
-        "-i", f"color=c=0x0b1326:s={w}x{h}:d={duration}",
+        "-i", f"mandelbrot=size={w}x{h}:rate=30,trim=duration={duration}",
         "-c:v", "libx264", "-pix_fmt", "yuv420p", out_path
     ]
     subprocess.run(cmd_procedural, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
