@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How the Sun's atmosphere, the corona, is millions of degrees hotter than its surface, a mystery solved by magnetic reconnection heating.",
     "Quantum Internet Leaves the Lab: First real-world demonstration of quantum entanglement over busy telecom fiber, proving its viability outside of controlled laboratory settings.",
     "AI and robotics are accelerating scientific discovery, with a $20 million initiative establishing self-driving labs for chemistry and materials science.",
     "How **CRISPR-interference (CRISPRi)** can precisely turn off genes without ever cutting DNA, revealing a new frontier in genetic control by manipulating gene expression directly.",
@@ -89,8 +88,9 @@
     "How dark energy expands the observable universe cosmos #637",
     "How **supercritical fluids** like CO2 can transform into a 'tunable solvent' that dissolves intractable substances, yet completely disappears without residue, by existing beyond their critical point.",
     "Breakthroughs in engineered cells allow for rapid adjustment of circadian rhythms, potentially offering a novel and efficient solution for jet lag and shift work.",
-    "Living Microchips from Brain Cells Outperform AI: US scientists create organoid-computer hybrids that recognize speech patterns faster than conventional models and adapt, signaling a new era of biological computing."
+    "Living Microchips from Brain Cells Outperform AI: US scientists create organoid-computer hybrids that recognize speech patterns faster than conventional models and adapt, signaling a new era of biological computing.",
+    "How **non-baryonic dark matter** interacts with normal matter only through gravity, explaining why it's so hard to detect and why it 'ghosts' through galaxies and even us."
   ],
-  "subcluster_idx": 0,
-  "call_count": 170
+  "subcluster_idx": 1,
+  "call_count": 171
 }
