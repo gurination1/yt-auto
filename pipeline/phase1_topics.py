@@ -28,16 +28,16 @@ def select_topic(format_type: str) -> dict:
 
     if is_trending:
         topic_instruction = (
-            f"Use Google Search to find current HIGHLY VIRAL news from the last 24-48 hours about {current_subcluster}. "
-            f"Generate 5 TRENDING topics that are currently exploding on social media or making massive news. "
-            f"Frame each as a timely, highly intriguing analysis."
+            f"Use Google Search to find current HIGHLY VIRAL news from the last 24-48 hours SPECIFICALLY about {current_subcluster}. "
+            f"Generate 5 TRENDING topics strictly within {current_subcluster} that are currently exploding on social media or making massive news. "
+            f"Frame each as a timely, highly intriguing analysis. Strictly preserve this channel's dedicated niche and do NOT generate generic news."
         )
     else:
         topic_instruction = (
             f"Generate 5 EVERGREEN topics about {current_subcluster}. "
-            f"Each must reveal a bizarre, counterintuitive, or little-known science fact "
+            f"Each must reveal a bizarre, counterintuitive, or little-known fact "
             f"that educated adults don't know. Frame as 'What if X happened' or 'How Y actually works'. "
-            f"Every topic MUST name a specific mechanism, theory, machine, or phenomenon — "
+            f"Every topic MUST name a specific mechanism, theory, machine, structure, or phenomenon — "
             f"NOT a vague 'scientists are surprised' hook."
         )
 
