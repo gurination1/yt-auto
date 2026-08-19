@@ -1,6 +1,5 @@
 {
   "topics": [
-    "What if black holes aren't smooth spheres but **quantum firewalls**, where anything falling in is instantly incinerated at the event horizon, a radical answer to the information paradox?",
     "Molten Salt Method Unlocks \"Impossible\" Nanocrystals, Revolutionizing Flexible Electronics",
     "AI model Evo 2 autonomously learns DNA grammar, identifying mutations and synthesizing genomes without explicit instruction.",
     "What if computing could leverage **excitonic superfluidity**, where 'light-matter' particles flow without resistance, potentially enabling ultra-dense, ultra-fast, and energy-efficient data transfer at near-room temperatures.",
@@ -89,8 +88,9 @@
     "Researchers have engineered an unusually corrosion-resistant stainless steel, offering a significantly cheaper alternative to titanium for critical components in green hydrogen production.",
     "How dark energy expands the observable universe cosmos #505",
     "World's first superconducting quantum heat engine converts quantum-scale heat into useful work, potentially eliminating millions of noisy cables in future quantum computers, accelerating their scaling and reducing complexity.",
-    "Tonight, stargazers can witness a rare and stunning cosmic alignment as the crescent Moon perfectly positions itself between brilliant Venus and the bright blue-white star Spica in the evening sky."
+    "Tonight, stargazers can witness a rare and stunning cosmic alignment as the crescent Moon perfectly positions itself between brilliant Venus and the bright blue-white star Spica in the evening sky.",
+    "How **quantum decoherence** might explain the universe's **arrow of time**, by demonstrating how microscopic quantum systems irreversibly lose their \"quantumness\" by entangling with their environment, creating the seemingly one-way flow we experience."
   ],
-  "subcluster_idx": 1,
-  "call_count": 176
+  "subcluster_idx": 2,
+  "call_count": 177
 }
