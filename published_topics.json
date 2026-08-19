@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Molten Salt Method Unlocks \"Impossible\" Nanocrystals, Revolutionizing Flexible Electronics",
     "AI model Evo 2 autonomously learns DNA grammar, identifying mutations and synthesizing genomes without explicit instruction.",
     "What if computing could leverage **excitonic superfluidity**, where 'light-matter' particles flow without resistance, potentially enabling ultra-dense, ultra-fast, and energy-efficient data transfer at near-room temperatures.",
     "X-ray spacecraft detects 36-million-degree 'breath' of ancient black holes, revealing the scorching exhaust from the earliest quasars.",
@@ -89,8 +88,9 @@
     "How dark energy expands the observable universe cosmos #505",
     "World's first superconducting quantum heat engine converts quantum-scale heat into useful work, potentially eliminating millions of noisy cables in future quantum computers, accelerating their scaling and reducing complexity.",
     "Tonight, stargazers can witness a rare and stunning cosmic alignment as the crescent Moon perfectly positions itself between brilliant Venus and the bright blue-white star Spica in the evening sky.",
-    "How **quantum decoherence** might explain the universe's **arrow of time**, by demonstrating how microscopic quantum systems irreversibly lose their \"quantumness\" by entangling with their environment, creating the seemingly one-way flow we experience."
+    "How **quantum decoherence** might explain the universe's **arrow of time**, by demonstrating how microscopic quantum systems irreversibly lose their \"quantumness\" by entangling with their environment, creating the seemingly one-way flow we experience.",
+    "Scientists unveil a novel polymer that transforms into a gas upon heating and solidifies back upon cooling, enabling unprecedented material recyclability and dynamic applications."
   ],
-  "subcluster_idx": 2,
-  "call_count": 177
+  "subcluster_idx": 3,
+  "call_count": 178
 }
