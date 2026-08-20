@@ -1,6 +1,5 @@
 {
   "topics": [
-    "What if computing could leverage **excitonic superfluidity**, where 'light-matter' particles flow without resistance, potentially enabling ultra-dense, ultra-fast, and energy-efficient data transfer at near-room temperatures.",
     "X-ray spacecraft detects 36-million-degree 'breath' of ancient black holes, revealing the scorching exhaust from the earliest quasars.",
     "Quantum entanglement theory, dormant for two decades, is now experimentally confirmed using a novel 'quantum bath' method, providing a scalable pathway for future quantum computing architectures.",
     "How **gamma-prime (\u03b3') phase strengthening** allows certain nickel-based superalloys to become *stronger* as they get hotter, defying the typical weakening of metals at high temperatures and enabling jet engines.",
@@ -89,8 +88,9 @@
     "Tonight, stargazers can witness a rare and stunning cosmic alignment as the crescent Moon perfectly positions itself between brilliant Venus and the bright blue-white star Spica in the evening sky.",
     "How **quantum decoherence** might explain the universe's **arrow of time**, by demonstrating how microscopic quantum systems irreversibly lose their \"quantumness\" by entangling with their environment, creating the seemingly one-way flow we experience.",
     "Scientists unveil a novel polymer that transforms into a gas upon heating and solidifies back upon cooling, enabling unprecedented material recyclability and dynamic applications.",
-    "Moderna and Merck's individualized mRNA-based cancer vaccine has achieved a major breakthrough, demonstrating significantly improved recurrence-free survival in a Phase 3 trial for skin cancer."
+    "Moderna and Merck's individualized mRNA-based cancer vaccine has achieved a major breakthrough, demonstrating significantly improved recurrence-free survival in a Phase 3 trial for skin cancer.",
+    "What if computing could use **Surface Plasmon Polaritons** to shrink light waves smaller than themselves, allowing optical circuits to be packed at the nanoscale, defying the fundamental diffraction limit?"
   ],
-  "subcluster_idx": 4,
-  "call_count": 179
+  "subcluster_idx": 0,
+  "call_count": 180
 }
