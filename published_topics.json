@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Google's \"Willow\" quantum processor employs reinforcement learning for real-time self-tuning, detecting drift, and autonomously reducing logical errors without halting computation.",
     "How the **Pioneer Anomaly** was finally solved by accounting for anisotropic thermal radiation from its RTGs, revealing how minute, constant forces can alter trajectories over billions of miles.",
     "Physicists at ETH Zurich achieved perfect randomness in quantum systems, eliminating patterns for impenetrable data encryption.",
     "Living building materials that sequester atmospheric carbon dioxide, actively strengthening themselves over time through cyanobacteria-driven mineral accumulation.",
@@ -89,8 +88,9 @@
     "NASA is exploring commercial partnerships to reboost the Swift Gamma-Ray Burst Explorer, an aging but critical space telescope, to extend its operational life. This innovative approach highlights the increasing reliance on private sector solutions for maintaining vital scientific infrastructure in orbit and ensuring continued multi-messenger astronomy observations.",
     "The discovery of \"quantum droplets,\" a new type of quantum matter formed by a stable union of fermions and bosons.",
     "How **superhydrophobic surfaces** achieve extreme water repellency, not just by being chemically non-stick, but by trapping air within their precise micro- and nanostructures, creating a composite interface where water barely touches the solid surface, a phenomenon known as the **Cassie-Baxter state** (or Lotus Effect).",
-    "Silver Nanoparticles Revolutionize DNA Assembly Efficiency"
+    "Silver Nanoparticles Revolutionize DNA Assembly Efficiency",
+    "IBM's groundbreaking cryogenic modules for fault-tolerant quantum computing are revolutionizing the physical architecture needed to scale hundreds of quantum chips into powerful, ultra-cold systems by 2029."
   ],
-  "subcluster_idx": 4,
-  "call_count": 184
+  "subcluster_idx": 0,
+  "call_count": 185
 }
