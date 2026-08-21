@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Engineered proteins from rattlesnake venom demonstrate a tenfold increase in antivenom potency during recent lab tests, revolutionizing snakebite treatment.",
     "Google's \"Willow\" quantum processor employs reinforcement learning for real-time self-tuning, detecting drift, and autonomously reducing logical errors without halting computation.",
     "How the **Pioneer Anomaly** was finally solved by accounting for anisotropic thermal radiation from its RTGs, revealing how minute, constant forces can alter trajectories over billions of miles.",
     "Physicists at ETH Zurich achieved perfect randomness in quantum systems, eliminating patterns for impenetrable data encryption.",
@@ -89,8 +88,9 @@
     "What if computing could use **Surface Plasmon Polaritons** to shrink light waves smaller than themselves, allowing optical circuits to be packed at the nanoscale, defying the fundamental diffraction limit?",
     "NASA is exploring commercial partnerships to reboost the Swift Gamma-Ray Burst Explorer, an aging but critical space telescope, to extend its operational life. This innovative approach highlights the increasing reliance on private sector solutions for maintaining vital scientific infrastructure in orbit and ensuring continued multi-messenger astronomy observations.",
     "The discovery of \"quantum droplets,\" a new type of quantum matter formed by a stable union of fermions and bosons.",
-    "How **superhydrophobic surfaces** achieve extreme water repellency, not just by being chemically non-stick, but by trapping air within their precise micro- and nanostructures, creating a composite interface where water barely touches the solid surface, a phenomenon known as the **Cassie-Baxter state** (or Lotus Effect)."
+    "How **superhydrophobic surfaces** achieve extreme water repellency, not just by being chemically non-stick, but by trapping air within their precise micro- and nanostructures, creating a composite interface where water barely touches the solid surface, a phenomenon known as the **Cassie-Baxter state** (or Lotus Effect).",
+    "Silver Nanoparticles Revolutionize DNA Assembly Efficiency"
   ],
-  "subcluster_idx": 3,
-  "call_count": 183
+  "subcluster_idx": 4,
+  "call_count": 184
 }
