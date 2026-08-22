@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Living building materials that sequester atmospheric carbon dioxide, actively strengthening themselves over time through cyanobacteria-driven mineral accumulation.",
     "How **human brain organoids** can spontaneously develop functional neural networks that learn to play video games, revealing emergent intelligence outside of a complete organism.",
     "AI-driven materials discovery, leveraging advanced models like conditional diffusion, is revolutionizing the design of next-generation materials by accelerating the visualization and scaling of new atomic arrangements, drastically cutting development timelines.",
     "Astronomers discover two supernovas originating from a single binary star system, a cosmic first challenging stellar evolution models.",
@@ -89,8 +88,9 @@
     "Silver Nanoparticles Revolutionize DNA Assembly Efficiency",
     "IBM's groundbreaking cryogenic modules for fault-tolerant quantum computing are revolutionizing the physical architecture needed to scale hundreds of quantum chips into powerful, ultra-cold systems by 2029.",
     "How **neutron stars** actually contain a **superfluid** of neutrons and a **superconducting** fluid of protons in their cores, causing sudden \"glitches\" in their rotation as their crust and fluid interior decouple.",
-    "The enigmatic emergence of 'ice-like' electronic phases within quantum materials challenges our understanding of superconductivity and magnetism."
+    "The enigmatic emergence of 'ice-like' electronic phases within quantum materials challenges our understanding of superconductivity and magnetism.",
+    "How a novel multi-responsive gel developed by University of Birmingham scientists can shift between solid and liquid states with UV light, reset with heat, and dismantle with acid, opening pathways for intelligent material design."
   ],
-  "subcluster_idx": 2,
-  "call_count": 187
+  "subcluster_idx": 3,
+  "call_count": 188
 }
