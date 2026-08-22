@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How the **Pioneer Anomaly** was finally solved by accounting for anisotropic thermal radiation from its RTGs, revealing how minute, constant forces can alter trajectories over billions of miles.",
     "Physicists at ETH Zurich achieved perfect randomness in quantum systems, eliminating patterns for impenetrable data encryption.",
     "Living building materials that sequester atmospheric carbon dioxide, actively strengthening themselves over time through cyanobacteria-driven mineral accumulation.",
     "How **human brain organoids** can spontaneously develop functional neural networks that learn to play video games, revealing emergent intelligence outside of a complete organism.",
@@ -89,8 +88,9 @@
     "The discovery of \"quantum droplets,\" a new type of quantum matter formed by a stable union of fermions and bosons.",
     "How **superhydrophobic surfaces** achieve extreme water repellency, not just by being chemically non-stick, but by trapping air within their precise micro- and nanostructures, creating a composite interface where water barely touches the solid surface, a phenomenon known as the **Cassie-Baxter state** (or Lotus Effect).",
     "Silver Nanoparticles Revolutionize DNA Assembly Efficiency",
-    "IBM's groundbreaking cryogenic modules for fault-tolerant quantum computing are revolutionizing the physical architecture needed to scale hundreds of quantum chips into powerful, ultra-cold systems by 2029."
+    "IBM's groundbreaking cryogenic modules for fault-tolerant quantum computing are revolutionizing the physical architecture needed to scale hundreds of quantum chips into powerful, ultra-cold systems by 2029.",
+    "How **neutron stars** actually contain a **superfluid** of neutrons and a **superconducting** fluid of protons in their cores, causing sudden \"glitches\" in their rotation as their crust and fluid interior decouple."
   ],
-  "subcluster_idx": 0,
-  "call_count": 185
+  "subcluster_idx": 1,
+  "call_count": 186
 }
