@@ -1,6 +1,5 @@
 {
   "topics": [
-    "What if the **Holographic Principle** suggests our entire 3D universe is actually an information-rich projection from a distant 2D surface, much like a cosmic hologram?",
     "New chemical process transforms plastic waste into high-purity hydrogen fuel at lower temperatures, simultaneously trapping carbon.",
     "Scientists have uncovered a naturally occurring gene that confers antibacterial resistance, a crucial finding in the escalating battle against drug-resistant pathogens.",
     "How **time crystals** could enable computers to maintain perpetual motion in their lowest energy state, defying traditional thermodynamic equilibrium.",
@@ -89,8 +88,9 @@
     "How a novel multi-responsive gel developed by University of Birmingham scientists can shift between solid and liquid states with UV light, reset with heat, and dismantle with acid, opening pathways for intelligent material design.",
     "How **prions** actually work, acting as infectious agents that propagate by templating the misfolding of normal proteins, defying the typical nucleic acid basis of heredity.",
     "Hefei Guizhen Chip Technology Co., Ltd. and USTC have unveiled a 16-qubit on-chip photonic measurement-based quantum computing (MBQC) system, utilizing high-dimensional path encoding for a 98.7% success rate in Grover's search algorithm.",
-    "SpaceX unveils plans for a colossal $100 billion Starbase in Louisiana, aiming for 10,000 Starship launches annually, marking a pivotal shift in humanity's access to space."
+    "SpaceX unveils plans for a colossal $100 billion Starbase in Louisiana, aiming for 10,000 Starship launches annually, marking a pivotal shift in humanity's access to space.",
+    "What if the **Quantum Zeno Effect** allows continuous observation to literally freeze a quantum system in its initial state, preventing it from evolving or decaying, as if \"watching\" it stops time for its transformation?"
   ],
-  "subcluster_idx": 1,
-  "call_count": 191
+  "subcluster_idx": 2,
+  "call_count": 192
 }
