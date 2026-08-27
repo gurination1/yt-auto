@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Scientists have uncovered a naturally occurring gene that confers antibacterial resistance, a crucial finding in the escalating battle against drug-resistant pathogens.",
     "How **time crystals** could enable computers to maintain perpetual motion in their lowest energy state, defying traditional thermodynamic equilibrium.",
     "NASA's Curiosity rover uncovers a vast 'sea' of intricate honeycomb-like textures across a Martian valley, revealing new clues about the Red Planet's ancient geological and hydrological history.",
     "IBM's claim of achieving 'quantum advantage' in useful computations, challenging the limits of classical supercomputers.",
@@ -89,8 +88,9 @@
     "Hefei Guizhen Chip Technology Co., Ltd. and USTC have unveiled a 16-qubit on-chip photonic measurement-based quantum computing (MBQC) system, utilizing high-dimensional path encoding for a 98.7% success rate in Grover's search algorithm.",
     "SpaceX unveils plans for a colossal $100 billion Starbase in Louisiana, aiming for 10,000 Starship launches annually, marking a pivotal shift in humanity's access to space.",
     "What if the **Quantum Zeno Effect** allows continuous observation to literally freeze a quantum system in its initial state, preventing it from evolving or decaying, as if \"watching\" it stops time for its transformation?",
-    "AI models now design new materials with intrinsic chemical stability, bypassing costly validation."
+    "AI models now design new materials with intrinsic chemical stability, bypassing costly validation.",
+    "Reworked transfer RNAs (tRNAs) are enabling the engineering of proteins with an expanded alphabet of up to 34 distinct amino acids, vastly increasing the complexity and functionality of synthetic proteins."
   ],
-  "subcluster_idx": 3,
-  "call_count": 193
+  "subcluster_idx": 4,
+  "call_count": 194
 }
