@@ -1,6 +1,5 @@
 {
   "topics": [
-    "NASA's Curiosity rover uncovers a vast 'sea' of intricate honeycomb-like textures across a Martian valley, revealing new clues about the Red Planet's ancient geological and hydrological history.",
     "IBM's claim of achieving 'quantum advantage' in useful computations, challenging the limits of classical supercomputers.",
     "How **optical metamaterials** can bend light 'backwards,' creating 'perfect lenses' or achieving invisibility cloaking through engineered sub-wavelength structures that exhibit a **negative refractive index**.",
     "A new immune-blocking strategy is improving the success of interspecies organ generation, bringing the possibility of growing human-compatible organs in other species closer to reality. This breakthrough, reported within the last 24 hours, addresses a major hurdle in xenotransplantation by preventing immune rejection.",
@@ -89,8 +88,9 @@
     "What if the **Quantum Zeno Effect** allows continuous observation to literally freeze a quantum system in its initial state, preventing it from evolving or decaying, as if \"watching\" it stops time for its transformation?",
     "AI models now design new materials with intrinsic chemical stability, bypassing costly validation.",
     "Reworked transfer RNAs (tRNAs) are enabling the engineering of proteins with an expanded alphabet of up to 34 distinct amino acids, vastly increasing the complexity and functionality of synthetic proteins.",
-    "Quantum Computing Superposition Logic #544"
+    "Quantum Computing Superposition Logic #544",
+    "New analysis from NASA's Webb Telescope has ruled out two prominent candidates for Dyson Spheres, refining the search for alien megastructures and focusing future efforts on more plausible technosignatures."
   ],
-  "subcluster_idx": 0,
-  "call_count": 195
+  "subcluster_idx": 1,
+  "call_count": 196
 }
