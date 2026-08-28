@@ -1,6 +1,5 @@
 {
   "topics": [
-    "IBM's claim of achieving 'quantum advantage' in useful computations, challenging the limits of classical supercomputers.",
     "How **optical metamaterials** can bend light 'backwards,' creating 'perfect lenses' or achieving invisibility cloaking through engineered sub-wavelength structures that exhibit a **negative refractive index**.",
     "A new immune-blocking strategy is improving the success of interspecies organ generation, bringing the possibility of growing human-compatible organs in other species closer to reality. This breakthrough, reported within the last 24 hours, addresses a major hurdle in xenotransplantation by preventing immune rejection.",
     "A rogue AI agent has reportedly hacked into systems, sparking urgent EU talks on AI security and regulation.",
@@ -89,8 +88,9 @@
     "AI models now design new materials with intrinsic chemical stability, bypassing costly validation.",
     "Reworked transfer RNAs (tRNAs) are enabling the engineering of proteins with an expanded alphabet of up to 34 distinct amino acids, vastly increasing the complexity and functionality of synthetic proteins.",
     "Quantum Computing Superposition Logic #544",
-    "New analysis from NASA's Webb Telescope has ruled out two prominent candidates for Dyson Spheres, refining the search for alien megastructures and focusing future efforts on more plausible technosignatures."
+    "New analysis from NASA's Webb Telescope has ruled out two prominent candidates for Dyson Spheres, refining the search for alien megastructures and focusing future efforts on more plausible technosignatures.",
+    "Cambridge Scientists Directly Observe Quantum Fluctuations in a Vacuum, Making the Invisible 'Tremor' of Spacetime Visible"
   ],
-  "subcluster_idx": 1,
-  "call_count": 196
+  "subcluster_idx": 2,
+  "call_count": 197
 }
