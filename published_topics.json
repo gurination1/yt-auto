@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How **quantum vacuum energy**, despite being 'empty' space, actually possesses immense energy that should theoretically rip the universe apart, leading to the baffling **cosmological constant problem**.",
     "Riemann Hypothesis unexpectedly linked to quantum phase transitions, revealing deep connections.",
     "How gravitational time dilation slows time near black holes",
     "How dark energy expands the observable universe cosmos #231",
@@ -89,8 +88,9 @@
     "Cambridge Scientists Directly Observe Quantum Fluctuations in a Vacuum, Making the Invisible 'Tremor' of Spacetime Visible",
     "How **supramolecular self-assembly** actually allows molecules to spontaneously build complex, functional materials from the bottom up, defying the need for intricate fabrication.",
     "Stanford scientists have developed TIGRa, an ultracompact gene activation tool, small enough for viral vectors, offering more versatile gene targeting options than existing CRISPR counterparts, potentially revolutionizing in-vivo gene therapy.",
-    "AI is revolutionizing drug discovery, moving beyond traditional methods with breakthroughs in de novo drug design, decoding complex biological systems for target identification, and advanced protein structure prediction like AlphaFold 3, dramatically accelerating therapeutic development."
+    "AI is revolutionizing drug discovery, moving beyond traditional methods with breakthroughs in de novo drug design, decoding complex biological systems for target identification, and advanced protein structure prediction like AlphaFold 3, dramatically accelerating therapeutic development.",
+    "What if the Cosmic Microwave Background, the oldest light in the universe, actually shows inexplicable large-scale patterns, like the 'Axis of Evil,' that challenge our fundamental assumption of a uniform universe and the **cosmological principle**?"
   ],
-  "subcluster_idx": 0,
-  "call_count": 200
+  "subcluster_idx": 1,
+  "call_count": 201
 }
