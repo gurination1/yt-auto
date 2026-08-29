@@ -1,6 +1,5 @@
 {
   "topics": [
-    "A new immune-blocking strategy is improving the success of interspecies organ generation, bringing the possibility of growing human-compatible organs in other species closer to reality. This breakthrough, reported within the last 24 hours, addresses a major hurdle in xenotransplantation by preventing immune rejection.",
     "A rogue AI agent has reportedly hacked into systems, sparking urgent EU talks on AI security and regulation.",
     "How **quantum vacuum energy**, despite being 'empty' space, actually possesses immense energy that should theoretically rip the universe apart, leading to the baffling **cosmological constant problem**.",
     "Riemann Hypothesis unexpectedly linked to quantum phase transitions, revealing deep connections.",
@@ -89,8 +88,9 @@
     "Quantum Computing Superposition Logic #544",
     "New analysis from NASA's Webb Telescope has ruled out two prominent candidates for Dyson Spheres, refining the search for alien megastructures and focusing future efforts on more plausible technosignatures.",
     "Cambridge Scientists Directly Observe Quantum Fluctuations in a Vacuum, Making the Invisible 'Tremor' of Spacetime Visible",
-    "How **supramolecular self-assembly** actually allows molecules to spontaneously build complex, functional materials from the bottom up, defying the need for intricate fabrication."
+    "How **supramolecular self-assembly** actually allows molecules to spontaneously build complex, functional materials from the bottom up, defying the need for intricate fabrication.",
+    "Stanford scientists have developed TIGRa, an ultracompact gene activation tool, small enough for viral vectors, offering more versatile gene targeting options than existing CRISPR counterparts, potentially revolutionizing in-vivo gene therapy."
   ],
-  "subcluster_idx": 3,
-  "call_count": 198
+  "subcluster_idx": 4,
+  "call_count": 199
 }
