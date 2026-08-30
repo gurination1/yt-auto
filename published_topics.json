@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Why speed of light is the cosmic speed limit physics #259",
     "Quantum Teleportation Breakthrough Physics #1785688117",
     "Neutron Star Density Mysteries Astrophysics #1785688911",
     "Solar Wind Cosmic Shields Science #1785689679",
@@ -89,8 +88,9 @@
     "What if the Cosmic Microwave Background, the oldest light in the universe, actually shows inexplicable large-scale patterns, like the 'Axis of Evil,' that challenge our fundamental assumption of a uniform universe and the **cosmological principle**?",
     "A mysterious cosmic hum, the gravitational-wave background, may originate from 13-billion-year-old hypothetical dark stars.",
     "Quantum Computing Superposition Logic #365",
-    "Quantum Computing Superposition Logic #756"
+    "Quantum Computing Superposition Logic #756",
+    "Quantum Computing Superposition Logic #36"
   ],
-  "subcluster_idx": 4,
-  "call_count": 204
+  "subcluster_idx": 0,
+  "call_count": 205
 }
