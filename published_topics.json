@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How gravitational time dilation slows time near black holes",
     "How dark energy expands the observable universe cosmos #231",
     "Why speed of light is the cosmic speed limit physics #259",
     "Quantum Teleportation Breakthrough Physics #1785688117",
@@ -89,8 +88,9 @@
     "Stanford scientists have developed TIGRa, an ultracompact gene activation tool, small enough for viral vectors, offering more versatile gene targeting options than existing CRISPR counterparts, potentially revolutionizing in-vivo gene therapy.",
     "AI is revolutionizing drug discovery, moving beyond traditional methods with breakthroughs in de novo drug design, decoding complex biological systems for target identification, and advanced protein structure prediction like AlphaFold 3, dramatically accelerating therapeutic development.",
     "What if the Cosmic Microwave Background, the oldest light in the universe, actually shows inexplicable large-scale patterns, like the 'Axis of Evil,' that challenge our fundamental assumption of a uniform universe and the **cosmological principle**?",
-    "A mysterious cosmic hum, the gravitational-wave background, may originate from 13-billion-year-old hypothetical dark stars."
+    "A mysterious cosmic hum, the gravitational-wave background, may originate from 13-billion-year-old hypothetical dark stars.",
+    "Quantum Computing Superposition Logic #365"
   ],
-  "subcluster_idx": 2,
-  "call_count": 202
+  "subcluster_idx": 3,
+  "call_count": 203
 }
