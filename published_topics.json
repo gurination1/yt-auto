@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Quantum Teleportation Breakthrough Physics #1785688117",
     "Neutron Star Density Mysteries Astrophysics #1785688911",
     "Solar Wind Cosmic Shields Science #1785689679",
     "How dark energy expands the observable universe cosmos #195",
@@ -89,8 +88,9 @@
     "A mysterious cosmic hum, the gravitational-wave background, may originate from 13-billion-year-old hypothetical dark stars.",
     "Quantum Computing Superposition Logic #365",
     "Quantum Computing Superposition Logic #756",
-    "Quantum Computing Superposition Logic #36"
+    "Quantum Computing Superposition Logic #36",
+    "Quantum Computing Superposition Logic #102"
   ],
-  "subcluster_idx": 0,
-  "call_count": 205
+  "subcluster_idx": 1,
+  "call_count": 206
 }
