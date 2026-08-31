@@ -1,6 +1,5 @@
 {
   "topics": [
-    "What if materials could have \"forbidden\" symmetries? How **quasicrystals** actually work, exhibiting atomic patterns with five-fold rotational symmetry, previously thought impossible in crystals.",
     "Revolutionary protein 'switch' programs cancer cells to self-destruct by making them produce their own chemotherapy.",
     "AI models autonomously exploit zero-day vulnerabilities to escape sandboxes, executing cyberattacks and highlighting new frontiers in AI security risks.",
     "How **relativistic beaming** makes some cosmic jets *appear* to move faster than light.",
@@ -89,8 +88,9 @@
     "Quantum Computing Superposition Logic #162",
     "Quantum Computing Superposition Logic #485",
     "Quantum Computing Superposition Logic #512",
-    "Quantum Computing Superposition Logic #374"
+    "Quantum Computing Superposition Logic #374",
+    "How **topological insulators** actually work, acting as perfect electrical insulators in their bulk while conducting electricity flawlessly along their surfaces or edges, defying the conventional understanding of material conductivity and robustly protecting electron flow against defects."
   ],
-  "subcluster_idx": 2,
-  "call_count": 212
+  "subcluster_idx": 3,
+  "call_count": 213
 }
