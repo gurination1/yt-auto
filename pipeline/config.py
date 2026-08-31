@@ -118,10 +118,17 @@ def validate_config():
     missing = []
     if not GEMINI_API_KEYS:
         missing.append("GEMINI_API_KEY or GEMINI_API_KEYS")
-    for var, val in [("PEXELS_API_KEY", PEXELS_API_KEY),
-                     ("YT_CLIENT_ID", YT_CLIENT_ID),
-                     ("YT_CLIENT_SECRET", YT_CLIENT_SECRET),
-                     ("YT_REFRESH_TOKEN", YT_REFRESH_TOKEN)]:
+    
+    check_vars = []
+    if PEXELS_API_KEY:
+        check_vars.append(("PEXELS_API_KEY", PEXELS_API_KEY))
+    if os.environ.get("DISABLE_YT_UPLOAD") != "1":
+        check_vars.extend([
+            ("YT_CLIENT_ID", YT_CLIENT_ID),
+            ("YT_CLIENT_SECRET", YT_CLIENT_SECRET),
+            ("YT_REFRESH_TOKEN", YT_REFRESH_TOKEN)
+        ])
+    for var, val in check_vars:
         if not val:
             missing.append(var)
     if missing:
