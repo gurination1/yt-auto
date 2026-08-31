@@ -39,9 +39,31 @@ def search_youtube_invidious(query: str, max_results: int = 3) -> list[dict]:
             continue
     return candidates
 
+def search_reddit_rss(query: str, max_results: int = 3) -> list[str]:
+    v_ids = []
+    try:
+        words = [w for w in re.sub(r'[^a-zA-Z0-9\s]', '', query).split() if len(w) > 2 and w.lower() not in [
+            "footage", "real", "authentic", "documentary", "4k", "1080p", "construction"
+        ]]
+        clean_q = " ".join(words[:2]) if words else query
+        url = "https://www.reddit.com/search.rss"
+        r = requests.get(url, params={"q": clean_q, "sort": "relevance"}, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}, timeout=8)
+        if r.status_code == 200:
+            found = re.findall(r'https?://v\.redd\.it/([a-zA-Z0-9]+)', r.text)
+            for vid in found:
+                u = f"https://v.redd.it/{vid}"
+                if u not in v_ids:
+                    v_ids.append(u)
+                if len(v_ids) >= max_results:
+                    break
+            print(f"   [Reddit RSS] Found {len(v_ids)} Reddit video URLs for '{clean_q}'")
+    except Exception as e:
+        print(f"   [Reddit RSS] Error: {e}")
+    return v_ids
+
 def run_harvest_test():
     print("=" * 60)
-    print("🚀 RUNNING LIVE GHA VIDEO HARVESTING & DOWNLOAD TEST")
+    print("🚀 RUNNING LIVE GHA VIDEO HARVESTING & DOWNLOAD TEST (WITH DENO JS ENGINE)")
     print("=" * 60)
 
     test_cases = [
@@ -60,18 +82,16 @@ def run_harvest_test():
         downloaded = False
         winner_data = {}
 
-        # 1. Search YouTube via Invidious
+        # 1. Test YouTube downloads with Deno JS engine enabled
         yt_candidates = search_youtube_invidious(topic, max_results=3)
         for idx, yt in enumerate(yt_candidates):
             out_file = f"test_output/yt_{niche}_{idx}.mp4"
             print(f"   Downloading YouTube clip: {yt['title']} ({yt['url']})...")
             
-            # Test 3 different yt-dlp permutations to pinpoint exact working datacenter flags
             configs = [
-                ["--extractor-args", "youtube:player_client=android", "--user-agent", "com.google.android.youtube/19.05.36 (Linux; U; Android 14; US)", "--format", "18/best"],
-                ["--extractor-args", "youtube:player_client=ios", "--format", "18/best"],
-                ["--extractor-args", "youtube:player_client=tv_embedded,mweb", "--format", "18/best"],
-                ["--format", "worst/18/best"]
+                ["--extractor-args", "youtube:player_client=android", "--user-agent", "com.google.android.youtube/19.05.36 (Linux; U; Android 14; US)", "--format", "18/best[ext=mp4]/best"],
+                ["--extractor-args", "youtube:player_client=ios,mweb", "--format", "18/best[ext=mp4]/best"],
+                ["--format", "18/worst/best"]
             ]
             
             for c_idx, cfg in enumerate(configs):
@@ -79,17 +99,37 @@ def run_harvest_test():
                 res = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
                 if os.path.exists(out_file) and os.path.getsize(out_file) > 100_000:
                     size_mb = os.path.getsize(out_file) / (1024 * 1024)
-                    print(f"   ✅ [SUCCESS] Config {c_idx} succeeded! Downloaded: {out_file} ({size_mb:.2f} MB)")
+                    frame_path = f"test_output/yt_{niche}_{idx}_frame.jpg"
+                    subprocess.run(["ffmpeg", "-y", "-ss", "00:00:05", "-i", out_file, "-vframes", "1", frame_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                    print(f"   ✅ [SUCCESS] YouTube config {c_idx} downloaded: {out_file} ({size_mb:.2f} MB)")
                     downloaded = True
-                    winner_data = {"platform": "YouTube", "title": yt["title"], "file": out_file, "size_mb": round(size_mb, 2), "config_idx": c_idx}
+                    winner_data = {"platform": "YouTube", "title": yt["title"], "file": out_file, "size_mb": round(size_mb, 2), "frame": frame_path}
                     break
                 else:
-                    print(f"   ❌ Config {c_idx} failed (exit {res.returncode}):")
-                    err_lines = [l for l in (res.stderr or res.stdout).split("\n") if "ERROR" in l or "WARNING" in l or "Sign in" in l or "403" in l or "bot" in l]
-                    print("      " + "\n      ".join(err_lines[:3]))
+                    err_lines = [l for l in (res.stderr or res.stdout).split("\n") if "ERROR" in l or "WARNING" in l or "Sign in" in l or "403" in l]
+                    print(f"   ❌ YT Config {c_idx} failed (exit {res.returncode}): " + " | ".join(err_lines[:2]))
             
             if downloaded:
                 break
+
+        # 2. Test Reddit video downloads if YouTube fails
+        if not downloaded:
+            red_urls = search_reddit_rss(topic, max_results=3)
+            for idx, r_url in enumerate(red_urls):
+                out_file = f"test_output/reddit_{niche}_{idx}.mp4"
+                print(f"   Downloading Reddit clip: {r_url}...")
+                cmd = ["yt-dlp", "--socket-timeout", "20", "-o", out_file, r_url]
+                res = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+                if os.path.exists(out_file) and os.path.getsize(out_file) > 100_000:
+                    size_mb = os.path.getsize(out_file) / (1024 * 1024)
+                    frame_path = f"test_output/reddit_{niche}_{idx}_frame.jpg"
+                    subprocess.run(["ffmpeg", "-y", "-ss", "00:00:02", "-i", out_file, "-vframes", "1", frame_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                    print(f"   ✅ [SUCCESS] Reddit clip downloaded: {out_file} ({size_mb:.2f} MB)")
+                    downloaded = True
+                    winner_data = {"platform": "Reddit", "url": r_url, "file": out_file, "size_mb": round(size_mb, 2), "frame": frame_path}
+                    break
+                else:
+                    print(f"   ❌ Reddit download failed for {r_url}")
 
         results.append({
             "topic": topic,
