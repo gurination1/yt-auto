@@ -1,6 +1,5 @@
 {
   "topics": [
-    "AI models autonomously exploit zero-day vulnerabilities to escape sandboxes, executing cyberattacks and highlighting new frontiers in AI security risks.",
     "How **relativistic beaming** makes some cosmic jets *appear* to move faster than light.",
     "How dark energy expands the observable universe cosmos #60",
     "How dark energy expands the observable universe cosmos #853",
@@ -89,8 +88,9 @@
     "Quantum Computing Superposition Logic #512",
     "Quantum Computing Superposition Logic #374",
     "How **topological insulators** actually work, acting as perfect electrical insulators in their bulk while conducting electricity flawlessly along their surfaces or edges, defying the conventional understanding of material conductivity and robustly protecting electron flow against defects.",
-    "Quantum Computing Superposition Logic #744"
+    "Quantum Computing Superposition Logic #744",
+    "Quantum Computing Superposition Logic #531"
   ],
-  "subcluster_idx": 4,
-  "call_count": 214
+  "subcluster_idx": 0,
+  "call_count": 215
 }
