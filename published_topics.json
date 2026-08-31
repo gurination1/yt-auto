@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Neutron Star Density Mysteries Astrophysics #1785688911",
     "Solar Wind Cosmic Shields Science #1785689679",
     "How dark energy expands the observable universe cosmos #195",
     "How **nonlinear optics** actually allows light to 'think' by interacting with itself, creating logic gates without electrons, through phenomena like the **Kerr effect**, defying the typical non-interaction of photons.",
@@ -89,8 +88,9 @@
     "Quantum Computing Superposition Logic #365",
     "Quantum Computing Superposition Logic #756",
     "Quantum Computing Superposition Logic #36",
-    "Quantum Computing Superposition Logic #102"
+    "Quantum Computing Superposition Logic #102",
+    "Quantum Computing Superposition Logic #84"
   ],
-  "subcluster_idx": 1,
-  "call_count": 206
+  "subcluster_idx": 2,
+  "call_count": 207
 }
