@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Scientists have identified LHAASO J1912+1014u as a powerful cosmic accelerator, capable of propelling protons to energies exceeding one quadrillion electron volts, pushing the boundaries of our understanding of extreme astrophysical phenomena.",
     "The creation of the world's first all-optical photonic time crystal is revolutionizing light control, opening new avenues for ultrafast computing and communication.",
     "What if materials could have \"forbidden\" symmetries? How **quasicrystals** actually work, exhibiting atomic patterns with five-fold rotational symmetry, previously thought impossible in crystals.",
     "Revolutionary protein 'switch' programs cancer cells to self-destruct by making them produce their own chemotherapy.",
@@ -89,8 +88,9 @@
     "Quantum Computing Superposition Logic #84",
     "Quantum Computing Superposition Logic #688",
     "Quantum Computing Superposition Logic #162",
-    "Quantum Computing Superposition Logic #485"
+    "Quantum Computing Superposition Logic #485",
+    "Quantum Computing Superposition Logic #512"
   ],
-  "subcluster_idx": 0,
-  "call_count": 210
+  "subcluster_idx": 1,
+  "call_count": 211
 }
