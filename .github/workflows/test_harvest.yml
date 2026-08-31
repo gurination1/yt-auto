@@ -1,0 +1,34 @@
+name: Test Video Harvesting & Downloads
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test_harvest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+          pip install --upgrade pip requests yt-dlp
+
+      - name: Run Video Harvesting Test
+        run: |
+          python test_harvest_runner.py
+
+      - name: Upload Harvested Video Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: harvested-video-samples-${{ github.run_id }}
+          path: test_output/
+          retention-days: 3
