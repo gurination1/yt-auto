@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How dark energy expands the observable universe cosmos #60",
     "How dark energy expands the observable universe cosmos #853",
     "How **circular RNA (circRNA)**, once dismissed as cellular 'junk,' actually acts as a molecular sponge to regulate gene expression, defying the linear RNA dogma and influencing cell fate.",
     "Researchers leveraged AI to generate complete viral genomes, successfully creating functional bacteriophages, raising both the promise of new antibiotic treatments and urgent global biosecurity concerns over AI's ability to engineer biological threats.",
@@ -89,8 +88,9 @@
     "How **topological insulators** actually work, acting as perfect electrical insulators in their bulk while conducting electricity flawlessly along their surfaces or edges, defying the conventional understanding of material conductivity and robustly protecting electron flow against defects.",
     "Quantum Computing Superposition Logic #744",
     "Quantum Computing Superposition Logic #531",
-    "Quantum Computing Superposition Logic #691"
+    "Quantum Computing Superposition Logic #691",
+    "Quantum Computing Superposition Logic #633"
   ],
-  "subcluster_idx": 1,
-  "call_count": 216
+  "subcluster_idx": 2,
+  "call_count": 217
 }
