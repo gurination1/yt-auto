@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How **circular RNA (circRNA)**, once dismissed as cellular 'junk,' actually acts as a molecular sponge to regulate gene expression, defying the linear RNA dogma and influencing cell fate.",
     "Researchers leveraged AI to generate complete viral genomes, successfully creating functional bacteriophages, raising both the promise of new antibiotic treatments and urgent global biosecurity concerns over AI's ability to engineer biological threats.",
     "How dark energy expands the observable universe cosmos #154",
     "How dark energy expands the observable universe cosmos #998",
@@ -89,8 +88,9 @@
     "Quantum Computing Superposition Logic #531",
     "Quantum Computing Superposition Logic #691",
     "Quantum Computing Superposition Logic #633",
-    "Quantum Computing Superposition Logic #796"
+    "Quantum Computing Superposition Logic #796",
+    "How **directed evolution** actually works, allowing scientists to force proteins and enzymes to \"evolve\" billions of times faster than nature in a lab, creating novel functions like plastic degradation or drug synthesis through iterative mutation and selection."
   ],
-  "subcluster_idx": 3,
-  "call_count": 218
+  "subcluster_idx": 4,
+  "call_count": 219
 }
