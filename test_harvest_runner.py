@@ -4,72 +4,148 @@ import json
 import time
 import subprocess
 import requests
+import urllib.parse
 import re
 
-INVIDIOUS_INSTANCES = [
-    "https://invidious.flokinet.to",
-    "https://inv.nadeko.net",
-    "https://yt.artemislena.eu",
-    "https://invidious.privacyredirect.com"
-]
-
-def search_youtube_invidious(query: str, max_results: int = 3) -> list[dict]:
-    candidates = []
-    for inst in INVIDIOUS_INSTANCES:
-        try:
-            url = f"{inst}/api/v1/search"
-            r = requests.get(url, params={"q": query, "type": "video"}, timeout=6)
-            if r.status_code == 200:
-                items = r.json()
-                for item in items:
-                    if len(candidates) >= max_results:
-                        break
-                    vid_id = item.get("videoId")
-                    if vid_id:
-                        candidates.append({
-                            "title": item.get("title", query),
-                            "url": f"https://www.youtube.com/watch?v={vid_id}",
-                            "id": vid_id,
-                            "duration": item.get("lengthSeconds", 0)
-                        })
-                if candidates:
-                    print(f"   [Invidious] Found {len(candidates)} YouTube candidates via {inst}")
-                    break
-        except Exception:
-            continue
-    return candidates
-
-def search_reddit_rss(query: str, max_results: int = 3) -> list[str]:
-    v_ids = []
+def search_wikimedia_commons_video(query: str) -> str | None:
     try:
-        words = [w for w in re.sub(r'[^a-zA-Z0-9\s]', '', query).split() if len(w) > 2 and w.lower() not in [
-            "footage", "real", "authentic", "documentary", "4k", "1080p", "construction"
-        ]]
+        # Extract core 2-3 words
+        words = [w for w in re.sub(r'[^a-zA-Z0-9\s]', '', query).split() if len(w) > 2]
         clean_q = " ".join(words[:2]) if words else query
-        url = "https://www.reddit.com/search.rss"
-        r = requests.get(url, params={"q": clean_q, "sort": "relevance"}, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}, timeout=8)
+        r = requests.get(
+            "https://commons.wikimedia.org/w/api.php",
+            params={
+                "action": "query",
+                "list": "search",
+                "srnamespace": "6",
+                "srsearch": f"{clean_q} filetype:video",
+                "format": "json",
+                "srlimit": "3",
+            },
+            headers={"User-Agent": "yt-auto/1.0 (educational-pipeline)"},
+            timeout=10,
+        )
         if r.status_code == 200:
-            found = re.findall(r'https?://v\.redd\.it/([a-zA-Z0-9]+)', r.text)
-            for vid in found:
-                u = f"https://v.redd.it/{vid}"
-                if u not in v_ids:
-                    v_ids.append(u)
-                if len(v_ids) >= max_results:
-                    break
-            print(f"   [Reddit RSS] Found {len(v_ids)} Reddit video URLs for '{clean_q}'")
+            results = r.json().get("query", {}).get("search", [])
+            for res in results:
+                title = res["title"]
+                r_info = requests.get(
+                    "https://commons.wikimedia.org/w/api.php",
+                    params={
+                        "action": "query",
+                        "titles": title,
+                        "prop": "imageinfo",
+                        "iiprop": "url|mime",
+                        "format": "json",
+                    },
+                    headers={"User-Agent": "yt-auto/1.0 (educational-pipeline)"},
+                    timeout=10,
+                )
+                if r_info.status_code == 200:
+                    pages = r_info.json().get("query", {}).get("pages", {})
+                    for pid, pdata in pages.items():
+                        info = pdata.get("imageinfo", [])
+                        if info and "video" in info[0].get("mime", ""):
+                            return info[0].get("url")
     except Exception as e:
-        print(f"   [Reddit RSS] Error: {e}")
-    return v_ids
+        print(f"   [Wikimedia] Error: {e}")
+    return None
+
+def search_nasa_video(query: str) -> str | None:
+    try:
+        words = [w for w in re.sub(r'[^a-zA-Z0-9\s]', '', query).split() if len(w) > 2]
+        clean_q = " ".join(words[:2]) if words else query
+        r = requests.get(
+            "https://images-api.nasa.gov/search",
+            params={"q": clean_q, "media_type": "video"},
+            timeout=10
+        )
+        if r.status_code == 200:
+            items = r.json().get("collection", {}).get("items", [])
+            for item in items[:2]:
+                href = item.get("href")
+                if href:
+                    r_col = requests.get(href, timeout=10)
+                    if r_col.status_code == 200:
+                        urls = r_col.json()
+                        for u in urls:
+                            if u.endswith("~orig.mp4") or u.endswith("~medium.mp4") or u.endswith(".mp4"):
+                                return u
+    except Exception as e:
+        print(f"   [NASA] Error: {e}")
+    return None
+
+def search_dvids_video(query: str) -> str | None:
+    try:
+        words = [w for w in re.sub(r'[^a-zA-Z0-9\s]', '', query).split() if len(w) > 2]
+        clean_q = " ".join(words[:2]) if words else query
+        r = requests.get(
+            "https://www.dvidshub.net/rss/search",
+            params={"q": clean_q, "filter[type]": "video"},
+            headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"},
+            timeout=10,
+        )
+        if r.status_code == 200:
+            import xml.etree.ElementTree as ET
+            root = ET.fromstring(r.content)
+            items = root.findall(".//item")
+            for item in items[:3]:
+                link = item.findtext("link") or ""
+                m = re.search(r'video/(\d+)', link)
+                if m:
+                    vid_id = m.group(1)
+                    page_url = f"https://www.dvidshub.net/video/{vid_id}"
+                    r_p = requests.get(page_url, headers={"User-Agent": "Mozilla/5.0"}, timeout=8)
+                    if r_p.status_code == 200:
+                        mp4s = re.findall(r'https?://[^\"]+\.mp4[^\"]*', r_p.text)
+                        if mp4s:
+                            return mp4s[0]
+    except Exception as e:
+        print(f"   [DVIDS] Error: {e}")
+    return None
+
+def search_archive_documentary_video(query: str) -> str | None:
+    try:
+        words = [w for w in re.sub(r'[^a-zA-Z0-9\s]', '', query).split() if len(w) > 3]
+        clean_q = " ".join(words[:2]) if words else query
+        r = requests.get(
+            "https://archive.org/advancedsearch.php",
+            params={
+                "q": f"({clean_q}) AND mediatype:movies AND (collection:prelinger OR collection:educationalfilms OR collection:nasa OR collection:usgs)",
+                "fl[]": ["identifier", "title"],
+                "sort[]": "downloads desc",
+                "rows": 3,
+                "output": "json"
+            },
+            headers={"User-Agent": "yt-auto/1.0"},
+            timeout=10
+        )
+        if r.status_code == 200:
+            docs = r.json().get("response", {}).get("docs", [])
+            for doc in docs:
+                ident = doc.get("identifier")
+                if ident:
+                    r_meta = requests.get(f"https://archive.org/metadata/{ident}", headers={"User-Agent": "yt-auto/1.0"}, timeout=8)
+                    if r_meta.status_code == 200:
+                        files = r_meta.json().get("files", [])
+                        for f in files:
+                            name = f.get("name", "")
+                            if (name.endswith(".mp4") or name.endswith(".ogv")) and int(f.get("size") or 0) > 10_000:
+                                return f"https://archive.org/download/{ident}/{urllib.parse.quote(name)}"
+    except Exception as e:
+        print(f"   [Archive] Error: {e}")
+    return None
 
 def run_harvest_test():
     print("=" * 60)
-    print("🚀 RUNNING LIVE GHA VIDEO HARVESTING & DOWNLOAD TEST (WITH DENO JS ENGINE)")
+    print("🚀 RUNNING OPEN MULTI-PLATFORM VIDEO DOWNLOAD TEST ON GHA")
     print("=" * 60)
 
     test_cases = [
-        {"topic": "Gotthard Base Tunnel Switzerland", "niche": "engineering"},
-        {"topic": "deep sea anglerfish bioluminescence", "niche": "nature"},
-        {"topic": "Roman legion warfare tactics", "niche": "history"}
+        {"topic": "Tunnel construction Switzerland", "niche": "engineering"},
+        {"topic": "Deep sea ocean fish", "niche": "nature"},
+        {"topic": "Apollo spacecraft launch", "niche": "space"},
+        {"topic": "Military warfare tactics", "niche": "military"}
     ]
 
     os.makedirs("test_output", exist_ok=True)
@@ -82,54 +158,41 @@ def run_harvest_test():
         downloaded = False
         winner_data = {}
 
-        # 1. Test YouTube downloads with Deno JS engine enabled
-        yt_candidates = search_youtube_invidious(topic, max_results=3)
-        for idx, yt in enumerate(yt_candidates):
-            out_file = f"test_output/yt_{niche}_{idx}.mp4"
-            print(f"   Downloading YouTube clip: {yt['title']} ({yt['url']})...")
-            
-            configs = [
-                ["--extractor-args", "youtube:player_client=android", "--user-agent", "com.google.android.youtube/19.05.36 (Linux; U; Android 14; US)", "--format", "18/best[ext=mp4]/best"],
-                ["--extractor-args", "youtube:player_client=ios,mweb", "--format", "18/best[ext=mp4]/best"],
-                ["--format", "18/worst/best"]
-            ]
-            
-            for c_idx, cfg in enumerate(configs):
-                cmd = ["yt-dlp", "--socket-timeout", "15", "-o", out_file] + cfg + [yt["url"]]
-                res = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
-                if os.path.exists(out_file) and os.path.getsize(out_file) > 100_000:
-                    size_mb = os.path.getsize(out_file) / (1024 * 1024)
-                    frame_path = f"test_output/yt_{niche}_{idx}_frame.jpg"
-                    subprocess.run(["ffmpeg", "-y", "-ss", "00:00:05", "-i", out_file, "-vframes", "1", frame_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                    print(f"   ✅ [SUCCESS] YouTube config {c_idx} downloaded: {out_file} ({size_mb:.2f} MB)")
-                    downloaded = True
-                    winner_data = {"platform": "YouTube", "title": yt["title"], "file": out_file, "size_mb": round(size_mb, 2), "frame": frame_path}
-                    break
-                else:
-                    err_lines = [l for l in (res.stderr or res.stdout).split("\n") if "ERROR" in l or "WARNING" in l or "Sign in" in l or "403" in l]
-                    print(f"   ❌ YT Config {c_idx} failed (exit {res.returncode}): " + " | ".join(err_lines[:2]))
-            
-            if downloaded:
-                break
+        # Try sources in order of open reliability
+        sources = [
+            ("Wikimedia Commons Video", search_wikimedia_commons_video),
+            ("NASA Video Archive", search_nasa_video),
+            ("DVIDS Real Footage", search_dvids_video),
+            ("Internet Archive Documentary", search_archive_documentary_video)
+        ]
 
-        # 2. Test Reddit video downloads if YouTube fails
-        if not downloaded:
-            red_urls = search_reddit_rss(topic, max_results=3)
-            for idx, r_url in enumerate(red_urls):
-                out_file = f"test_output/reddit_{niche}_{idx}.mp4"
-                print(f"   Downloading Reddit clip: {r_url}...")
-                cmd = ["yt-dlp", "--socket-timeout", "20", "-o", out_file, r_url]
-                res = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
-                if os.path.exists(out_file) and os.path.getsize(out_file) > 100_000:
-                    size_mb = os.path.getsize(out_file) / (1024 * 1024)
-                    frame_path = f"test_output/reddit_{niche}_{idx}_frame.jpg"
+        for s_name, s_fn in sources:
+            v_url = s_fn(topic)
+            if v_url:
+                print(f"   Found candidate from {s_name}: {v_url}")
+                out_file = f"test_output/{niche}_{s_name.split()[0].lower()}.mp4"
+                
+                # Download and slice 5 seconds directly with FFmpeg
+                cmd = [
+                    "ffmpeg", "-y",
+                    "-headers", "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\n",
+                    "-i", v_url,
+                    "-t", "5",
+                    "-c:v", "libx264", "-preset", "ultrafast",
+                    "-an",
+                    out_file
+                ]
+                res = subprocess.run(cmd, capture_output=True, text=True, timeout=25)
+                if os.path.exists(out_file) and os.path.getsize(out_file) > 50_000:
+                    size_kb = os.path.getsize(out_file) // 1024
+                    frame_path = f"test_output/{niche}_frame.jpg"
                     subprocess.run(["ffmpeg", "-y", "-ss", "00:00:02", "-i", out_file, "-vframes", "1", frame_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                    print(f"   ✅ [SUCCESS] Reddit clip downloaded: {out_file} ({size_mb:.2f} MB)")
+                    print(f"   ✅ [SUCCESS] Downloaded & sliced 5s authentic video from {s_name}: {out_file} ({size_kb} KB)")
                     downloaded = True
-                    winner_data = {"platform": "Reddit", "url": r_url, "file": out_file, "size_mb": round(size_mb, 2), "frame": frame_path}
+                    winner_data = {"platform": s_name, "url": v_url, "file": out_file, "size_kb": size_kb, "frame": frame_path}
                     break
                 else:
-                    print(f"   ❌ Reddit download failed for {r_url}")
+                    print(f"   ❌ Failed downloading stream from {s_name}")
 
         results.append({
             "topic": topic,
@@ -139,7 +202,7 @@ def run_harvest_test():
         })
 
     print("\n" + "=" * 60)
-    print("📊 GHA VIDEO HARVESTING & DOWNLOAD TEST REPORT")
+    print("📊 OPEN MULTI-PLATFORM VIDEO DOWNLOAD REPORT")
     print("=" * 60)
     print(json.dumps(results, indent=2))
 
