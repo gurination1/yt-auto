@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Researchers leveraged AI to generate complete viral genomes, successfully creating functional bacteriophages, raising both the promise of new antibiotic treatments and urgent global biosecurity concerns over AI's ability to engineer biological threats.",
     "How dark energy expands the observable universe cosmos #154",
     "How dark energy expands the observable universe cosmos #998",
     "A groundbreaking hydrogen turbine generates electricity using controlled detonation waves, a breakthrough that could unlock significantly more efficient power systems.",
@@ -89,8 +88,9 @@
     "Quantum Computing Superposition Logic #691",
     "Quantum Computing Superposition Logic #633",
     "Quantum Computing Superposition Logic #796",
-    "How **directed evolution** actually works, allowing scientists to force proteins and enzymes to \"evolve\" billions of times faster than nature in a lab, creating novel functions like plastic degradation or drug synthesis through iterative mutation and selection."
+    "How **directed evolution** actually works, allowing scientists to force proteins and enzymes to \"evolve\" billions of times faster than nature in a lab, creating novel functions like plastic degradation or drug synthesis through iterative mutation and selection.",
+    "Google's \"Antigravity\" project developing an AI translator that operates entirely offline using the Gemma model, signaling a major leap in private, portable, and cloud-independent AI."
   ],
-  "subcluster_idx": 4,
-  "call_count": 219
+  "subcluster_idx": 0,
+  "call_count": 220
 }
