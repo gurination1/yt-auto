@@ -81,10 +81,10 @@ Each object must have exactly these fields:
         import random, time
         rand_id = int(time.time()) % 1000
         topics_list = [
-            {"topic": f"Quantum Computing Superposition Logic #{rand_id}", "short_hook": "Quantum particles compute in parallel realities.", "hook_type": "curiosity_gap", "for_format": "both", "subcluster": current_subcluster},
-            {"topic": f"CRISPR Gene Editing Molecular Scissors #{rand_id+1}", "short_hook": "DNA modified with atomic precision.", "hook_type": "curiosity_gap", "for_format": "both", "subcluster": current_subcluster},
-            {"topic": f"Nuclear Fusion Tokamak Energy Breakthrough #{rand_id+2}", "short_hook": "Artificial sun trapped in magnetic bottles.", "hook_type": "curiosity_gap", "for_format": "both", "subcluster": current_subcluster},
-            {"topic": f"Room Temperature Superconductor Discovery #{rand_id+3}", "short_hook": "Zero electrical resistance changes modern power.", "hook_type": "curiosity_gap", "for_format": "both", "subcluster": current_subcluster}
+            {"topic": f"Quantum Computing Superposition Logic", "short_hook": "Quantum particles compute in parallel realities.", "hook_type": "curiosity_gap", "for_format": "both", "subcluster": current_subcluster},
+            {"topic": f"CRISPR Gene Editing Molecular Scissors", "short_hook": "DNA modified with atomic precision.", "hook_type": "curiosity_gap", "for_format": "both", "subcluster": current_subcluster},
+            {"topic": f"Nuclear Fusion Tokamak Energy Breakthrough", "short_hook": "Artificial sun trapped in magnetic bottles.", "hook_type": "curiosity_gap", "for_format": "both", "subcluster": current_subcluster},
+            {"topic": f"Room Temperature Superconductor Discovery", "short_hook": "Zero electrical resistance changes modern power.", "hook_type": "curiosity_gap", "for_format": "both", "subcluster": current_subcluster}
         ]
 
     # ── 4. Pick first topic matching format_type and not a duplicate ─────────
