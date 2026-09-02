@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How dark energy expands the observable universe cosmos #998",
     "A groundbreaking hydrogen turbine generates electricity using controlled detonation waves, a breakthrough that could unlock significantly more efficient power systems.",
     "Breakthroughs in biotechnology now allow muscle protein, a key component for 'fake meat' products, to be grown directly in the chloroplasts of lettuce and tobacco plants. This advancement could revolutionize sustainable food production and reduce reliance on animal agriculture.",
     "How dark energy expands the observable universe cosmos #518",
@@ -89,8 +88,9 @@
     "Quantum Computing Superposition Logic #796",
     "How **directed evolution** actually works, allowing scientists to force proteins and enzymes to \"evolve\" billions of times faster than nature in a lab, creating novel functions like plastic degradation or drug synthesis through iterative mutation and selection.",
     "Google's \"Antigravity\" project developing an AI translator that operates entirely offline using the Gemma model, signaling a major leap in private, portable, and cloud-independent AI.",
-    "A massive heat anomaly has been discovered deep inside Mars, suggesting its southern interior is hundreds of degrees hotter than the north and potentially partially molten."
+    "A massive heat anomaly has been discovered deep inside Mars, suggesting its southern interior is hundreds of degrees hotter than the north and potentially partially molten.",
+    "How the **weak nuclear force** actually violates **parity symmetry**, uniquely distinguishing left-handed from right-handed particles and revealing a fundamental, intrinsic asymmetry in the universe not found in other forces."
   ],
-  "subcluster_idx": 1,
-  "call_count": 221
+  "subcluster_idx": 2,
+  "call_count": 222
 }
