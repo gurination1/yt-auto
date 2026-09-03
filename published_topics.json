@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The quantum eraser experiment offers new evidence suggesting delayed measurements can retroactively influence past particle behavior, unsettling causality.",
     "How **vitrimer polymers** actually work, self-healing and reprocessing like thermoplastics but possessing the strength of thermosets, by dynamically rearranging their covalent bonds through a **transesterification** or similar exchange reaction at elevated temperatures.",
     "The complete genetic blueprint of zoysia grass has been fully mapped, unlocking new possibilities for engineering highly drought-tolerant turf and sustainable agriculture.",
     "DARPA's successful AI-controlled F-16 flight redefines autonomous combat aviation, raising urgent questions about the future of warfare and human-AI collaboration in critical defense systems.",
@@ -89,8 +88,9 @@
     "Scientists have cracked a long-standing chemistry problem, creating \"impossible\" nanocrystals from tough metal nitrides with potential for next-generation LEDs, medical implants, and superconductors.",
     "Generative AI Designs Novel Bacteriophages, Unveiling Dual-Use Dilemma in Biotech for Phage Therapy and Biosecurity",
     "Quantum Computing Superposition Logic",
-    "Quantum Computing Superposition Logic"
+    "Quantum Computing Superposition Logic",
+    "Scientists observe Einstein's gravity interacting within the quantum realm, pushing towards a unified theory of physics."
   ],
-  "subcluster_idx": 1,
-  "call_count": 226
+  "subcluster_idx": 2,
+  "call_count": 227
 }
