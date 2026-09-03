@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The complete genetic blueprint of zoysia grass has been fully mapped, unlocking new possibilities for engineering highly drought-tolerant turf and sustainable agriculture.",
     "DARPA's successful AI-controlled F-16 flight redefines autonomous combat aviation, raising urgent questions about the future of warfare and human-AI collaboration in critical defense systems.",
     "What if the **Alcubierre Drive** could allow faster-than-light travel by warping spacetime around a spacecraft, a concept that paradoxically requires \"negative mass\" or exotic energy to function?",
     "Heat defies randomness, traveling through crystals in focused, wave-like rays at room temperature, challenging fundamental understanding of thermal energy.",
@@ -89,8 +88,9 @@
     "Quantum Computing Superposition Logic",
     "Quantum Computing Superposition Logic",
     "Scientists observe Einstein's gravity interacting within the quantum realm, pushing towards a unified theory of physics.",
-    "Quantum Computing Superposition Logic"
+    "Quantum Computing Superposition Logic",
+    "A new AI BioDesign initiative is leveraging artificial intelligence and synthetic biology to engineer novel biomolecules and proteins that do not exist in nature, potentially revolutionizing drug development, plastic degradation, and biological computing."
   ],
-  "subcluster_idx": 3,
-  "call_count": 228
+  "subcluster_idx": 4,
+  "call_count": 229
 }
