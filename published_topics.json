@@ -1,6 +1,5 @@
 {
   "topics": [
-    "DARPA's successful AI-controlled F-16 flight redefines autonomous combat aviation, raising urgent questions about the future of warfare and human-AI collaboration in critical defense systems.",
     "What if the **Alcubierre Drive** could allow faster-than-light travel by warping spacetime around a spacecraft, a concept that paradoxically requires \"negative mass\" or exotic energy to function?",
     "Heat defies randomness, traveling through crystals in focused, wave-like rays at room temperature, challenging fundamental understanding of thermal energy.",
     "Nanostructured Carbon Catalysts Revolutionize Fuel Cell Efficiency with Minimal Platinum Use",
@@ -89,8 +88,9 @@
     "Quantum Computing Superposition Logic",
     "Scientists observe Einstein's gravity interacting within the quantum realm, pushing towards a unified theory of physics.",
     "Quantum Computing Superposition Logic",
-    "A new AI BioDesign initiative is leveraging artificial intelligence and synthetic biology to engineer novel biomolecules and proteins that do not exist in nature, potentially revolutionizing drug development, plastic degradation, and biological computing."
+    "A new AI BioDesign initiative is leveraging artificial intelligence and synthetic biology to engineer novel biomolecules and proteins that do not exist in nature, potentially revolutionizing drug development, plastic degradation, and biological computing.",
+    "A 26-minute AI-generated animation, \"The Book of Supernatural Phenomena: Look to the People,\" becomes a viral hit in China, igniting widespread debate on AI's creative capabilities and its impact on human artistry."
   ],
-  "subcluster_idx": 4,
-  "call_count": 229
+  "subcluster_idx": 0,
+  "call_count": 230
 }
