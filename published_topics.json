@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Breakthroughs in biotechnology now allow muscle protein, a key component for 'fake meat' products, to be grown directly in the chloroplasts of lettuce and tobacco plants. This advancement could revolutionize sustainable food production and reduce reliance on animal agriculture.",
     "How dark energy expands the observable universe cosmos #518",
     "NASA extends the historic Voyager 2 mission by another year through a groundbreaking 'Big Bang' power-saving maneuver, with similar plans underway for Voyager 1, showcasing unprecedented interstellar mission longevity.",
     "The quantum eraser experiment offers new evidence suggesting delayed measurements can retroactively influence past particle behavior, unsettling causality.",
@@ -89,8 +88,9 @@
     "Google's \"Antigravity\" project developing an AI translator that operates entirely offline using the Gemma model, signaling a major leap in private, portable, and cloud-independent AI.",
     "A massive heat anomaly has been discovered deep inside Mars, suggesting its southern interior is hundreds of degrees hotter than the north and potentially partially molten.",
     "How the **weak nuclear force** actually violates **parity symmetry**, uniquely distinguishing left-handed from right-handed particles and revealing a fundamental, intrinsic asymmetry in the universe not found in other forces.",
-    "Scientists have cracked a long-standing chemistry problem, creating \"impossible\" nanocrystals from tough metal nitrides with potential for next-generation LEDs, medical implants, and superconductors."
+    "Scientists have cracked a long-standing chemistry problem, creating \"impossible\" nanocrystals from tough metal nitrides with potential for next-generation LEDs, medical implants, and superconductors.",
+    "Generative AI Designs Novel Bacteriophages, Unveiling Dual-Use Dilemma in Biotech for Phage Therapy and Biosecurity"
   ],
-  "subcluster_idx": 3,
-  "call_count": 223
+  "subcluster_idx": 4,
+  "call_count": 224
 }
