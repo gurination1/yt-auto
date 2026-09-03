@@ -66,10 +66,11 @@ YT_CLIENT_SECRET = os.environ.get("YT_CLIENT_SECRET", "")
 YT_REFRESH_TOKEN = os.environ.get("YT_REFRESH_TOKEN", "")
 
 # ── Gemini Models ────────────────────────────────────────────────────────────
-GEMINI_FLASH     = "gemini-2.5-flash"
-GEMINI_PRO       = "gemini-2.5-pro"
-GEMINI_TTS_MODEL = "gemini-2.5-flash-preview-tts"
-GEMINI_API_BASE  = "https://generativelanguage.googleapis.com/v1beta"
+GEMINI_FLASH        = "gemini-flash-lite-latest"
+GEMINI_FLASH_BACKUP = "gemini-flash-latest"
+GEMINI_PRO          = "gemini-flash-latest"
+GEMINI_TTS_MODEL    = "gemini-2.5-flash-preview-tts"
+GEMINI_API_BASE     = "https://generativelanguage.googleapis.com/v1beta"
 
 GEMINI_VOICES    = ["Fenrir", "Puck", "Charon", "Orus", "Kore"]
 KOKORO_VOICES    = ["af_heart","af_bella","af_nicole","af_sarah","af_sky","af_aoede","am_adam","am_michael","am_fenrir","am_puck"]
