@@ -100,6 +100,7 @@ THUMBNAIL_LAYOUTS = [
 ]
 
 # topic sub-cluster rotation for Science and Technology channel
+CHANNEL_NICHE = os.environ.get("CHANNEL_NICHE", "science")
 SCIENCE_SUBCLUSTERS = [
     "space exploration and astrophysics",
     "physics and quantum mechanics mysteries",
