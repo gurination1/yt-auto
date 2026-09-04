@@ -28,17 +28,19 @@ def select_topic(format_type: str) -> dict:
 
     if is_trending:
         topic_instruction = (
-            f"Use Google Search to find current HIGHLY VIRAL news from the last 24-48 hours SPECIFICALLY about {current_subcluster}. "
-            f"Generate 5 TRENDING topics strictly within {current_subcluster} that are currently exploding on social media or making massive news. "
-            f"Frame each as a timely, highly intriguing analysis. Strictly preserve this channel's dedicated niche and do NOT generate generic news."
+            f"Use Google Search to find mind-blowing, highly viral recent discoveries or breakthroughs from the last 24-48 hours specifically about {current_subcluster}. "
+            f"Generate 5 TRENDING topics that reveal a startling reality normal people did NOT know. "
+            f"STRICT RULES: Must be a concrete, verified true discovery with massive visual curiosity. NO dry academic papers. "
+            f"Every topic must make an average person say: 'Wait, is that actually real?!'"
         )
     else:
         topic_instruction = (
-            f"Generate 5 EVERGREEN topics about {current_subcluster}. "
-            f"Each must reveal a bizarre, counterintuitive, or little-known fact "
-            f"that educated adults don't know. Frame as 'What if X happened' or 'How Y actually works'. "
-            f"Every topic MUST name a specific mechanism, theory, machine, structure, or phenomenon — "
-            f"NOT a vague 'scientists are surprised' hook."
+            f"Generate 5 insanely fascinating, real-world EVERGREEN topics about {current_subcluster}. "
+            f"CRITICAL REQUIREMENTS: "
+            f"1. Must reveal a bizarre, shocking, or counter-intuitive secret that 99% of people do NOT know. "
+            f"2. FORBIDDEN: Do NOT write generic textbook concepts (e.g. 'Quantum Computing Superposition Logic', 'How Photosynthesis Works', 'What if giant excavators dig canals'). "
+            f"3. REQUIRED: A specific real-world anomaly, unbelievable physical fact, or mind-bending paradox (e.g. 'The metal that melts in your hand but shatters glass', 'Why hot water freezes faster than cold water', 'The room that is so quiet you can hear your own blood pumping'). "
+            f"4. Easy to understand: An 8th grader must instantly grasp why it is insane. Zero PhD jargon."
         )
 
     # ── 3. Build Gemini prompt ───────────────────────────────────────────────
@@ -55,13 +57,15 @@ SAFETY & COMPLIANCE CONSTRAINTS (MANDATORY):
 - Avoid political controversies, conspiracy theories, or tragic/graphic events.
 - Focus on educational, curious, and inspiring scientific information.
 
-AVOID: Oceans, marine biology, forests, animal behavior, weather, geology (those are Channel 2 Nature).
-FOCUS: Science and technology — space, quantum mechanics, future computing, physics, biotech, advanced chemistry, engineering.
+AUDIENCE & HOOK RULES:
+- The topic MUST be so clear, punchy, and intriguing that someone scrolling TikTok or Shorts immediately stops.
+- Pick concrete physical objects, materials, creatures, or experiments with high visual payoff.
+- FORBIDDEN: Abstract theories, philosophical musings, hypothetical scenarios ('What if X happened...').
 
 Return ONLY a raw JSON array of objects. No markdown, no preamble.
 Each object must have exactly these fields:
-- "topic": specific subject with a named fact, theory, or mechanism (e.g. "Quantum entanglement enables faster than light simulation without moving particles")
-- "short_hook": opening question or statement, 8 words or less, creates a strong information gap
+- "topic": specific, punchy curiosity subject naming the real anomaly or object (e.g. "The liquid metal Gallium that melts in your hand and destroys aluminum")
+- "short_hook": opening question or bold statement, 8 words or less, creates an irresistible curiosity gap
 - "hook_type": one of "curiosity_gap", "contrarian", "time_pressure", "self_identification", "narrative_pull"
 - "for_format": "short", "long", or "both"
 - "subcluster": the sub-cluster this belongs to (string)
@@ -70,7 +74,7 @@ Each object must have exactly these fields:
     print(f"[Phase1] Requesting topics — subcluster: {current_subcluster} | trending: {is_trending}")
     client = GeminiClient()
     try:
-        response_text = client.generate_text(prompt, use_grounding=is_trending, temperature=0.75)
+        response_text = client.generate_text(prompt, use_grounding=False, temperature=0.85)
         topics_list = _robust_json_loads(response_text)
         if not isinstance(topics_list, list):
             raise ValueError("Response is not a JSON list")
@@ -81,10 +85,10 @@ Each object must have exactly these fields:
         import random, time
         rand_id = int(time.time()) % 1000
         topics_list = [
-            {"topic": f"Quantum Computing Superposition Logic", "short_hook": "Quantum particles compute in parallel realities.", "hook_type": "curiosity_gap", "for_format": "both", "subcluster": current_subcluster},
-            {"topic": f"CRISPR Gene Editing Molecular Scissors", "short_hook": "DNA modified with atomic precision.", "hook_type": "curiosity_gap", "for_format": "both", "subcluster": current_subcluster},
-            {"topic": f"Nuclear Fusion Tokamak Energy Breakthrough", "short_hook": "Artificial sun trapped in magnetic bottles.", "hook_type": "curiosity_gap", "for_format": "both", "subcluster": current_subcluster},
-            {"topic": f"Room Temperature Superconductor Discovery", "short_hook": "Zero electrical resistance changes modern power.", "hook_type": "curiosity_gap", "for_format": "both", "subcluster": current_subcluster}
+            {"topic": "The liquid metal Gallium that melts in your hand and destroys aluminum", "short_hook": "Why is this metal banned on airplanes?", "hook_type": "curiosity_gap", "for_format": "both", "subcluster": current_subcluster},
+            {"topic": "Why hot water freezes faster than cold water in the Mpemba effect", "short_hook": "Why does boiling water freeze faster?", "hook_type": "curiosity_gap", "for_format": "both", "subcluster": current_subcluster},
+            {"topic": "The soundproof chamber at Orfield Labs where nobody can survive 45 minutes", "short_hook": "The quietest room on Earth drives you crazy.", "hook_type": "curiosity_gap", "for_format": "both", "subcluster": current_subcluster},
+            {"topic": "Aerogel: The solid smoke material that holds 1000 times its weight against blowtorches", "short_hook": "This frozen smoke stops blowtorches instantly.", "hook_type": "curiosity_gap", "for_format": "both", "subcluster": current_subcluster}
         ]
 
     # ── 4. Pick first topic matching format_type and not a duplicate ─────────
