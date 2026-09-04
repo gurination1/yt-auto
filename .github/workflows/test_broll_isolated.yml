@@ -1,0 +1,61 @@
+name: Isolated B-Roll & Harvester Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test_broll_harvest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install System Dependencies (FFmpeg, Tesseract OCR)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends ffmpeg tesseract-ocr tesseract-ocr-eng
+
+      - name: Install Python Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -U --pre "yt-dlp[default]" requests[socks] pysocks
+
+      - name: Install & Start Cloudflare WARP Proxy
+        run: |
+          curl -fsSL https://pkg.cloudflareclient.com/pubkey.gpg | gpg --yes --dearmor -o cloudflare-warp-archive-keyring.gpg
+          sudo mv cloudflare-warp-archive-keyring.gpg /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg
+          echo "deb [arch=amd64 signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cloudflare-client.list
+          sudo apt-get update -qq && sudo apt-get install -y --no-install-recommends cloudflare-warp
+          warp-cli --accept-tos mode proxy
+          warp-cli --accept-tos proxy port 40000
+          warp-cli --accept-tos registration new || true
+          warp-cli --accept-tos connect || true
+          sleep 5
+          warp-cli --accept-tos status || true
+          curl -x socks5h://127.0.0.1:40000 -s https://cloudflare.com/cdn-cgi/trace | grep "warp=" || echo "WARP starting..."
+
+      - name: Execute Isolated Harvester Test Suite
+        env:
+          WARP_SOCKS_PROXY: "socks5h://127.0.0.1:40000"
+          PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          COVERR_API_KEY: ${{ secrets.COVERR_API_KEY }}
+          NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
+        run: |
+          python test_broll_harvest_isolated.py
+
+      - name: Upload Test Output & Media Slices
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: broll-harvest-results-${{ github.run_id }}
+          path: test_harvest_output/
+          retention-days: 3
