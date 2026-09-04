@@ -196,9 +196,9 @@ python run_publish.py
 python run_publish.py --bypass-judge
 
 # Inspect recent runs across all channels
-gh run list -R mahesajeth-wq/yt-auto --limit 5
-gh run list -R mahesajeth-wq/yt-auto-ch2 --limit 5
-gh run list -R mahesajeth-wq/yt-auto-ch3 --limit 5
-gh run list -R mahesajeth-wq/yt-auto-ch4 --limit 5
-gh run list -R mahesajeth-wq/yt-auto-ch5 --limit 5
+gh run list -R gurination1/yt-auto --limit 5
+gh run list -R gurination1/yt-auto-ch2 --limit 5
+gh run list -R gurination1/yt-auto-ch3 --limit 5
+gh run list -R gurination1/yt-auto-ch4 --limit 5
+gh run list -R gurination1/yt-auto-ch5 --limit 5
 ```
