@@ -1,6 +1,5 @@
 {
   "topics": [
-    "What if the **Alcubierre Drive** could allow faster-than-light travel by warping spacetime around a spacecraft, a concept that paradoxically requires \"negative mass\" or exotic energy to function?",
     "Heat defies randomness, traveling through crystals in focused, wave-like rays at room temperature, challenging fundamental understanding of thermal energy.",
     "Nanostructured Carbon Catalysts Revolutionize Fuel Cell Efficiency with Minimal Platinum Use",
     "How **anti-CRISPR proteins** actually work, allowing viruses to completely disable a bacterium's (and our) advanced gene-editing machinery, revealing a molecular arms race at the heart of microbial defense.",
@@ -89,8 +88,9 @@
     "Scientists observe Einstein's gravity interacting within the quantum realm, pushing towards a unified theory of physics.",
     "Quantum Computing Superposition Logic",
     "A new AI BioDesign initiative is leveraging artificial intelligence and synthetic biology to engineer novel biomolecules and proteins that do not exist in nature, potentially revolutionizing drug development, plastic degradation, and biological computing.",
-    "A 26-minute AI-generated animation, \"The Book of Supernatural Phenomena: Look to the People,\" becomes a viral hit in China, igniting widespread debate on AI's creative capabilities and its impact on human artistry."
+    "A 26-minute AI-generated animation, \"The Book of Supernatural Phenomena: Look to the People,\" becomes a viral hit in China, igniting widespread debate on AI's creative capabilities and its impact on human artistry.",
+    "The diamond rain falling on Neptune and Saturn that creates solid gemstone oceans"
   ],
-  "subcluster_idx": 0,
-  "call_count": 230
+  "subcluster_idx": 1,
+  "call_count": 231
 }
