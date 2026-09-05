@@ -1,6 +1,5 @@
 {
   "topics": [
-    "A significant advancement in green chemistry allows for cleaner chemical reactions that utilize oxygen and produce only water as a byproduct, signaling a major step towards sustainable manufacturing.",
     "A newly identified miniature CRISPR enzyme, Al3Cas12f, enables precision gene editing directly inside the body, overcoming major delivery hurdles for in-vivo therapies.",
     "How **dendritic computing** in human neurons actually allows a single dendrite to act as a complex computational unit, performing non-linear operations that defy the simple 'neuron as a switch' model, inspiring ultra-efficient neuromorphic chips.",
     "The Daniel K. Inouye Solar Telescope has captured the sharpest-ever images of the Sun's surface, revealing previously unseen 'magnetic whirlpools' and turbulent plasma flows that could unlock secrets about solar flares and space weather.",
@@ -89,8 +88,9 @@
     "The bioluminescent tobacco plants that glow constantly in the dark using mushroom genes",
     "Micro-robots that can physically reconfigure into working electronic circuits and self-repair.",
     "Saturn's Vanishing Spokes: Ghostly Trails on its Rings",
-    "The baffling reality: Time literally runs slower for you if you live on the ground floor instead of the top floor of a skyscraper."
+    "The baffling reality: Time literally runs slower for you if you live on the ground floor instead of the top floor of a skyscraper.",
+    "The 'Sound Black Hole' Material That Absorbs All Noise"
   ],
-  "subcluster_idx": 2,
-  "call_count": 237
+  "subcluster_idx": 3,
+  "call_count": 238
 }
