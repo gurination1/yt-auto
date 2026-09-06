@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The Daniel K. Inouye Solar Telescope has captured the sharpest-ever images of the Sun's surface, revealing previously unseen 'magnetic whirlpools' and turbulent plasma flows that could unlock secrets about solar flares and space weather.",
     "The 'measurement problem' in quantum mechanics explodes on social media, reigniting debate on how observation shapes reality.",
     "How **single-atom catalysts** can perform chemical reactions with unprecedented efficiency and selectivity, making a single metal atom do the work of thousands by exposing every atom as an active site.",
     "AI-Generated Novel Viruses: A New Form of Life Emerges",
@@ -89,8 +88,9 @@
     "The baffling reality: Time literally runs slower for you if you live on the ground floor instead of the top floor of a skyscraper.",
     "The 'Sound Black Hole' Material That Absorbs All Noise",
     "Living Concrete That Heals Its Own Cracks Using Genetically Engineered Bacteria",
-    "The Unbelievable Crystal That Can Physically STOP Light: A Future Computer's Memory"
+    "The Unbelievable Crystal That Can Physically STOP Light: A Future Computer's Memory",
+    "Billions of invisible \"Rogue Planets\" now confirmed to wander interstellar space, outnumbering stars."
   ],
-  "subcluster_idx": 0,
-  "call_count": 240
+  "subcluster_idx": 1,
+  "call_count": 241
 }
