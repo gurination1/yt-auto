@@ -17,3 +17,4 @@ output/
 state/key_pool.json
 inspect_run/
 test_harvest_output/
+music_history.json
