@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How **dendritic computing** in human neurons actually allows a single dendrite to act as a complex computational unit, performing non-linear operations that defy the simple 'neuron as a switch' model, inspiring ultra-efficient neuromorphic chips.",
     "The Daniel K. Inouye Solar Telescope has captured the sharpest-ever images of the Sun's surface, revealing previously unseen 'magnetic whirlpools' and turbulent plasma flows that could unlock secrets about solar flares and space weather.",
     "The 'measurement problem' in quantum mechanics explodes on social media, reigniting debate on how observation shapes reality.",
     "How **single-atom catalysts** can perform chemical reactions with unprecedented efficiency and selectivity, making a single metal atom do the work of thousands by exposing every atom as an active site.",
@@ -89,8 +88,9 @@
     "Saturn's Vanishing Spokes: Ghostly Trails on its Rings",
     "The baffling reality: Time literally runs slower for you if you live on the ground floor instead of the top floor of a skyscraper.",
     "The 'Sound Black Hole' Material That Absorbs All Noise",
-    "Living Concrete That Heals Its Own Cracks Using Genetically Engineered Bacteria"
+    "Living Concrete That Heals Its Own Cracks Using Genetically Engineered Bacteria",
+    "The Unbelievable Crystal That Can Physically STOP Light: A Future Computer's Memory"
   ],
-  "subcluster_idx": 4,
-  "call_count": 239
+  "subcluster_idx": 0,
+  "call_count": 240
 }
