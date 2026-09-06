@@ -95,12 +95,19 @@ The video generation workflow is divided into discrete, decoupled phases:
 
 ---
 
-## 4. Scheduling & Cron Architecture
+## 4. Scheduling & Cloud Architecture (100% GHA Native)
 
-The fleet runs via a central Railway Cron Dispatcher ([`/root/yt-auto-cron`](file:///root/yt-auto-cron)) triggering GitHub Actions workflows.
+The fleet runs **exclusively and autonomously in the cloud on GitHub Actions (GHA)** via native workflow `schedule:` cron triggers. No local phone/device crons, daemons, or dispatchers are permitted.
 
-### Global Concurrency & Lock Mechanism:
-To avoid hitting API rate limits or runner contention, `start.sh` evaluates `global_pipeline_busy()` before triggering any workflow. If any repository in the fleet is actively executing a pipeline, new runs wait or stagger safely.
+### Master Fleet Skill & Auditing:
+Fleet health, schedule adherence, and quality gates are monitored via the [`yt-auto-fleet`](file:///root/.agents/skills/yt-auto-fleet/SKILL.md) skill:
+```bash
+python3 /root/.agents/skills/yt-auto-fleet/scripts/audit_fleet.py
+```
+To auto-trigger any missed slots:
+```bash
+python3 /root/.agents/skills/yt-auto-fleet/scripts/audit_fleet.py --dispatch-missed
+```
 
 ### 24-Hour Master Slot Schedule:
 
