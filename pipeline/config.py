@@ -657,6 +657,7 @@ def get_channel_profile(niche: str = None) -> dict:
 # Niche-adaptive active voice settings
 _curr_profile = get_channel_profile()
 DEFAULT_GEMINI_VOICE = _curr_profile.get("gemini_voice", "Fenrir")
+DEFAULT_EDGE_VOICE = _curr_profile.get("edge_voice", "en-US-AndrewNeural")
 DEFAULT_KOKORO_VOICE = _curr_profile.get("kokoro_voice", "am_adam")
 VOICE_PITCH = 0.0
 VOICE_RATE = _curr_profile.get("cadence_speed", 1.02)

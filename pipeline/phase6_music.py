@@ -108,29 +108,19 @@ def _fetch_freesound_music(topic: str, duration_seconds: int) -> str | None:
 
     search_url = "https://freesound.org/apiv2/search/text/"
     
-    is_history, is_engineering, is_natural = False, False, False
-    channel_env = os.environ.get("CHANNEL_NICHE", "").lower()
-    if channel_env == "nature":
-        is_natural = True
-    elif channel_env == "history":
-        is_history = True
-    elif channel_env == "engineering":
-        is_engineering = True
-    try:
-        from pipeline.config import HISTORY_SUBCLUSTERS
-        is_history = True
-    except ImportError:
-        pass
-    try:
-        from pipeline.config import ENGINEERING_SUBCLUSTERS
-        is_engineering = True
-    except ImportError:
-        pass
-    try:
-        from pipeline.config import NATURAL_WORLD_SUBCLUSTERS
-        is_natural = True
-    except ImportError:
-        pass
+    channel_env = (os.environ.get("CHANNEL_NICHE") or "").lower()
+    if not channel_env:
+        try:
+            from pipeline.config import CHANNEL_NICHE as _cn
+            channel_env = _cn.lower()
+        except Exception:
+            channel_env = "science"
+
+    is_natural = (channel_env == "nature")
+    is_history = (channel_env == "history")
+    is_engineering = (channel_env == "engineering")
+    is_mystery = (channel_env == "mystery")
+    is_science = (channel_env in ("science", "general", ""))
 
     clean_topic = _clean_music_query(topic)
 
@@ -437,17 +427,30 @@ def generate_music(topic: str, duration_seconds: int = 35) -> str:
     print(f"Generating procedural ambient background music ({duration_seconds}s)...")
     os.makedirs("output", exist_ok=True)
 
-    progression = random.choice(_PROGRESSIONS)
+    from pipeline.config import get_channel_profile
+    profile = get_channel_profile(niche)
+    niche_progressions = profile.get("procedural_chords") or _PROGRESSIONS
+    bpm = profile.get("music_bpm", 120)
+    foley_type = profile.get("foley_type", "digital_tech")
+
+    progression = random.choice(niche_progressions)
     chord_dur = 4.0
     loop = np.concatenate([_chord(r, q, chord_dur) for r, q in progression])
     reps = int(np.ceil(duration_seconds * SAMPLE_RATE / len(loop))) + 1
     track = np.tile(loop, reps)[: int(duration_seconds * SAMPLE_RATE)]
-    # Tick every 0.5s (120 BPM) for high-tension pacing
-    tick_interval = int(0.5 * SAMPLE_RATE)
-    clock_ticks = _ticking_clock(len(track), tick_interval)
-    track = track * 0.45 + clock_ticks
 
+    # Dynamic rhythmic pulse customized per niche BPM
+    tick_interval = int((60.0 / bpm) * SAMPLE_RATE)
+    if foley_type == "organic_nature":
+        pulse = _shaker(len(track), tick_interval)
+    elif foley_type == "historical_warfare":
+        pulse = _ticking_clock(len(track), tick_interval) * 0.95
+    elif foley_type == "industrial_machinery":
+        pulse = _ticking_clock(len(track), tick_interval) * 1.3
+    else:
+        pulse = _ticking_clock(len(track), tick_interval)
 
+    track = track * 0.45 + pulse
     track = track / (np.max(np.abs(track)) + 1e-9) * 0.65
     track_int16 = (track * 32767).clip(-32768, 32767).astype(np.int16)
     with wave.open(out_path, "wb") as wf:
@@ -455,5 +458,6 @@ def generate_music(topic: str, duration_seconds: int = 35) -> str:
         wf.setsampwidth(2)
         wf.setframerate(SAMPLE_RATE)
         wf.writeframes(track_int16.tobytes())
-    print(f"Procedural music saved ({progression})")
+    print(f"Procedural music saved ({progression} @ {bpm} BPM)")
     return out_path
+
