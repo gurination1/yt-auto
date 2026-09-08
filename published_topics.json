@@ -1,6 +1,5 @@
 {
   "topics": [
-    "What if planets don't stay put? How **planetary migration** explains 'Hot Jupiters' by revealing how gas giants can move inward through a protoplanetary disk due to gravitational interactions, completely reshaping a solar system's architecture.",
     "Scientists have recently discovered quantum entanglement within a crystal visible to the naked eye, challenging long-held beliefs about the scale at which quantum phenomena can exist in everyday objects.",
     "Breakthrough materials combining graphene and lithium cobalt oxide promise batteries that perform flawlessly from -40\u00b0C to +80\u00b0C, revolutionizing electronics and EVs for extreme environments.",
     "What if **DNA digital data storage** could archive the world's information for millennia within a few sugar cubes, leveraging the molecule of life to store petabytes of data far denser and more durable than any silicon chip.",
@@ -89,8 +88,9 @@
     "The 'Negative Mass' Fluid That Pushes Back When You Push It",
     "The liquid that instantly freezes on touch, even when below freezing, creating a hot ice sculpture.",
     "Scientists 3D Print Fully Functional Blood Vessel Networks for Artificial Organs",
-    "AI that autonomously designs and 3D prints its own soft, task-specific robots from scratch."
+    "AI that autonomously designs and 3D prints its own soft, task-specific robots from scratch.",
+    "How **Magnetars**, neutron stars with the strongest known magnetic fields, are so powerful they could erase all credit cards on Earth from halfway to the Moon."
   ],
-  "subcluster_idx": 0,
-  "call_count": 245
+  "subcluster_idx": 1,
+  "call_count": 246
 }
