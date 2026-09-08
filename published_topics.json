@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Breakthrough materials combining graphene and lithium cobalt oxide promise batteries that perform flawlessly from -40\u00b0C to +80\u00b0C, revolutionizing electronics and EVs for extreme environments.",
     "What if **DNA digital data storage** could archive the world's information for millennia within a few sugar cubes, leveraging the molecule of life to store petabytes of data far denser and more durable than any silicon chip.",
     "LG to unveil next-generation bipedal humanoid robot, built on NVIDIA Isaac GR00T, marking a significant leap in physical AI deployment.",
     "SpaceX rocket body impacts the Moon, highlighting tangible operational risks for future lunar settlements and missions.",
@@ -89,8 +88,9 @@
     "Scientists 3D Print Fully Functional Blood Vessel Networks for Artificial Organs",
     "AI that autonomously designs and 3D prints its own soft, task-specific robots from scratch.",
     "How **Magnetars**, neutron stars with the strongest known magnetic fields, are so powerful they could erase all credit cards on Earth from halfway to the Moon.",
-    "Scientists create a \"Quantum Compass\" that might detect absolute motion through space itself."
+    "Scientists create a \"Quantum Compass\" that might detect absolute motion through space itself.",
+    "The polymer infused with liquid metal that instantly heals cuts and restores electrical flow"
   ],
-  "subcluster_idx": 2,
-  "call_count": 247
+  "subcluster_idx": 3,
+  "call_count": 248
 }
