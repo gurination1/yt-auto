@@ -68,9 +68,10 @@
     "AI that autonomously designs and 3D prints its own soft, task-specific robots from scratch.",
     "How **Magnetars**, neutron stars with the strongest known magnetic fields, are so powerful they could erase all credit cards on Earth from halfway to the Moon.",
     "Wandering Supermassive Black Holes Creating Star Trails",
-    "Light-Reprogrammable Smart Materials"
+    "Light-Reprogrammable Smart Materials",
+    "The Material That Gets Thicker When You Stretch It"
   ],
-  "subcluster_idx": 3,
-  "fallback_idx": 2,
-  "call_count": 248
+  "subcluster_idx": 4,
+  "fallback_idx": 3,
+  "call_count": 249
 }
