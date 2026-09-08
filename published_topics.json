@@ -1,11 +1,5 @@
 {
   "topics": [
-    "How **dendritic computing** in human neurons actually allows a single dendrite to act as a complex computational unit, performing non-linear operations that defy the simple 'neuron as a switch' model, inspiring ultra-efficient neuromorphic chips.",
-    "The Daniel K. Inouye Solar Telescope has captured the sharpest-ever images of the Sun's surface, revealing previously unseen 'magnetic whirlpools' and turbulent plasma flows that could unlock secrets about solar flares and space weather.",
-    "The 'measurement problem' in quantum mechanics explodes on social media, reigniting debate on how observation shapes reality.",
-    "How **single-atom catalysts** can perform chemical reactions with unprecedented efficiency and selectivity, making a single metal atom do the work of thousands by exposing every atom as an active site.",
-    "AI-Generated Novel Viruses: A New Form of Life Emerges",
-    "Breakthrough 6G chips are now achieving data transfer speeds of 100 gigabits per second, a staggering 10,000 times faster than current 5G, promising a revolution in communication and real-time connectivity.",
     "What if planets don't stay put? How **planetary migration** explains 'Hot Jupiters' by revealing how gas giants can move inward through a protoplanetary disk due to gravitational interactions, completely reshaping a solar system's architecture.",
     "Scientists have recently discovered quantum entanglement within a crystal visible to the naked eye, challenging long-held beliefs about the scale at which quantum phenomena can exist in everyday objects.",
     "Breakthrough materials combining graphene and lithium cobalt oxide promise batteries that perform flawlessly from -40\u00b0C to +80\u00b0C, revolutionizing electronics and EVs for extreme environments.",
@@ -89,8 +83,14 @@
     "Saturn's Vanishing Spokes: Ghostly Trails on its Rings",
     "The baffling reality: Time literally runs slower for you if you live on the ground floor instead of the top floor of a skyscraper.",
     "The 'Sound Black Hole' Material That Absorbs All Noise",
-    "Living Concrete That Heals Its Own Cracks Using Genetically Engineered Bacteria"
+    "Living Concrete That Heals Its Own Cracks Using Genetically Engineered Bacteria",
+    "The Unbelievable Crystal That Can Physically STOP Light: A Future Computer's Memory",
+    "Billions of invisible \"Rogue Planets\" now confirmed to wander interstellar space, outnumbering stars.",
+    "The 'Negative Mass' Fluid That Pushes Back When You Push It",
+    "The liquid that instantly freezes on touch, even when below freezing, creating a hot ice sculpture.",
+    "Scientists 3D Print Fully Functional Blood Vessel Networks for Artificial Organs",
+    "AI that autonomously designs and 3D prints its own soft, task-specific robots from scratch."
   ],
-  "subcluster_idx": 4,
-  "call_count": 239
+  "subcluster_idx": 0,
+  "call_count": 245
 }
