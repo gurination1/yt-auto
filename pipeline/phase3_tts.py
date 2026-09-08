@@ -195,11 +195,22 @@ def generate_audio(script: dict) -> list[str]:
     channel_niche = script.get("channel") or os.environ.get("CHANNEL_NICHE", "science")
     profile = get_channel_profile(channel_niche)
 
-    gemini_voice = DEFAULT_GEMINI_VOICE or profile.get("gemini_voice", "Fenrir")
-    cadence_speed = float(VOICE_RATE or profile.get("cadence_speed", 1.0))
-    vocal_tone = script.get("vocal_tone") or profile.get("vocal_tone", "energetic_storytelling")
-    edge_voice = DEFAULT_EDGE_VOICE or profile.get("edge_voice", "en-US-GuyNeural")
-    kokoro_voice = DEFAULT_KOKORO_VOICE or profile.get("kokoro_voice", "am_adam")
+    # ── Diverse Voice Selection (Randomly rotates across all voices per video to prevent static pattern) ──
+    explicit_voice = os.environ.get("GEMINI_VOICE_OVERRIDE") or script.get("voice")
+    gemini_voice = explicit_voice if explicit_voice else pick_voice(GEMINI_VOICES, "gemini")
+
+    try:
+        from pipeline.config import EDGE_VOICES
+        edge_pool = EDGE_VOICES
+    except ImportError:
+        edge_pool = ["en-US-GuyNeural", "en-US-AndrewNeural", "en-US-ChristopherNeural", "en-US-EricNeural", "en-US-BrianNeural", "en-US-AvaNeural", "en-US-EmmaNeural", "en-US-SteffanNeural"]
+    edge_voice = pick_voice(edge_pool, "edge")
+
+    kokoro_voice = pick_voice(KOKORO_VOICES, "kokoro")
+
+    # Micro-cadence jitter (0.98x - 1.03x) to break static timing signatures
+    cadence_speed = round(random.choice([0.98, 1.00, 1.02, 1.03]), 2)
+    vocal_tone = script.get("vocal_tone") or random.choice(["energetic_storytelling", "suspenseful_mystery", "dark_revelation", "bold_authority"])
 
     segments = script["segments"]
 
