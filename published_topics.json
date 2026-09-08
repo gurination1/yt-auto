@@ -70,9 +70,10 @@
     "Wandering Supermassive Black Holes Creating Star Trails",
     "Light-Reprogrammable Smart Materials",
     "The Material That Gets Thicker When You Stretch It",
-    "A Rogue Photon Just Challenged Einstein's Fundamental Physics"
+    "A Rogue Photon Just Challenged Einstein's Fundamental Physics",
+    "Scientists delay quantum entanglement loss with a single 'flip' operation"
   ],
-  "subcluster_idx": 0,
-  "fallback_idx": 4,
-  "call_count": 250
+  "subcluster_idx": 1,
+  "fallback_idx": 5,
+  "call_count": 251
 }
