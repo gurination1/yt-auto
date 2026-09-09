@@ -75,9 +75,10 @@
     "The 'Mountain' on a Neutron Star: So tiny, it's invisible, yet could rip space-time with gravitational waves.",
     "Curved Graphene Nanostructures",
     "Magnetoelectric Crystals for Room-Temp Memory",
-    "Negative Absolute Temperature: The Bizarre State Hotter Than Infinity"
+    "Negative Absolute Temperature: The Bizarre State Hotter Than Infinity",
+    "Gravity directly observed acting on quantum waves"
   ],
-  "subcluster_idx": 0,
-  "fallback_idx": 9,
-  "call_count": 255
+  "subcluster_idx": 1,
+  "fallback_idx": 10,
+  "call_count": 256
 }
