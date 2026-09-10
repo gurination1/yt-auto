@@ -79,9 +79,10 @@
     "Gravity directly observed acting on quantum waves",
     "Ancient Hydrogen Signal Recreates 3D Universe Maps",
     "The invisible nanobots that can disassemble plastic or disease, molecule by molecule.",
-    "Diamond Flaws Become Quantum Stress Sensors in Micro-Devices"
+    "Diamond Flaws Become Quantum Stress Sensors in Micro-Devices",
+    "Einstein's Equivalence Principle holds true for quantum objects"
   ],
-  "subcluster_idx": 4,
-  "fallback_idx": 13,
-  "call_count": 259
+  "subcluster_idx": 0,
+  "fallback_idx": 14,
+  "call_count": 260
 }
