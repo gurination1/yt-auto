@@ -82,9 +82,10 @@
     "Diamond Flaws Become Quantum Stress Sensors in Micro-Devices",
     "Einstein's Equivalence Principle holds true for quantum objects",
     "The Ghostly Leap: How Particles Teleport Through Solid Walls",
-    "Unexplained 'Hypersoft' X-Ray Sources Baffle Scientists"
+    "Unexplained 'Hypersoft' X-Ray Sources Baffle Scientists",
+    "Metamaterial Learns and Adapts Its Shape Autonomously"
   ],
-  "subcluster_idx": 2,
-  "fallback_idx": 16,
-  "call_count": 262
+  "subcluster_idx": 3,
+  "fallback_idx": 17,
+  "call_count": 263
 }
