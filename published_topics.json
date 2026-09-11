@@ -72,9 +72,18 @@
     "The Material That Gets Thicker When You Stretch It",
     "A Rogue Photon Just Challenged Einstein's Fundamental Physics",
     "Scientists delay quantum entanglement loss with a single 'flip' operation",
-    "The 'Mountain' on a Neutron Star: So tiny, it's invisible, yet could rip space-time with gravitational waves."
+    "The 'Mountain' on a Neutron Star: So tiny, it's invisible, yet could rip space-time with gravitational waves.",
+    "Curved Graphene Nanostructures",
+    "Magnetoelectric Crystals for Room-Temp Memory",
+    "Negative Absolute Temperature: The Bizarre State Hotter Than Infinity",
+    "Gravity directly observed acting on quantum waves",
+    "Ancient Hydrogen Signal Recreates 3D Universe Maps",
+    "The invisible nanobots that can disassemble plastic or disease, molecule by molecule.",
+    "Diamond Flaws Become Quantum Stress Sensors in Micro-Devices",
+    "Einstein's Equivalence Principle holds true for quantum objects",
+    "The Ghostly Leap: How Particles Teleport Through Solid Walls"
   ],
-  "subcluster_idx": 2,
-  "fallback_idx": 6,
-  "call_count": 252
+  "subcluster_idx": 1,
+  "fallback_idx": 15,
+  "call_count": 261
 }

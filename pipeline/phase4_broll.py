@@ -1757,24 +1757,30 @@ def _extract_collage_to_file(video_path: str, out_path: str) -> bool:
         return False
 
 
-def _expand_query(query: str, channel: str, n: int = 5) -> list[str]:
+def _expand_query(query: str, channel: str, n: int = 5, narration: str = "", topic: str = "") -> list[str]:
     from pipeline.gemini import _post_with_rotation
     from pipeline.config import GEMINI_API_BASE, GEMINI_FLASH
     try:
+        context_lines = []
+        if topic:
+            context_lines.append(f"Video Topic: '{topic}'")
+        if narration:
+            context_lines.append(f"Segment Narration: '{narration}'")
+        context_str = ("\n" + "\n".join(context_lines) + "\n") if context_lines else ""
         prompt_text = (
-            f"You are a professional video stock researcher. Query: '{query}'. Channel Niche: {channel}.\n"
-            f"Generate {n} SHORT, CONCRETE stock footage search terms (2-4 words maximum).\n"
+            f"You are an expert documentary footage archivist. Base Query: '{query}'. Channel Niche: {channel}.{context_str}\n"
+            f"Generate {n} SHORT, CONCRETE physical search terms (2-4 words maximum) that describe the ACTUAL physical science, machinery, specimen, or setting depicted in this narration.\n"
             f"CRITICAL RULES:\n"
-            f"1. Use ONLY concrete physical objects, settings, or human actions (e.g. 'microscope lab scientist', 'blue ocean coral reef', 'engine piston moving').\n"
-            f"2. NEVER use abstract words like 'concept', 'breakthrough', 'discovery', 'mind-blowing', 'chemical' (alone), 'important'.\n"
-            f"3. Focus on real-world visual symbols, settings, or close-ups that represent '{query}'.\n"
+            f"1. Use ONLY concrete physical objects, scientific apparatus, micrographs, specimens, or camera close-ups (e.g. 'microscope blood cells', 'rattlesnake striking slow motion', 'quantum laser cryostat', 'tunnel boring machine cutterhead').\n"
+            f"2. NEVER use abstract metaphors or symbolic phrases (NO 'tiny warriors', 'antidote factory', 'quantum leaps all around', 'mind-blowing', 'concept').\n"
+            f"3. Focus on real-world visual proof and authentic documentary footage.\n"
             f"Return ONLY a JSON array of strings."
         )
         url = f"{GEMINI_API_BASE}/models/{GEMINI_FLASH}:generateContent?key={{key}}"
         payload = {
             "contents": [{"role": "user", "parts": [{"text": prompt_text}]}],
             "generationConfig": {
-                "temperature": 0.7,
+                "temperature": 0.3,
                 "responseMimeType": "application/json",
             },
         }
@@ -2065,7 +2071,7 @@ def _has_baked_text_ocr(frame_path: str) -> bool:
             if has_pytesseract:
                 try:
                     cfg = f"--oem 1 --psm {psm} -l eng"
-                    return pytesseract.image_to_string(crop_im, config=cfg)
+                    return pytesseract.image_to_string(crop_im, config=cfg, timeout=3)
                 except Exception:
                     pass
             # CLI fallback using tesseract binary directly with a tempfile
@@ -2074,7 +2080,7 @@ def _has_baked_text_ocr(frame_path: str) -> bool:
             try:
                 crop_im.save(tpath, "JPEG", quality=85)
                 cmd = ['tesseract', tpath, 'stdout', '--oem', '1', '--psm', str(psm), '-l', 'eng']
-                res = subprocess.run(cmd, capture_output=True, text=True, timeout=5)
+                res = subprocess.run(cmd, capture_output=True, text=True, timeout=3)
                 return res.stdout or ""
             except Exception:
                 return ""
@@ -2093,8 +2099,11 @@ def _has_baked_text_ocr(frame_path: str) -> bool:
             if any(wm in full_text for wm in watermark_words):
                 return True
             words_full = re.findall(r'\b[a-z]{3,}\b', full_text)
-            if len(words_full) >= 6:
-                # 6+ words anywhere on frame indicates slide, document, or heavy text overlay
+            slide_keywords = {"agenda", "summary", "conclusion", "presentation", "slide", "chapter", "overview", "bullet"}
+            if any(sk in full_text for sk in slide_keywords) and len(words_full) >= 5:
+                return True
+            if len(words_full) >= 12:
+                # 12+ words across full frame indicates document, book page, or full lecture slide
                 return True
 
             top_crop = f.crop((0, 0, fw, int(fh * 0.25)))
@@ -2102,21 +2111,22 @@ def _has_baked_text_ocr(frame_path: str) -> bool:
             bot_crop = f.crop((0, int(fh * 0.70), fw, fh))
 
             # 2. Middle crop check for lecture / PowerPoint bullet points / text cards
-            mid_text = run_ocr(mid_crop, psm=6).lower()
+            mid_text = run_ocr(mid_crop, psm=11).lower()
             mid_words = re.findall(r'\b[a-z]{3,}\b', mid_text)
             if any(wm in mid_text for wm in watermark_words):
                 return True
-            if len(mid_words) >= 3:
-                # 3+ words in the middle 60% of frame -> presentation slide or text card
+            if len(mid_words) >= 8:
+                # 8+ words in the middle 60% of frame -> presentation slide or text card
                 return True
 
             # 3. Top and bottom strips for subtitles / creator banners / disclaimers
             for crop in (top_crop, bot_crop):
-                crop_text = run_ocr(crop, psm=6).lower()
+                crop_text = run_ocr(crop, psm=11).lower()
                 crop_words = re.findall(r'\b[a-z]{3,}\b', crop_text)
                 if any(wm in crop_text for wm in watermark_words):
                     return True
-                if len(crop_words) >= 2:
+                if len(crop_words) >= 8:
+                    # Only reject if heavy text banner; do NOT reject for corner 2-word badges
                     return True
 
         return False
@@ -2133,9 +2143,10 @@ def _deep_inspect_video_frames(
     """
     Extracts frames across candidate video and performs deep frame-by-frame verification:
     1. Duration & file integrity check
-    2. Luminance check (rejects pure black screens or blown-out white frames)
-    3. Multi-crop Tesseract OCR check (rejects slides, presentations, intro text, subtitles)
-    4. Gemini Flash Vision check on sample frames (rejects talking heads, vloggers, unrelated content)
+    2. Minimum resolution check (>= 720p)
+    3. Luminance check (rejects pure black screens or blown-out white frames)
+    4. Multi-crop Tesseract OCR check (rejects slides, presentations, intro text, subtitles)
+    5. Gemini Flash Vision check on sample frames (rejects talking heads, vloggers, unrelated content)
     Returns (is_valid, reason). Zero cv2 dependency.
     """
     if not video_path or not os.path.exists(video_path) or os.path.getsize(video_path) < 10_000:
@@ -2144,6 +2155,23 @@ def _deep_inspect_video_frames(
     total_dur = _get_video_duration(video_path)
     if total_dur < 1.0:
         return False, f"Video duration too short ({total_dur:.2f}s)"
+
+    # Resolution check (reject low-res/muddy 240p/360p upscaled videos)
+    try:
+        cmd_res = [
+            "ffprobe", "-v", "error", "-select_streams", "v:0",
+            "-show_entries", "stream=width,height",
+            "-of", "csv=s=x:p=0", video_path
+        ]
+        res_out = subprocess.check_output(cmd_res, text=True, timeout=5).strip()
+        if res_out and "x" in res_out:
+            dims = [int(dim) for dim in res_out.split("x") if dim.isdigit()]
+            if len(dims) >= 2:
+                vw, vh = dims[0], dims[1]
+                if max(vw, vh) < 720:
+                    return False, f"Resolution too low ({vw}x{vh} < 720p minimum)"
+    except Exception as e_res:
+        pass
 
     from PIL import Image
     import numpy as np, tempfile
@@ -2288,7 +2316,7 @@ def fetch_broll(query: str, format_type: str, segment_index: int, duration: floa
         if q_tri not in queries_to_try: queries_to_try.insert(0, q_tri)
 
     if not budget_exceeded():
-        expanded = _expand_query(sanitized_q or query, channel=channel, n=4)
+        expanded = _expand_query(sanitized_q or query, channel=channel, n=4, narration=narration, topic=topic)
         queries_to_try.extend(expanded)
 
     candidates = []
@@ -2427,10 +2455,37 @@ def fetch_broll(query: str, format_type: str, segment_index: int, duration: floa
     for src in sources:
         print(f"[B-roll] Source '{src}' returned {source_counts[src]} unique candidates.")
 
+    def _candidate_fingerprint(item: dict) -> str:
+        url = str(item.get("video_url", "")).strip()
+        title = str(item.get("title", "")).strip().lower()
+        yt_m = re.search(r'(?:v=|youtu\.be/|shorts/)([a-zA-Z0-9_-]{11})', url)
+        if yt_m:
+            return f"yt:{yt_m.group(1)}"
+        red_m = re.search(r'comments/([a-zA-Z0-9]+)', url)
+        if red_m:
+            return f"reddit:{red_m.group(1)}"
+        pex_m = re.search(r'pexels[^\d]*(\d+)', url)
+        if pex_m:
+            return f"pexels:{pex_m.group(1)}"
+        pix_m = re.search(r'pixabay[^\d]*(\d+)', url)
+        if pix_m:
+            return f"pixabay:{pix_m.group(1)}"
+        if title and len(title) > 8:
+            title_slug = re.sub(r'[^a-z0-9]', '', title)[:30]
+            return f"title:{title_slug}"
+        return url.split("?")[0].rstrip("/")
+
     # Apply de-duplication: filter out candidates that have already been used
     if used_urls:
         original_count = len(candidates)
-        candidates = [c for c in candidates if c["video_url"] not in used_urls]
+        filtered_cands = []
+        for c in candidates:
+            vurl = c.get("video_url", "")
+            fp = _candidate_fingerprint(c)
+            if vurl in used_urls or fp in used_urls:
+                continue
+            filtered_cands.append(c)
+        candidates = filtered_cands
         if len(candidates) < original_count:
             print(f"[B-roll] De-duplicated candidates: filtered out {original_count - len(candidates)} already used clips.")
 
@@ -2533,6 +2588,7 @@ def fetch_broll(query: str, format_type: str, segment_index: int, duration: floa
                         # Frame inspection passed!
                         if used_urls is not None:
                             used_urls.add(chosen["video_url"])
+                            used_urls.add(_candidate_fingerprint(chosen))
                         print(f"[B-roll] Candidate {try_idx} VERIFIED frame-by-frame! Normalizing into assembly format...")
                         _image_to_ken_burns_video(temp_video_path, out_path, w, h, duration, niche=channel, caption="")
                         if os.path.exists(temp_video_path):
@@ -2569,6 +2625,7 @@ def fetch_broll(query: str, format_type: str, segment_index: int, duration: floa
 
                         if used_urls is not None:
                             used_urls.add(chosen["video_url"])
+                            used_urls.add(_candidate_fingerprint(chosen))
                         print(f"[B-roll] Heuristic candidate {try_idx} VERIFIED frame-by-frame! Normalizing into assembly format...")
                         _image_to_ken_burns_video(temp_video_path, out_path, w, h, duration, niche=channel, caption="")
                         if os.path.exists(temp_video_path):
@@ -2726,6 +2783,7 @@ def fetch_broll(query: str, format_type: str, segment_index: int, duration: floa
 
             if used_urls is not None:
                 used_urls.add(winner["video_url"])
+                used_urls.add(_candidate_fingerprint(winner))
                 
             # Clean up temporary video files
             for r in downloaded_results:
@@ -2748,6 +2806,7 @@ def fetch_broll(query: str, format_type: str, segment_index: int, duration: floa
                 shutil.copy(winner_credit_file, target_credit_file)
             if used_urls is not None:
                 used_urls.add(winner["video_url"])
+                used_urls.add(_candidate_fingerprint(winner))
             for r in downloaded_results:
                 for p in [r["temp_v"], r["temp_f"]]:
                     if os.path.exists(p):

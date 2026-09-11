@@ -24,11 +24,11 @@ The automation fleet is distributed across 5 repositories and corresponding chan
 
 | Channel | Repository | Primary Niche & Persona | Target Topics & Aesthetics | Daily Slots (IST) |
 | :--- | :--- | :--- | :--- | :--- |
-| **Ch 1** | [`/root/yt-auto`](file:///root/yt-auto) | **Science & Frontier Tech** | Quantum mechanics, astrophysics, biotech, computing, advanced materials. | 10:00 AM, 05:30 PM, 02:30 AM |
-| **Ch 2** | [`/root/yt-auto-ch2`](file:///root/yt-auto-ch2) | **Nature & Extreme Biology** | Ocean abyssal fauna, animal adaptations, survival mechanisms, ecosystems. | 11:30 AM, 07:00 PM, 04:00 AM |
-| **Ch 3** | [`/root/yt-auto-ch3`](file:///root/yt-auto-ch3) | **History & Warfare Tactics** | Ancient engineering, battle strategy, rise/fall of empires, tactical secrets. | 07:00 AM, 08:30 PM, 01:00 AM |
-| **Ch 4** | [`/root/yt-auto-ch4`](file:///root/yt-auto-ch4) | **Mysteries & Unexplained** | Archaeological enigmas, geological anomalies, historical paradoxes, cold cases. | 05:30 AM, 01:00 PM, 10:00 PM |
-| **Ch 5** | [`/root/yt-auto-ch5`](file:///root/yt-auto-ch5) | **Megaprojects & Engineering** | Subsea tunnels, megastructures, colossal machinery, civil breakthroughs. | 08:30 AM, 04:00 PM, 11:30 PM |
+| **Ch 1** | [`/root/yt-auto`](file:///root/yt-auto) | **Fun Learning**<br>(Science & Frontier Tech) | Quantum mechanics, astrophysics, biotech, computing, advanced materials. | 10:00 AM, 05:30 PM, 02:30 AM |
+| **Ch 2** | [`/root/yt-auto-ch2`](file:///root/yt-auto-ch2) | **Nature Nourisher**<br>(Nature & Extreme Biology) | Ocean abyssal fauna, animal adaptations, survival mechanisms, ecosystems. | 11:30 AM, 07:00 PM, 04:00 AM |
+| **Ch 3** | [`/root/yt-auto-ch3`](file:///root/yt-auto-ch3) | **Mystery DeMysters**<br>(Mysteries & Warfare Tactics) | Ancient siege secrets, tactical enigmas, historical paradoxes, tactical engineering. | 07:00 AM, 08:30 PM, 01:00 AM |
+| **Ch 4** | [`/root/yt-auto-ch4`](file:///root/yt-auto-ch4) | **Marvel Engeneering**<br>(Engineering Marvels & How It Works) | Colossal machines, mega-structures, how extreme mechanisms work, impossible structural feats. | 05:30 AM, 01:00 PM, 10:00 PM |
+| **Ch 5** | [`/root/yt-auto-ch5`](file:///root/yt-auto-ch5) | **Mind Here Business**<br>(Business, Global Trade & Market Secrets) | Global supply chain wars, corporate monopolies, dark commodity cartels, economic psychology. | 08:30 AM, 04:00 PM, 11:30 PM |
 
 ---
 
