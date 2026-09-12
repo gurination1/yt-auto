@@ -85,9 +85,10 @@
     "Unexplained 'Hypersoft' X-Ray Sources Baffle Scientists",
     "Metamaterial Learns and Adapts Its Shape Autonomously",
     "Quantum Locking: Magnets That DEFY Gravity and Stick to Air",
-    "Penrose's Quantum Consciousness Theory Gains New Evidence"
+    "Penrose's Quantum Consciousness Theory Gains New Evidence",
+    "Physicists Find a 'Glitch' in Time Itself"
   ],
-  "subcluster_idx": 0,
-  "fallback_idx": 19,
-  "call_count": 265
+  "subcluster_idx": 1,
+  "fallback_idx": 20,
+  "call_count": 266
 }
