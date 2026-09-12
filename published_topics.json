@@ -1,6 +1,5 @@
 {
   "topics": [
-    "What if **DNA digital data storage** could archive the world's information for millennia within a few sugar cubes, leveraging the molecule of life to store petabytes of data far denser and more durable than any silicon chip.",
     "LG to unveil next-generation bipedal humanoid robot, built on NVIDIA Isaac GR00T, marking a significant leap in physical AI deployment.",
     "SpaceX rocket body impacts the Moon, highlighting tangible operational risks for future lunar settlements and missions.",
     "How the **Unruh Effect** reveals that an accelerating observer perceives a thermal bath of particles, even in a perfect vacuum, fundamentally linking acceleration, temperature, and quantum fields in a bizarre cosmic illusion.",
@@ -89,9 +88,10 @@
     "Physicists Find a 'Glitch' in Time Itself",
     "Strange Quark Matter: The Dead Star Material That Could Consume Earth",
     "Ultra-Compact Nanolasers for Light-Speed Computing",
-    "Quantum Material That Rebuilds Itself After Laser Blast"
+    "Quantum Material That Rebuilds Itself After Laser Blast",
+    "The Information Engine: Microscopic Machines Powered Entirely by Information Instead of Fuel"
   ],
-  "subcluster_idx": 4,
-  "fallback_idx": 23,
-  "call_count": 269
+  "subcluster_idx": 0,
+  "fallback_idx": 24,
+  "call_count": 270
 }
