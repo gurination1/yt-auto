@@ -86,9 +86,10 @@
     "Metamaterial Learns and Adapts Its Shape Autonomously",
     "Quantum Locking: Magnets That DEFY Gravity and Stick to Air",
     "Penrose's Quantum Consciousness Theory Gains New Evidence",
-    "Physicists Find a 'Glitch' in Time Itself"
+    "Physicists Find a 'Glitch' in Time Itself",
+    "Strange Quark Matter: The Dead Star Material That Could Consume Earth"
   ],
-  "subcluster_idx": 1,
-  "fallback_idx": 20,
-  "call_count": 266
+  "subcluster_idx": 2,
+  "fallback_idx": 21,
+  "call_count": 267
 }
