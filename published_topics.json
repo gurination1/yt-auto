@@ -1,6 +1,5 @@
 {
   "topics": [
-    "LG to unveil next-generation bipedal humanoid robot, built on NVIDIA Isaac GR00T, marking a significant leap in physical AI deployment.",
     "SpaceX rocket body impacts the Moon, highlighting tangible operational risks for future lunar settlements and missions.",
     "How the **Unruh Effect** reveals that an accelerating observer perceives a thermal bath of particles, even in a perfect vacuum, fundamentally linking acceleration, temperature, and quantum fields in a bizarre cosmic illusion.",
     "Engineers have developed a new cobalt-aluminum alloy that is up to 10 times stronger than steel while remaining surprisingly flexible, challenging traditional material limitations.",
@@ -89,9 +88,10 @@
     "Strange Quark Matter: The Dead Star Material That Could Consume Earth",
     "Ultra-Compact Nanolasers for Light-Speed Computing",
     "Quantum Material That Rebuilds Itself After Laser Blast",
-    "The Information Engine: Microscopic Machines Powered Entirely by Information Instead of Fuel"
+    "The Information Engine: Microscopic Machines Powered Entirely by Information Instead of Fuel",
+    "Quantum Energy Teleportation"
   ],
-  "subcluster_idx": 0,
-  "fallback_idx": 24,
-  "call_count": 270
+  "subcluster_idx": 1,
+  "fallback_idx": 0,
+  "call_count": 271
 }
