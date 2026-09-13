@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Engineers have developed a new cobalt-aluminum alloy that is up to 10 times stronger than steel while remaining surprisingly flexible, challenging traditional material limitations.",
     "How dark energy expands the observable universe cosmos",
     "A 170lb meteor exploded over Washington state at 33,000 mph, generating a sonic boom, rattling homes, and potentially scattering fragments, becoming a viral event as NASA confirms its significant energy release.",
     "How **supercritical fluids** like CO2 can transform into a 'tunable solvent' that dissolves intractable substances, yet completely disappears without residue, by existing beyond their critical point.",
@@ -89,9 +88,10 @@
     "The Information Engine: Microscopic Machines Powered Entirely by Information Instead of Fuel",
     "Quantum Energy Teleportation",
     "The LID-568 Black Hole Defying the Eddington Limit",
-    "The Metamaterial That Shrinks When Heated"
+    "The Metamaterial That Shrinks When Heated",
+    "Goldene: The One-Atom-Thick Sheet of Gold That Behaves Like a Semiconductor"
   ],
-  "subcluster_idx": 3,
-  "fallback_idx": 2,
-  "call_count": 273
+  "subcluster_idx": 4,
+  "fallback_idx": 3,
+  "call_count": 274
 }
