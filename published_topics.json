@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How the **Unruh Effect** reveals that an accelerating observer perceives a thermal bath of particles, even in a perfect vacuum, fundamentally linking acceleration, temperature, and quantum fields in a bizarre cosmic illusion.",
     "Engineers have developed a new cobalt-aluminum alloy that is up to 10 times stronger than steel while remaining surprisingly flexible, challenging traditional material limitations.",
     "How dark energy expands the observable universe cosmos",
     "A 170lb meteor exploded over Washington state at 33,000 mph, generating a sonic boom, rattling homes, and potentially scattering fragments, becoming a viral event as NASA confirms its significant energy release.",
@@ -89,9 +88,10 @@
     "Quantum Material That Rebuilds Itself After Laser Blast",
     "The Information Engine: Microscopic Machines Powered Entirely by Information Instead of Fuel",
     "Quantum Energy Teleportation",
-    "The LID-568 Black Hole Defying the Eddington Limit"
+    "The LID-568 Black Hole Defying the Eddington Limit",
+    "The Metamaterial That Shrinks When Heated"
   ],
-  "subcluster_idx": 2,
-  "fallback_idx": 1,
-  "call_count": 272
+  "subcluster_idx": 3,
+  "fallback_idx": 2,
+  "call_count": 273
 }
