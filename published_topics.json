@@ -1,6 +1,5 @@
 {
   "topics": [
-    "A 170lb meteor exploded over Washington state at 33,000 mph, generating a sonic boom, rattling homes, and potentially scattering fragments, becoming a viral event as NASA confirms its significant energy release.",
     "How **supercritical fluids** like CO2 can transform into a 'tunable solvent' that dissolves intractable substances, yet completely disappears without residue, by existing beyond their critical point.",
     "Breakthroughs in engineered cells allow for rapid adjustment of circadian rhythms, potentially offering a novel and efficient solution for jet lag and shift work.",
     "Living Microchips from Brain Cells Outperform AI: US scientists create organoid-computer hybrids that recognize speech patterns faster than conventional models and adapt, signaling a new era of biological computing.",
@@ -89,9 +88,10 @@
     "The LID-568 Black Hole Defying the Eddington Limit",
     "The Metamaterial That Shrinks When Heated",
     "Goldene: The One-Atom-Thick Sheet of Gold That Behaves Like a Semiconductor",
-    "Constant-Velocity Warp Drives Without Negative Energy"
+    "Constant-Velocity Warp Drives Without Negative Energy",
+    "Quantum Eraser Paradox: How Looking Backwards Changes What Already Happened"
   ],
-  "subcluster_idx": 0,
-  "fallback_idx": 4,
-  "call_count": 275
+  "subcluster_idx": 1,
+  "fallback_idx": 5,
+  "call_count": 276
 }
