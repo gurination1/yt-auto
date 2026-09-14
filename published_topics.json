@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How **supercritical fluids** like CO2 can transform into a 'tunable solvent' that dissolves intractable substances, yet completely disappears without residue, by existing beyond their critical point.",
     "Breakthroughs in engineered cells allow for rapid adjustment of circadian rhythms, potentially offering a novel and efficient solution for jet lag and shift work.",
     "Living Microchips from Brain Cells Outperform AI: US scientists create organoid-computer hybrids that recognize speech patterns faster than conventional models and adapt, signaling a new era of biological computing.",
     "How **non-baryonic dark matter** interacts with normal matter only through gravity, explaining why it's so hard to detect and why it 'ghosts' through galaxies and even us.",
@@ -89,9 +88,10 @@
     "The Metamaterial That Shrinks When Heated",
     "Goldene: The One-Atom-Thick Sheet of Gold That Behaves Like a Semiconductor",
     "Constant-Velocity Warp Drives Without Negative Energy",
-    "Quantum Eraser Paradox: How Looking Backwards Changes What Already Happened"
+    "Quantum Eraser Paradox: How Looking Backwards Changes What Already Happened",
+    "The 'Big Ring' in deep space that spans 1.3 billion light-years and breaks our entire model of the universe"
   ],
-  "subcluster_idx": 1,
-  "fallback_idx": 5,
-  "call_count": 276
+  "subcluster_idx": 2,
+  "fallback_idx": 6,
+  "call_count": 277
 }
