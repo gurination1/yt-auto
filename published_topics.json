@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How dark energy expands the observable universe cosmos",
     "A 170lb meteor exploded over Washington state at 33,000 mph, generating a sonic boom, rattling homes, and potentially scattering fragments, becoming a viral event as NASA confirms its significant energy release.",
     "How **supercritical fluids** like CO2 can transform into a 'tunable solvent' that dissolves intractable substances, yet completely disappears without residue, by existing beyond their critical point.",
     "Breakthroughs in engineered cells allow for rapid adjustment of circadian rhythms, potentially offering a novel and efficient solution for jet lag and shift work.",
@@ -89,9 +88,10 @@
     "Quantum Energy Teleportation",
     "The LID-568 Black Hole Defying the Eddington Limit",
     "The Metamaterial That Shrinks When Heated",
-    "Goldene: The One-Atom-Thick Sheet of Gold That Behaves Like a Semiconductor"
+    "Goldene: The One-Atom-Thick Sheet of Gold That Behaves Like a Semiconductor",
+    "Constant-Velocity Warp Drives Without Negative Energy"
   ],
-  "subcluster_idx": 4,
-  "fallback_idx": 3,
-  "call_count": 274
+  "subcluster_idx": 0,
+  "fallback_idx": 4,
+  "call_count": 275
 }
