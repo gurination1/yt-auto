@@ -1,6 +1,5 @@
 {
   "topics": [
-    "New Hidden Gluon Structure Found Inside Protons Challenges Standard Model",
     "Researchers have engineered an unusually corrosion-resistant stainless steel, offering a significantly cheaper alternative to titanium for critical components in green hydrogen production.",
     "World's first superconducting quantum heat engine converts quantum-scale heat into useful work, potentially eliminating millions of noisy cables in future quantum computers, accelerating their scaling and reducing complexity.",
     "Tonight, stargazers can witness a rare and stunning cosmic alignment as the crescent Moon perfectly positions itself between brilliant Venus and the bright blue-white star Spica in the evening sky.",
@@ -89,9 +88,10 @@
     "The 'Big Ring' in deep space that spans 1.3 billion light-years and breaks our entire model of the universe",
     "The Molecular Drill That Spins 3 Million Times a Second to Bore Into Cells",
     "Pyroelectric Fusion Crystals That Trigger Tabletop Nuclear Fusion",
-    "The 'Quantum Maxwell's Demon' experiment that successfully extracted usable work from pure information without spending any physical energy."
+    "The 'Quantum Maxwell's Demon' experiment that successfully extracted usable work from pure information without spending any physical energy.",
+    "How the Casimir Torque experiment proved that spinning a nanoparticle in a perfect vacuum slows it down by rubbing against empty space."
   ],
-  "subcluster_idx": 0,
-  "fallback_idx": 9,
-  "call_count": 280
+  "subcluster_idx": 1,
+  "fallback_idx": 10,
+  "call_count": 281
 }
