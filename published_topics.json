@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Researchers have engineered an unusually corrosion-resistant stainless steel, offering a significantly cheaper alternative to titanium for critical components in green hydrogen production.",
     "World's first superconducting quantum heat engine converts quantum-scale heat into useful work, potentially eliminating millions of noisy cables in future quantum computers, accelerating their scaling and reducing complexity.",
     "Tonight, stargazers can witness a rare and stunning cosmic alignment as the crescent Moon perfectly positions itself between brilliant Venus and the bright blue-white star Spica in the evening sky.",
     "How **quantum decoherence** might explain the universe's **arrow of time**, by demonstrating how microscopic quantum systems irreversibly lose their \"quantumness\" by entangling with their environment, creating the seemingly one-way flow we experience.",
@@ -89,9 +88,10 @@
     "The Molecular Drill That Spins 3 Million Times a Second to Bore Into Cells",
     "Pyroelectric Fusion Crystals That Trigger Tabletop Nuclear Fusion",
     "The 'Quantum Maxwell's Demon' experiment that successfully extracted usable work from pure information without spending any physical energy.",
-    "How the Casimir Torque experiment proved that spinning a nanoparticle in a perfect vacuum slows it down by rubbing against empty space."
+    "How the Casimir Torque experiment proved that spinning a nanoparticle in a perfect vacuum slows it down by rubbing against empty space.",
+    "The 'Starquakes' on Magnetar SGR 1806-20 that cracked Earth's upper atmosphere from 50,000 light-years away"
   ],
-  "subcluster_idx": 1,
-  "fallback_idx": 10,
-  "call_count": 281
+  "subcluster_idx": 2,
+  "fallback_idx": 11,
+  "call_count": 282
 }
