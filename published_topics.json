@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How **quantum decoherence** might explain the universe's **arrow of time**, by demonstrating how microscopic quantum systems irreversibly lose their \"quantumness\" by entangling with their environment, creating the seemingly one-way flow we experience.",
     "Scientists unveil a novel polymer that transforms into a gas upon heating and solidifies back upon cooling, enabling unprecedented material recyclability and dynamic applications.",
     "Moderna and Merck's individualized mRNA-based cancer vaccine has achieved a major breakthrough, demonstrating significantly improved recurrence-free survival in a Phase 3 trial for skin cancer.",
     "What if computing could use **Surface Plasmon Polaritons** to shrink light waves smaller than themselves, allowing optical circuits to be packed at the nanoscale, defying the fundamental diffraction limit?",
@@ -89,9 +88,10 @@
     "How the Casimir Torque experiment proved that spinning a nanoparticle in a perfect vacuum slows it down by rubbing against empty space.",
     "The 'Starquakes' on Magnetar SGR 1806-20 that cracked Earth's upper atmosphere from 50,000 light-years away",
     "The mechanical metamaterial featuring 'auxetic' honeycomb structures that defies standard physics by expanding wider when you stretch it instead of thinning out.",
-    "How kagome lattice crystals create flat electronic bands that force electrons to trap each other in microscopic quantum traffic jams."
+    "How kagome lattice crystals create flat electronic bands that force electrons to trap each other in microscopic quantum traffic jams.",
+    "The 'Quantum Retrocausality' experiment that proved making a measurement today can physically alter a photon's choice made yesterday."
   ],
-  "subcluster_idx": 4,
-  "fallback_idx": 13,
-  "call_count": 284
+  "subcluster_idx": 0,
+  "fallback_idx": 14,
+  "call_count": 285
 }
