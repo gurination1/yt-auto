@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How **superhydrophobic surfaces** achieve extreme water repellency, not just by being chemically non-stick, but by trapping air within their precise micro- and nanostructures, creating a composite interface where water barely touches the solid surface, a phenomenon known as the **Cassie-Baxter state** (or Lotus Effect).",
     "Silver Nanoparticles Revolutionize DNA Assembly Efficiency",
     "IBM's groundbreaking cryogenic modules for fault-tolerant quantum computing are revolutionizing the physical architecture needed to scale hundreds of quantum chips into powerful, ultra-cold systems by 2029.",
     "How **neutron stars** actually contain a **superfluid** of neutrons and a **superconducting** fluid of protons in their cores, causing sudden \"glitches\" in their rotation as their crust and fluid interior decouple.",
@@ -89,9 +88,10 @@
     "How the ultra-dense magnetar Swift J1818.0-1607 suddenly began acting like a radio pulsar, defying decades of stellar evolution models.",
     "The molecular 'nanotrucks' built from single-chain polymers that physically crawl across living cell membranes to deliver targeted cargo.",
     "How twisting two sheets of graphene at precisely the 'magic angle' of 1.1 degrees instantly turns ordinary carbon into an exotic superconductor.",
-    "The 'Quantum Darwinism' framework proving that reality only exists because microscopic systems constantly broadcast their state to the surrounding environment."
+    "The 'Quantum Darwinism' framework proving that reality only exists because microscopic systems constantly broadcast their state to the surrounding environment.",
+    "How atomic clocks tick at noticeably different rates when separated by mere millimeters of vertical height due to general relativistic time dilation."
   ],
-  "subcluster_idx": 0,
-  "fallback_idx": 19,
-  "call_count": 290
+  "subcluster_idx": 1,
+  "fallback_idx": 20,
+  "call_count": 291
 }
