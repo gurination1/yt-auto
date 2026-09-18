@@ -1,6 +1,5 @@
 {
   "topics": [
-    "What if computing could use **Surface Plasmon Polaritons** to shrink light waves smaller than themselves, allowing optical circuits to be packed at the nanoscale, defying the fundamental diffraction limit?",
     "NASA is exploring commercial partnerships to reboost the Swift Gamma-Ray Burst Explorer, an aging but critical space telescope, to extend its operational life. This innovative approach highlights the increasing reliance on private sector solutions for maintaining vital scientific infrastructure in orbit and ensuring continued multi-messenger astronomy observations.",
     "The discovery of \"quantum droplets,\" a new type of quantum matter formed by a stable union of fermions and bosons.",
     "How **superhydrophobic surfaces** achieve extreme water repellency, not just by being chemically non-stick, but by trapping air within their precise micro- and nanostructures, creating a composite interface where water barely touches the solid surface, a phenomenon known as the **Cassie-Baxter state** (or Lotus Effect).",
@@ -89,9 +88,10 @@
     "How kagome lattice crystals create flat electronic bands that force electrons to trap each other in microscopic quantum traffic jams.",
     "The 'Quantum Retrocausality' experiment that proved making a measurement today can physically alter a photon's choice made yesterday.",
     "How macroscopic diamonds at room temperature can sustain long-range quantum entanglement using nitrogen-vacancy center spins.",
-    "How the ultra-dense magnetar Swift J1818.0-1607 suddenly began acting like a radio pulsar, defying decades of stellar evolution models."
+    "How the ultra-dense magnetar Swift J1818.0-1607 suddenly began acting like a radio pulsar, defying decades of stellar evolution models.",
+    "The molecular 'nanotrucks' built from single-chain polymers that physically crawl across living cell membranes to deliver targeted cargo."
   ],
-  "subcluster_idx": 2,
-  "fallback_idx": 16,
-  "call_count": 287
+  "subcluster_idx": 3,
+  "fallback_idx": 17,
+  "call_count": 288
 }
