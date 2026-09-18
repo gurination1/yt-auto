@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The discovery of \"quantum droplets,\" a new type of quantum matter formed by a stable union of fermions and bosons.",
     "How **superhydrophobic surfaces** achieve extreme water repellency, not just by being chemically non-stick, but by trapping air within their precise micro- and nanostructures, creating a composite interface where water barely touches the solid surface, a phenomenon known as the **Cassie-Baxter state** (or Lotus Effect).",
     "Silver Nanoparticles Revolutionize DNA Assembly Efficiency",
     "IBM's groundbreaking cryogenic modules for fault-tolerant quantum computing are revolutionizing the physical architecture needed to scale hundreds of quantum chips into powerful, ultra-cold systems by 2029.",
@@ -89,9 +88,10 @@
     "How macroscopic diamonds at room temperature can sustain long-range quantum entanglement using nitrogen-vacancy center spins.",
     "How the ultra-dense magnetar Swift J1818.0-1607 suddenly began acting like a radio pulsar, defying decades of stellar evolution models.",
     "The molecular 'nanotrucks' built from single-chain polymers that physically crawl across living cell membranes to deliver targeted cargo.",
-    "How twisting two sheets of graphene at precisely the 'magic angle' of 1.1 degrees instantly turns ordinary carbon into an exotic superconductor."
+    "How twisting two sheets of graphene at precisely the 'magic angle' of 1.1 degrees instantly turns ordinary carbon into an exotic superconductor.",
+    "The 'Quantum Darwinism' framework proving that reality only exists because microscopic systems constantly broadcast their state to the surrounding environment."
   ],
-  "subcluster_idx": 4,
-  "fallback_idx": 18,
-  "call_count": 289
+  "subcluster_idx": 0,
+  "fallback_idx": 19,
+  "call_count": 290
 }
