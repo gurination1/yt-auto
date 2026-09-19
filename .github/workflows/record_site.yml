@@ -23,14 +23,18 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y ffmpeg curl
+          sudo apt-get install -y ffmpeg curl xvfb libgl1-mesa-dri mesa-utils
           pip install playwright
           playwright install chromium --with-deps
 
-      - name: Run screen recording
+      - name: Run 60FPS screen recording with Xvfb & X11grab
         env:
           TARGET_URL: ${{ github.event.inputs.target_url || 'https://dreamheights-source.vercel.app/' }}
         run: |
+          # Start Xvfb virtual display with 24-bit 1920x1080 resolution and GLX support
+          Xvfb :99 -screen 0 1920x1080x24 -ac +extension GLX +render -noreset &
+          export DISPLAY=:99
+          sleep 2
           python3 record_site_gha.py
 
       - name: Upload artifact

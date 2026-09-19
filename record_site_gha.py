@@ -1,146 +1,173 @@
 import asyncio
 import os
+import sys
 import glob
 import subprocess
 from playwright.async_api import async_playwright
 
-async def run():
-    rec_dir = '/tmp/recordings'
-    os.makedirs(rec_dir, exist_ok=True)
+async def record():
+    display = os.environ.get('DISPLAY', ':99')
+    url = os.environ.get('TARGET_URL', 'https://dreamheights-source.vercel.app/')
+    raw_mp4 = '/tmp/raw_x11grab.mp4'
+    output_mp4 = '/tmp/dreamheights_cloud_60fps.mp4'
 
-    print("Launching Chromium on GitHub Actions runner...")
+    print("==================================================")
+    print("🎬 Starting 60FPS Cloud Screen Recording")
+    print(f"   Target URL: {url}")
+    print(f"   X11 Display: {display}")
+    print("==================================================")
+
+    # 1. Start FFmpeg x11grab at true 60 FPS
+    print("1. Launching FFmpeg x11grab (60fps lossless capture from X11 buffer)...")
+    ffmpeg_cmd = [
+        'ffmpeg',
+        '-video_size', '1920x1080',
+        '-framerate', '60',
+        '-f', 'x11grab',
+        '-draw_mouse', '0',
+        '-i', f'{display}.0',
+        '-c:v', 'libx264',
+        '-preset', 'ultrafast',
+        '-crf', '15',
+        '-pix_fmt', 'yuv420p',
+        raw_mp4,
+        '-y'
+    ]
+    ffmpeg_proc = subprocess.Popen(
+        ffmpeg_cmd,
+        stdin=subprocess.PIPE,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.PIPE
+    )
+
+    # Allow FFmpeg to initialize the framebuffer grabber
+    await asyncio.sleep(0.5)
+
+    # 2. Launch Chromium in Headful Kiosk mode on X11
+    print("2. Launching Headful Chromium on X11 (1920x1080 Kiosk)...")
     async with async_playwright() as p:
         browser = await p.chromium.launch(
-            headless=True,
+            headless=False,
             args=[
                 '--no-sandbox',
                 '--disable-setuid-sandbox',
-                '--enable-webgl',
+                '--window-size=1920,1080',
+                '--window-position=0,0',
+                '--start-fullscreen',
+                '--kiosk',
+                '--disable-infobars',
+                '--disable-session-crashed-bubble',
+                '--hide-scrollbars',
+                '--disable-background-timer-throttling',
+                '--disable-backgrounding-occluded-windows',
+                '--disable-renderer-backgrounding',
+                '--enable-gpu-rasterization',
                 '--ignore-gpu-blocklist',
-                '--use-gl=angle',
-                '--use-angle=swiftshader',
-                '--window-size=1920,1080'
             ]
         )
         context = await browser.new_context(
             viewport={'width': 1920, 'height': 1080},
-            record_video_dir=rec_dir,
-            record_video_size={'width': 1920, 'height': 1080}
+            device_scale_factor=1
         )
+
+        # Pre-set cookie preference to prevent popup overlay
+        await context.add_init_script("""
+        (() => {
+            try {
+                localStorage.setItem('cookies', 'accepted');
+            } catch(e) {}
+        })()
+        """)
+
         page = await context.new_page()
 
-        url = os.environ.get('TARGET_URL', 'https://dreamheights-source.vercel.app/')
-        print(f"1. Navigating to {url} ...")
-        await page.goto(url, wait_until='domcontentloaded', timeout=45000)
-        
-        print("2. Waiting for Lenis engine and DOM initialization...")
-        await page.wait_for_function('() => window.lenis != null', timeout=30000)
-        print("Lenis engine confirmed ready!")
+        # Set dark background to prevent any white flash
+        await page.goto("data:text/html,<body style='background:#050505;margin:0;'></body>")
+        await asyncio.sleep(0.3)
 
-        print("3. Scrubbing overlays and initializing Hero view...")
-        await page.evaluate('''() => {
-            document.querySelectorAll('[data-cookie], .cookie, [class*="cookie"], [data-preloader], [data-master-preloader], .preloader').forEach(e => e.remove());
-            document.documentElement.style.overflow = 'auto';
-            document.body.style.overflow = 'auto';
-            document.body.style.paddingRight = '';
-            if (window.lenis) {
-                window.lenis.start();
-                window.lenis.scrollTo(0, { immediate: true });
-            }
-        }''')
+        print(f"3. Navigating to {url} to capture preloader...")
+        await page.goto(url, wait_until='domcontentloaded')
 
-        print("4. Capturing Hero view (2.5s)...")
-        await asyncio.sleep(2.5)
+        print("4. Preloader running! Waiting for preloader animation to complete naturally...")
+        try:
+            # Wait for data-preloader to finish its GSAP arch animation and hide
+            await page.wait_for_function('''() => {
+                const p = document.querySelector("[data-preloader]");
+                if (!p) return true;
+                const style = window.getComputedStyle(p);
+                return style.display === "none" || style.opacity === "0" || style.visibility === "hidden";
+            }''', timeout=30000)
+            print("   ✅ Preloader animation finished! Hero section revealed.")
+        except Exception as e:
+            print("   ⚠️ Preloader wait warning:", e)
 
-        print("5. Executing smooth dynamic scroll down (0 -> 9500px in 7.0s)...")
+        print("5. Holding on Hero view (2.0s)...")
+        await asyncio.sleep(2.0)
+
+        print("6. Scrolling down smoothly via native Lenis (0 -> 5500px in 6.0s)...")
         await page.evaluate('''() => {
             return new Promise((resolve) => {
-                const targetY = 9500;
-                const duration = 7000;
-                const startY = window.scrollY;
-                let start = null;
-
-                function step(timestamp) {
-                    if (!start) start = timestamp;
-                    const elapsed = timestamp - start;
-                    const progress = Math.min(elapsed / duration, 1);
-                    const ease = progress < 0.5 
-                        ? 2 * progress * progress 
-                        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-                    
-                    const current = startY + targetY * ease;
-                    if (window.lenis) {
-                        window.lenis.scrollTo(current, { immediate: true });
-                    } else {
-                        window.scrollTo(0, current);
-                    }
-
-                    if (progress < 1) {
-                        requestAnimationFrame(step);
-                    } else {
-                        resolve();
-                    }
+                if (window.lenis) {
+                    window.lenis.scrollTo(5500, {
+                        duration: 6.0,
+                        easing: (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+                    });
+                    setTimeout(resolve, 6200);
+                } else {
+                    window.scrollTo({ top: 5500, behavior: 'smooth' });
+                    setTimeout(resolve, 6200);
                 }
-                requestAnimationFrame(step);
             });
         }''')
 
-        print("6. Pausing on architectural amenities section (2.0s)...")
+        print("7. Pausing on architectural showcase section (2.0s)...")
         await asyncio.sleep(2.0)
 
-        print("7. Executing smooth dynamic return scroll (9500px -> 0 in 4.5s)...")
+        print("8. Scrolling back to Hero via native Lenis (5500px -> 0 in 4.5s)...")
         await page.evaluate('''() => {
             return new Promise((resolve) => {
-                const startY = window.scrollY;
-                const duration = 4500;
-                let start = null;
-
-                function step(timestamp) {
-                    if (!start) start = timestamp;
-                    const elapsed = timestamp - start;
-                    const progress = Math.min(elapsed / duration, 1);
-                    const ease = progress < 0.5 
-                        ? 2 * progress * progress 
-                        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-                    
-                    const current = startY * (1 - ease);
-                    if (window.lenis) {
-                        window.lenis.scrollTo(current, { immediate: true });
-                    } else {
-                        window.scrollTo(0, current);
-                    }
-
-                    if (progress < 1) {
-                        requestAnimationFrame(step);
-                    } else {
-                        resolve();
-                    }
+                if (window.lenis) {
+                    window.lenis.scrollTo(0, {
+                        duration: 4.5,
+                        easing: (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+                    });
+                    setTimeout(resolve, 4800);
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    setTimeout(resolve, 4800);
                 }
-                requestAnimationFrame(step);
             });
         }''')
 
-        print("8. Settle on Hero (2.0s)...")
-        await asyncio.sleep(2.0)
+        print("9. Settle on Hero view (1.5s)...")
+        await asyncio.sleep(1.5)
 
-        print("9. Closing context to flush video...")
+        print("10. Closing browser...")
         await context.close()
         await browser.close()
 
-    webms = glob.glob(os.path.join(rec_dir, '*.webm'))
-    if not webms:
-        raise RuntimeError("No recorded video found!")
-    
-    input_webm = webms[0]
-    output_mp4 = '/tmp/dreamheights_cloud_60fps.mp4'
-    print(f"Encoding {input_webm} to high-bitrate 60fps MP4: {output_mp4} ...")
+    print("11. Stopping FFmpeg capture...")
+    try:
+        ffmpeg_proc.stdin.write(b'q')
+        ffmpeg_proc.stdin.flush()
+        ffmpeg_proc.wait(timeout=10)
+    except Exception as e:
+        print("   Terminating FFmpeg:", e)
+        ffmpeg_proc.terminate()
+        ffmpeg_proc.wait(timeout=5)
+
+    if not os.path.exists(raw_mp4):
+        raise RuntimeError("Raw capture video was not generated!")
+
+    print(f"12. Transcoding to ultra-high-bitrate 60fps MP4: {output_mp4} ...")
     subprocess.run([
-        'ffmpeg', '-i', input_webm,
+        'ffmpeg', '-i', raw_mp4,
         '-c:v', 'libx264',
         '-preset', 'slow',
-        '-crf', '17',
+        '-crf', '16',
         '-r', '60',
         '-pix_fmt', 'yuv420p',
+        '-movflags', '+faststart',
         output_mp4, '-y'
     ], check=True)
 
@@ -167,4 +194,4 @@ async def run():
         print("Tmpfiles upload failed:", e)
 
 if __name__ == '__main__':
-    asyncio.run(run())
+    asyncio.run(record())
