@@ -390,6 +390,60 @@ def main():
                 broll_files[idx] = old_b
             final_video = phase7.assemble_video(broll_files, audio_files, captions_ass, music_path, script, args.format)
 
+        # ── Attach Rotating Interactive Enterprise Portfolio Bumper (4.0s) ──
+        bumpers_dir = "assets/bumpers"
+        bumper_files = []
+        if os.path.exists(bumpers_dir):
+            bumper_files = sorted([
+                os.path.join(bumpers_dir, f) for f in os.listdir(bumpers_dir)
+                if f.endswith(".mp4") and not f.endswith(".temp.mp4")
+            ])
+        
+        bumper_path = None
+        if bumper_files:
+            import random
+            bumper_path = random.choice(bumper_files)
+        elif os.path.exists("assets/ad_bumper_ch1.mp4"):
+            bumper_path = "assets/ad_bumper_ch1.mp4"
+
+        if bumper_path and os.path.exists(bumper_path) and args.format == "short":
+            print(f"[Phase 7b] Appending Interactive Enterprise Bumper ({os.path.basename(bumper_path)})...")
+            try:
+                concat_list = "output/concat_bumper_list.txt"
+                with open(concat_list, "w") as f:
+                    f.write(f"file '{os.path.abspath(final_video)}'\n")
+                    f.write(f"file '{os.path.abspath(bumper_path)}'\n")
+                final_with_ad = "output/final_short_with_ad.mp4"
+                cmd_cat = [
+                    "ffmpeg", "-y", "-f", "concat", "-safe", "0",
+                    "-i", concat_list, "-c", "copy", final_with_ad
+                ]
+                res = subprocess.run(cmd_cat, capture_output=True)
+                if res.returncode == 0 and os.path.exists(final_with_ad) and os.path.getsize(final_with_ad) > 1000:
+                    import shutil
+                    shutil.move(final_with_ad, final_video)
+                    print(f"[Phase 7b] Enterprise bumper appended successfully via stream copy to {final_video}.")
+                else:
+                    print(f"[Phase 7b] Direct copy concat fallback; re-encoding transition...")
+                    cmd_reencode = [
+                        "ffmpeg", "-y",
+                        "-i", final_video,
+                        "-i", bumper_path,
+                        "-filter_complex", "[0:v:0][0:a:0][1:v:0][1:a:0]concat=n=2:v=1:a=1[v][a]",
+                        "-map", "[v]", "-map", "[a]",
+                        "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k",
+                        final_with_ad
+                    ]
+                    res2 = subprocess.run(cmd_reencode, capture_output=True)
+                    if res2.returncode == 0 and os.path.exists(final_with_ad):
+                        import shutil
+                        shutil.move(final_with_ad, final_video)
+                        print(f"[Phase 7b] Enterprise bumper appended successfully via re-encode to {final_video}.")
+                    else:
+                        print(f"[Phase 7b] Warning: Re-encode concat failed: {res2.stderr.decode('utf-8', errors='ignore')}")
+            except Exception as b_err:
+                print(f"[Phase 7b] Warning: Bumper append encountered error: {b_err}")
+
         print("[Phase 8] Generating thumbnail...")
         thumb_text = script.get("thumbnail_text") or script.get("title") or "SECRET REVEALED"
         thumbnail = phase8.generate_thumbnail(final_video, thumb_text, topic_prompt=script.get("title", ""), channel=channel_niche)
@@ -427,6 +481,11 @@ def main():
                             description_text = description_text.rstrip() + credits_str
             except Exception as fc_err:
                 print(f"[Generate] Warning: Could not append footage credits to description: {fc_err}")
+
+        # Append enterprise portfolio link to description
+        enterprise_cta = "\n\n🚀 Work with us / Bespoke Web Design & Content Automation:\n• Dream Heights 3D: https://dreamheights-source.vercel.app\n• BioPrac Health SaaS: https://myhealthprac.vercel.app\n• DM 'BUILD' or Tap link in bio"
+        if "dreamheights" not in description_text.lower():
+            description_text = description_text.rstrip() + enterprise_cta
 
         # Save metadata for publish step
         metadata_path = "output/metadata.json"
