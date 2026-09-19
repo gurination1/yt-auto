@@ -196,6 +196,9 @@ def main():
         if args.format == "short":
             print(f"[Phase 4] Sequential B-roll fetching for Shorts (strictly prevents duplicate clips across segments)")
             for i, seg in enumerate(script["segments"]):
+                if time.time() - pipeline_start_time > 35 * 60:
+                    print(f"[Phase 4] Total pipeline runtime reached 35m. Enabling fast fallback to guarantee video assembly finishes within budget.")
+                    os.environ["FAST_BROLL_FALLBACK"] = "1"
                 idx, bpath = _fetch_segment_broll(i, seg)
                 broll_files[idx] = bpath
         else:
