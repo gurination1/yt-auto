@@ -3,10 +3,10 @@ name: Record Site Cloud 60FPS
 on:
   workflow_dispatch:
     inputs:
-      target_url:
-        description: 'URL to record'
+      target_site:
+        description: 'Which site to record: both, dreamheights, or bioprac'
         required: false
-        default: 'https://dreamheights-source.vercel.app/'
+        default: 'both'
 
 jobs:
   record:
@@ -29,7 +29,10 @@ jobs:
 
       - name: Run 60FPS screen recording with Xvfb & X11grab
         env:
-          TARGET_URL: ${{ github.event.inputs.target_url || 'https://dreamheights-source.vercel.app/' }}
+          TARGET_SITE: ${{ github.event.inputs.target_site || 'both' }}
+          LIBGL_ALWAYS_SOFTWARE: "1"
+          LP_NUM_THREADS: "4"
+          GALLIUM_DRIVER: "llvmpipe"
         run: |
           # Start Xvfb virtual display with 24-bit 1920x1080 resolution and GLX support
           Xvfb :99 -screen 0 1920x1080x24 -ac +extension GLX +render -noreset &
@@ -37,10 +40,10 @@ jobs:
           sleep 2
           python3 record_site_gha.py
 
-      - name: Upload artifact
+      - name: Upload video artifacts
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: dreamheights-recording-60fps
-          path: /tmp/dreamheights_cloud_60fps.mp4
+          name: site-recordings-60fps
+          path: /tmp/*_cloud_60fps.mp4
           retention-days: 7
