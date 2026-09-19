@@ -20,3 +20,4 @@ test_harvest_output/
 music_history.json
 last_run_*/
 upload_*.py
+bumper_gallery/

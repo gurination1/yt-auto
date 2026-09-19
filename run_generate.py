@@ -404,10 +404,12 @@ def main():
         
         bumper_path = None
         if bumper_files:
-            import random
-            bumper_path = random.choice(bumper_files)
+            import secrets
+            bumper_path = secrets.choice(bumper_files)
+            print(f"[Phase 7b] Selected outro ad with zero pattern from {len(bumper_files)} candidates: {os.path.basename(bumper_path)}")
         elif os.path.exists("assets/ad_bumper_ch1.mp4"):
             bumper_path = "assets/ad_bumper_ch1.mp4"
+            print(f"[Phase 7b] Fallback outro ad selected: {os.path.basename(bumper_path)}")
 
         if bumper_path and os.path.exists(bumper_path) and args.format == "short":
             print(f"[Phase 7b] Appending Interactive Enterprise Bumper ({os.path.basename(bumper_path)})...")
