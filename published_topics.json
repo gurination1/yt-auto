@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How **neutron stars** actually contain a **superfluid** of neutrons and a **superconducting** fluid of protons in their cores, causing sudden \"glitches\" in their rotation as their crust and fluid interior decouple.",
     "The enigmatic emergence of 'ice-like' electronic phases within quantum materials challenges our understanding of superconductivity and magnetism.",
     "How a novel multi-responsive gel developed by University of Birmingham scientists can shift between solid and liquid states with UV light, reset with heat, and dismantle with acid, opening pathways for intelligent material design.",
     "How **prions** actually work, acting as infectious agents that propagate by templating the misfolding of normal proteins, defying the typical nucleic acid basis of heredity.",
@@ -89,9 +88,10 @@
     "The 'Quantum Darwinism' framework proving that reality only exists because microscopic systems constantly broadcast their state to the surrounding environment.",
     "How atomic clocks tick at noticeably different rates when separated by mere millimeters of vertical height due to general relativistic time dilation.",
     "The 'Dark Matter Hurricane' of Stellar Stream S1 currently pelting our solar system at 500 kilometers per second",
-    "DNA origami nanorobots that autonomously navigate inside living human blood vessels to hunt down and lock onto cancer cell receptors."
+    "DNA origami nanorobots that autonomously navigate inside living human blood vessels to hunt down and lock onto cancer cell receptors.",
+    "How bismuth crystal lattices trap light in microscopic chambers, creating photonic traps that defy normal optical reflection."
   ],
-  "subcluster_idx": 3,
-  "fallback_idx": 22,
-  "call_count": 293
+  "subcluster_idx": 4,
+  "fallback_idx": 23,
+  "call_count": 294
 }
