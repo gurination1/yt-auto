@@ -32,11 +32,14 @@ async def run():
         url = os.environ.get('TARGET_URL', 'https://dreamheights-source.vercel.app/')
         print(f"1. Navigating to {url} ...")
         await page.goto(url, wait_until='domcontentloaded', timeout=45000)
-        await asyncio.sleep(2.5)
+        
+        print("2. Waiting for Lenis engine and DOM initialization...")
+        await page.wait_for_function('() => window.lenis != null', timeout=30000)
+        print("Lenis engine confirmed ready!")
 
-        print("2. Scrubbing overlays and initializing Lenis...")
+        print("3. Scrubbing overlays and initializing Hero view...")
         await page.evaluate('''() => {
-            document.querySelectorAll('[data-cookie], .cookie, [class*="cookie"], [data-preloader], [data-master-preloader]').forEach(e => e.remove());
+            document.querySelectorAll('[data-cookie], .cookie, [class*="cookie"], [data-preloader], [data-master-preloader], .preloader').forEach(e => e.remove());
             document.documentElement.style.overflow = 'auto';
             document.body.style.overflow = 'auto';
             document.body.style.paddingRight = '';
@@ -46,10 +49,10 @@ async def run():
             }
         }''')
 
-        print("3. Capturing Hero view (2.5s)...")
+        print("4. Capturing Hero view (2.5s)...")
         await asyncio.sleep(2.5)
 
-        print("4. Executing smooth dynamic scroll down (0 -> 9500px in 7.0s)...")
+        print("5. Executing smooth dynamic scroll down (0 -> 9500px in 7.0s)...")
         await page.evaluate('''() => {
             return new Promise((resolve) => {
                 const targetY = 9500;
@@ -82,10 +85,10 @@ async def run():
             });
         }''')
 
-        print("5. Pausing on architectural amenities section (2.0s)...")
+        print("6. Pausing on architectural amenities section (2.0s)...")
         await asyncio.sleep(2.0)
 
-        print("6. Executing smooth dynamic return scroll (9500px -> 0 in 4.5s)...")
+        print("7. Executing smooth dynamic return scroll (9500px -> 0 in 4.5s)...")
         await page.evaluate('''() => {
             return new Promise((resolve) => {
                 const startY = window.scrollY;
@@ -117,10 +120,10 @@ async def run():
             });
         }''')
 
-        print("7. Settle on Hero (2.0s)...")
+        print("8. Settle on Hero (2.0s)...")
         await asyncio.sleep(2.0)
 
-        print("8. Closing context to flush video...")
+        print("9. Closing context to flush video...")
         await context.close()
         await browser.close()
 
@@ -144,7 +147,8 @@ async def run():
     print("=== Uploading to catbox.moe ===")
     try:
         res = subprocess.run([
-            'curl', '-s', '-F', 'reqtype=fileupload',
+            'curl', '-s', '-A', 'Mozilla/5.0',
+            '-F', 'reqtype=fileupload',
             '-F', f'fileToUpload=@{output_mp4}',
             'https://catbox.moe/user/api.php'
         ], capture_output=True, text=True, check=True)
