@@ -3,8 +3,8 @@ name: Fleet Cloud Autonomous Watchdog
 on:
   workflow_dispatch:
   schedule:
-    # Runs every 2 hours at minute 18 to evade global :00 / :30 cron scheduler congestion
-    - cron: '18 */2 * * *'
+    # Staggered fleet watchdog check
+    - cron: '14,44 * * * *'
 
 jobs:
   audit-and-dispatch:
