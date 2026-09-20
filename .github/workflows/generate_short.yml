@@ -7,7 +7,7 @@ on:
       publish:
         description: 'Publish video publicly to platforms (true/false)'
         required: false
-        default: 'false'
+        default: 'true'
   schedule:
     - cron: '30 4 * * *'   # 04:30 UTC / 10:00 IST (Ch1 Short #1)
     - cron: '0 12 * * *'   # 12:00 UTC / 17:30 IST (Ch1 Short #2)
