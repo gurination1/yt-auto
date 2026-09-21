@@ -1,6 +1,5 @@
 {
   "topics": [
-    "What if the **Quantum Zeno Effect** allows continuous observation to literally freeze a quantum system in its initial state, preventing it from evolving or decaying, as if \"watching\" it stops time for its transformation?",
     "AI models now design new materials with intrinsic chemical stability, bypassing costly validation.",
     "Reworked transfer RNAs (tRNAs) are enabling the engineering of proteins with an expanded alphabet of up to 34 distinct amino acids, vastly increasing the complexity and functionality of synthetic proteins.",
     "Quantum Computing Superposition Logic",
@@ -89,9 +88,10 @@
     "How the recent experimental realization of quantum steering allows one observer to remotely manipulate another particle's reality without violating local realism.",
     "The 'cosmic mirror' ring of Hoag's Object, a perfectly circular galaxy floating inside another galaxy with zero physical connection",
     "The magnetic shape-memory alloy actuator that changes its physical dimensions at the microscopic level thousands of times per second without generating heat.",
-    "How time-reversal symmetry breaking in chiral crystal lattices creates unidirectional electron highways that conduct electricity with zero resistance"
+    "How time-reversal symmetry breaking in chiral crystal lattices creates unidirectional electron highways that conduct electricity with zero resistance",
+    "How 'Loschmidt's paradox' proves that the fundamental laws of physics are completely reversible, yet everyday thermodynamics forces eggs to scramble and never unscramble."
   ],
-  "subcluster_idx": 4,
-  "fallback_idx": 3,
-  "call_count": 299
+  "subcluster_idx": 0,
+  "fallback_idx": 4,
+  "call_count": 300
 }
