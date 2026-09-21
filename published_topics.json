@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Reworked transfer RNAs (tRNAs) are enabling the engineering of proteins with an expanded alphabet of up to 34 distinct amino acids, vastly increasing the complexity and functionality of synthetic proteins.",
     "Quantum Computing Superposition Logic",
     "New analysis from NASA's Webb Telescope has ruled out two prominent candidates for Dyson Spheres, refining the search for alien megastructures and focusing future efforts on more plausible technosignatures.",
     "Cambridge Scientists Directly Observe Quantum Fluctuations in a Vacuum, Making the Invisible 'Tremor' of Spacetime Visible",
@@ -89,9 +88,10 @@
     "The magnetic shape-memory alloy actuator that changes its physical dimensions at the microscopic level thousands of times per second without generating heat.",
     "How time-reversal symmetry breaking in chiral crystal lattices creates unidirectional electron highways that conduct electricity with zero resistance",
     "How 'Loschmidt's paradox' proves that the fundamental laws of physics are completely reversible, yet everyday thermodynamics forces eggs to scramble and never unscramble.",
-    "How the recent discovery of non-Abelian anyons in fractional quantum Hall states creates stable topological qubits immune to decoherence."
+    "How the recent discovery of non-Abelian anyons in fractional quantum Hall states creates stable topological qubits immune to decoherence.",
+    "The 'cosmic heartbeat' of FRB 20220914A, a repeating fast radio burst that pulses with an uncanny clockwork precision resembling artificial alien machinery."
   ],
-  "subcluster_idx": 1,
-  "fallback_idx": 5,
-  "call_count": 301
+  "subcluster_idx": 2,
+  "fallback_idx": 6,
+  "call_count": 302
 }
