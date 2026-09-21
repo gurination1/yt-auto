@@ -1,6 +1,5 @@
 {
   "topics": [
-    "AI models now design new materials with intrinsic chemical stability, bypassing costly validation.",
     "Reworked transfer RNAs (tRNAs) are enabling the engineering of proteins with an expanded alphabet of up to 34 distinct amino acids, vastly increasing the complexity and functionality of synthetic proteins.",
     "Quantum Computing Superposition Logic",
     "New analysis from NASA's Webb Telescope has ruled out two prominent candidates for Dyson Spheres, refining the search for alien megastructures and focusing future efforts on more plausible technosignatures.",
@@ -89,9 +88,10 @@
     "The 'cosmic mirror' ring of Hoag's Object, a perfectly circular galaxy floating inside another galaxy with zero physical connection",
     "The magnetic shape-memory alloy actuator that changes its physical dimensions at the microscopic level thousands of times per second without generating heat.",
     "How time-reversal symmetry breaking in chiral crystal lattices creates unidirectional electron highways that conduct electricity with zero resistance",
-    "How 'Loschmidt's paradox' proves that the fundamental laws of physics are completely reversible, yet everyday thermodynamics forces eggs to scramble and never unscramble."
+    "How 'Loschmidt's paradox' proves that the fundamental laws of physics are completely reversible, yet everyday thermodynamics forces eggs to scramble and never unscramble.",
+    "How the recent discovery of non-Abelian anyons in fractional quantum Hall states creates stable topological qubits immune to decoherence."
   ],
-  "subcluster_idx": 0,
-  "fallback_idx": 4,
-  "call_count": 300
+  "subcluster_idx": 1,
+  "fallback_idx": 5,
+  "call_count": 301
 }
