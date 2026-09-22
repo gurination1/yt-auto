@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Cambridge Scientists Directly Observe Quantum Fluctuations in a Vacuum, Making the Invisible 'Tremor' of Spacetime Visible",
     "How **supramolecular self-assembly** actually allows molecules to spontaneously build complex, functional materials from the bottom up, defying the need for intricate fabrication.",
     "Stanford scientists have developed TIGRa, an ultracompact gene activation tool, small enough for viral vectors, offering more versatile gene targeting options than existing CRISPR counterparts, potentially revolutionizing in-vivo gene therapy.",
     "AI is revolutionizing drug discovery, moving beyond traditional methods with breakthroughs in de novo drug design, decoding complex biological systems for target identification, and advanced protein structure prediction like AlphaFold 3, dramatically accelerating therapeutic development.",
@@ -89,9 +88,10 @@
     "How the recent discovery of non-Abelian anyons in fractional quantum Hall states creates stable topological qubits immune to decoherence.",
     "The 'cosmic heartbeat' of FRB 20220914A, a repeating fast radio burst that pulses with an uncanny clockwork precision resembling artificial alien machinery.",
     "The thermal cloak metamaterial that bends heat currents completely around an object inside it, making it entirely invisible to infrared thermal cameras",
-    "How 'schizophoenic' shape-memory polymers remember two completely different physical forms and flip between them when exposed to a specific light wavelength."
+    "How 'schizophoenic' shape-memory polymers remember two completely different physical forms and flip between them when exposed to a specific light wavelength.",
+    "How 'Unruh Radiation' proves that empty space glows like a blazing furnace if you accelerate through it fast enough."
   ],
-  "subcluster_idx": 4,
-  "fallback_idx": 8,
-  "call_count": 304
+  "subcluster_idx": 0,
+  "fallback_idx": 9,
+  "call_count": 305
 }
