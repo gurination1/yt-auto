@@ -1,6 +1,5 @@
 {
   "topics": [
-    "AI is revolutionizing drug discovery, moving beyond traditional methods with breakthroughs in de novo drug design, decoding complex biological systems for target identification, and advanced protein structure prediction like AlphaFold 3, dramatically accelerating therapeutic development.",
     "What if the Cosmic Microwave Background, the oldest light in the universe, actually shows inexplicable large-scale patterns, like the 'Axis of Evil,' that challenge our fundamental assumption of a uniform universe and the **cosmological principle**?",
     "A mysterious cosmic hum, the gravitational-wave background, may originate from 13-billion-year-old hypothetical dark stars.",
     "How **topological insulators** actually work, acting as perfect electrical insulators in their bulk while conducting electricity flawlessly along their surfaces or edges, defying the conventional understanding of material conductivity and robustly protecting electron flow against defects.",
@@ -89,9 +88,10 @@
     "How 'schizophoenic' shape-memory polymers remember two completely different physical forms and flip between them when exposed to a specific light wavelength.",
     "How 'Unruh Radiation' proves that empty space glows like a blazing furnace if you accelerate through it fast enough.",
     "How the quantum Zeno effect proves that staring intently at an unstable radioactive atom can literally freeze time and prevent it from decaying.",
-    "The 'Cosmic Rope' of Galaxy NGC 4676, the Mice Galaxies, where a billion light-year bridge of torn stars connects two colliding titans."
+    "The 'Cosmic Rope' of Galaxy NGC 4676, the Mice Galaxies, where a billion light-year bridge of torn stars connects two colliding titans.",
+    "The biological molecular motor kinesin that acts like a microscopic cargo truck, walking step-by-step along cellular microtubule tracks."
   ],
-  "subcluster_idx": 2,
-  "fallback_idx": 11,
-  "call_count": 307
+  "subcluster_idx": 3,
+  "fallback_idx": 12,
+  "call_count": 308
 }
