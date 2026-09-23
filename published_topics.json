@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Stanford scientists have developed TIGRa, an ultracompact gene activation tool, small enough for viral vectors, offering more versatile gene targeting options than existing CRISPR counterparts, potentially revolutionizing in-vivo gene therapy.",
     "AI is revolutionizing drug discovery, moving beyond traditional methods with breakthroughs in de novo drug design, decoding complex biological systems for target identification, and advanced protein structure prediction like AlphaFold 3, dramatically accelerating therapeutic development.",
     "What if the Cosmic Microwave Background, the oldest light in the universe, actually shows inexplicable large-scale patterns, like the 'Axis of Evil,' that challenge our fundamental assumption of a uniform universe and the **cosmological principle**?",
     "A mysterious cosmic hum, the gravitational-wave background, may originate from 13-billion-year-old hypothetical dark stars.",
@@ -89,9 +88,10 @@
     "The thermal cloak metamaterial that bends heat currents completely around an object inside it, making it entirely invisible to infrared thermal cameras",
     "How 'schizophoenic' shape-memory polymers remember two completely different physical forms and flip between them when exposed to a specific light wavelength.",
     "How 'Unruh Radiation' proves that empty space glows like a blazing furnace if you accelerate through it fast enough.",
-    "How the quantum Zeno effect proves that staring intently at an unstable radioactive atom can literally freeze time and prevent it from decaying."
+    "How the quantum Zeno effect proves that staring intently at an unstable radioactive atom can literally freeze time and prevent it from decaying.",
+    "The 'Cosmic Rope' of Galaxy NGC 4676, the Mice Galaxies, where a billion light-year bridge of torn stars connects two colliding titans."
   ],
-  "subcluster_idx": 1,
-  "fallback_idx": 10,
-  "call_count": 306
+  "subcluster_idx": 2,
+  "fallback_idx": 11,
+  "call_count": 307
 }
