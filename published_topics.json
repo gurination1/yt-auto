@@ -1,6 +1,5 @@
 {
   "topics": [
-    "A mysterious cosmic hum, the gravitational-wave background, may originate from 13-billion-year-old hypothetical dark stars.",
     "How **topological insulators** actually work, acting as perfect electrical insulators in their bulk while conducting electricity flawlessly along their surfaces or edges, defying the conventional understanding of material conductivity and robustly protecting electron flow against defects.",
     "How **directed evolution** actually works, allowing scientists to force proteins and enzymes to \"evolve\" billions of times faster than nature in a lab, creating novel functions like plastic degradation or drug synthesis through iterative mutation and selection.",
     "Google's \"Antigravity\" project developing an AI translator that operates entirely offline using the Gemma model, signaling a major leap in private, portable, and cloud-independent AI.",
@@ -89,9 +88,10 @@
     "How the quantum Zeno effect proves that staring intently at an unstable radioactive atom can literally freeze time and prevent it from decaying.",
     "The 'Cosmic Rope' of Galaxy NGC 4676, the Mice Galaxies, where a billion light-year bridge of torn stars connects two colliding titans.",
     "The biological molecular motor kinesin that acts like a microscopic cargo truck, walking step-by-step along cellular microtubule tracks.",
-    "The room-temperature piezoelectric crystal that instantly generates thousands of volts of electricity the exact microsecond you tap its surface."
+    "The room-temperature piezoelectric crystal that instantly generates thousands of volts of electricity the exact microsecond you tap its surface.",
+    "How 'Quantum Backaction' forces physicists to physically disturb the very universe they are trying to measure, proving absolute objectivity is impossible."
   ],
-  "subcluster_idx": 4,
-  "fallback_idx": 13,
-  "call_count": 309
+  "subcluster_idx": 0,
+  "fallback_idx": 14,
+  "call_count": 310
 }
