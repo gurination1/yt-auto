@@ -1,6 +1,5 @@
 {
   "topics": [
-    "A massive heat anomaly has been discovered deep inside Mars, suggesting its southern interior is hundreds of degrees hotter than the north and potentially partially molten.",
     "How the **weak nuclear force** actually violates **parity symmetry**, uniquely distinguishing left-handed from right-handed particles and revealing a fundamental, intrinsic asymmetry in the universe not found in other forces.",
     "Scientists have cracked a long-standing chemistry problem, creating \"impossible\" nanocrystals from tough metal nitrides with potential for next-generation LEDs, medical implants, and superconductors.",
     "Generative AI Designs Novel Bacteriophages, Unveiling Dual-Use Dilemma in Biotech for Phage Therapy and Biosecurity",
@@ -89,9 +88,10 @@
     "How 'Quantum Backaction' forces physicists to physically disturb the very universe they are trying to measure, proving absolute objectivity is impossible.",
     "Gallium Liquid Metal: The non-toxic metal that melts at 86 degrees Fahrenheit and shatters aluminum",
     "The Baffling Reality of the 'Bo\u00f6tes Void', an Enormous 330-Million-Light-Year Patch of Space That Is Shockingly Empty of Galaxies",
-    "The photonic topological metamaterial that forces light to travel exclusively around sharp ninety-degree corners without losing a single photon of energy."
+    "The photonic topological metamaterial that forces light to travel exclusively around sharp ninety-degree corners without losing a single photon of energy.",
+    "The 'superionic ice' crystal lattice found inside Uranus and Neptune where water atoms form a solid lattice while protons flow like liquid."
   ],
-  "subcluster_idx": 3,
-  "fallback_idx": 17,
-  "call_count": 313
+  "subcluster_idx": 4,
+  "fallback_idx": 18,
+  "call_count": 314
 }
