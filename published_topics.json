@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Google's \"Antigravity\" project developing an AI translator that operates entirely offline using the Gemma model, signaling a major leap in private, portable, and cloud-independent AI.",
     "A massive heat anomaly has been discovered deep inside Mars, suggesting its southern interior is hundreds of degrees hotter than the north and potentially partially molten.",
     "How the **weak nuclear force** actually violates **parity symmetry**, uniquely distinguishing left-handed from right-handed particles and revealing a fundamental, intrinsic asymmetry in the universe not found in other forces.",
     "Scientists have cracked a long-standing chemistry problem, creating \"impossible\" nanocrystals from tough metal nitrides with potential for next-generation LEDs, medical implants, and superconductors.",
@@ -89,9 +88,10 @@
     "The room-temperature piezoelectric crystal that instantly generates thousands of volts of electricity the exact microsecond you tap its surface.",
     "How 'Quantum Backaction' forces physicists to physically disturb the very universe they are trying to measure, proving absolute objectivity is impossible.",
     "Gallium Liquid Metal: The non-toxic metal that melts at 86 degrees Fahrenheit and shatters aluminum",
-    "The Baffling Reality of the 'Bo\u00f6tes Void', an Enormous 330-Million-Light-Year Patch of Space That Is Shockingly Empty of Galaxies"
+    "The Baffling Reality of the 'Bo\u00f6tes Void', an Enormous 330-Million-Light-Year Patch of Space That Is Shockingly Empty of Galaxies",
+    "The photonic topological metamaterial that forces light to travel exclusively around sharp ninety-degree corners without losing a single photon of energy."
   ],
-  "subcluster_idx": 2,
-  "fallback_idx": 16,
-  "call_count": 312
+  "subcluster_idx": 3,
+  "fallback_idx": 17,
+  "call_count": 313
 }
