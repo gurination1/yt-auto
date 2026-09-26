@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Scientists have cracked a long-standing chemistry problem, creating \"impossible\" nanocrystals from tough metal nitrides with potential for next-generation LEDs, medical implants, and superconductors.",
     "Generative AI Designs Novel Bacteriophages, Unveiling Dual-Use Dilemma in Biotech for Phage Therapy and Biosecurity",
     "Scientists observe Einstein's gravity interacting within the quantum realm, pushing towards a unified theory of physics.",
     "A new AI BioDesign initiative is leveraging artificial intelligence and synthetic biology to engineer novel biomolecules and proteins that do not exist in nature, potentially revolutionizing drug development, plastic degradation, and biological computing.",
@@ -89,9 +88,10 @@
     "The Baffling Reality of the 'Bo\u00f6tes Void', an Enormous 330-Million-Light-Year Patch of Space That Is Shockingly Empty of Galaxies",
     "The photonic topological metamaterial that forces light to travel exclusively around sharp ninety-degree corners without losing a single photon of energy.",
     "The 'superionic ice' crystal lattice found inside Uranus and Neptune where water atoms form a solid lattice while protons flow like liquid.",
-    "How the Bekenstein bound proves that human brains and hard drives have a strict, absolute physical storage limit imposed by quantum thermodynamics."
+    "How the Bekenstein bound proves that human brains and hard drives have a strict, absolute physical storage limit imposed by quantum thermodynamics.",
+    "How 'Quantum Cheshire Cats' split a subatomic particle's mass and magnetic charge into separate spatial paths."
   ],
-  "subcluster_idx": 0,
-  "fallback_idx": 19,
-  "call_count": 315
+  "subcluster_idx": 1,
+  "fallback_idx": 20,
+  "call_count": 316
 }
