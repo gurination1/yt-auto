@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The diamond rain falling on Neptune and Saturn that creates solid gemstone oceans",
     "Time crystals that loop infinitely in motion without consuming energy",
     "The acoustic levitation material that traps glowing liquid droplets in mid-air using invisible sound waves",
     "The bioluminescent tobacco plants that glow constantly in the dark using mushroom genes",
@@ -89,9 +88,10 @@
     "How 'r-process' nucleosynthesis inside colliding neutron stars suddenly manufactures tons of pure gold and platinum heavier than lead.",
     "The radical negative thermal expansion lattice that shrinks instead of expanding when exposed to intense, blistering heat.",
     "Cherenkov Radiation: Why underwater nuclear reactors glow with eerie electric blue optical light",
-    "The bizarre 'Alcubierre metric' spacetime warp bubble that theoretically compresses space ahead of a craft while expanding it behind."
+    "The bizarre 'Alcubierre metric' spacetime warp bubble that theoretically compresses space ahead of a craft while expanding it behind.",
+    "How 'nuclear isomer ticking' uses excited atomic nuclei as hyper-precise optical clocks that could soon outperform standard atomic cesium standards"
   ],
-  "subcluster_idx": 0,
-  "fallback_idx": 24,
-  "call_count": 320
+  "subcluster_idx": 1,
+  "fallback_idx": 0,
+  "call_count": 321
 }
