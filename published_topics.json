@@ -1,6 +1,5 @@
 {
   "topics": [
-    "A 26-minute AI-generated animation, \"The Book of Supernatural Phenomena: Look to the People,\" becomes a viral hit in China, igniting widespread debate on AI's creative capabilities and its impact on human artistry.",
     "The diamond rain falling on Neptune and Saturn that creates solid gemstone oceans",
     "Time crystals that loop infinitely in motion without consuming energy",
     "The acoustic levitation material that traps glowing liquid droplets in mid-air using invisible sound waves",
@@ -89,9 +88,10 @@
     "How 'Quantum Cheshire Cats' split a subatomic particle's mass and magnetic charge into separate spatial paths.",
     "How 'r-process' nucleosynthesis inside colliding neutron stars suddenly manufactures tons of pure gold and platinum heavier than lead.",
     "The radical negative thermal expansion lattice that shrinks instead of expanding when exposed to intense, blistering heat.",
-    "Cherenkov Radiation: Why underwater nuclear reactors glow with eerie electric blue optical light"
+    "Cherenkov Radiation: Why underwater nuclear reactors glow with eerie electric blue optical light",
+    "The bizarre 'Alcubierre metric' spacetime warp bubble that theoretically compresses space ahead of a craft while expanding it behind."
   ],
-  "subcluster_idx": 4,
-  "fallback_idx": 23,
-  "call_count": 319
+  "subcluster_idx": 0,
+  "fallback_idx": 24,
+  "call_count": 320
 }
