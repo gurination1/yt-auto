@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The acoustic levitation material that traps glowing liquid droplets in mid-air using invisible sound waves",
     "The bioluminescent tobacco plants that glow constantly in the dark using mushroom genes",
     "Micro-robots that can physically reconfigure into working electronic circuits and self-repair.",
     "Saturn's Vanishing Spokes: Ghostly Trails on its Rings",
@@ -89,9 +88,10 @@
     "Cherenkov Radiation: Why underwater nuclear reactors glow with eerie electric blue optical light",
     "The bizarre 'Alcubierre metric' spacetime warp bubble that theoretically compresses space ahead of a craft while expanding it behind.",
     "How 'nuclear isomer ticking' uses excited atomic nuclei as hyper-precise optical clocks that could soon outperform standard atomic cesium standards",
-    "The 'cosmic strings' of topological defects left over from the Big Bang that could slice through planets like a microscopic laser blade"
+    "The 'cosmic strings' of topological defects left over from the Big Bang that could slice through planets like a microscopic laser blade",
+    "The origami-inspired mechanical metamaterial that multiplies physical force by a factor of thousands using only geometric folding patterns"
   ],
-  "subcluster_idx": 2,
-  "fallback_idx": 1,
-  "call_count": 322
+  "subcluster_idx": 3,
+  "fallback_idx": 2,
+  "call_count": 323
 }
