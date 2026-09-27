@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Time crystals that loop infinitely in motion without consuming energy",
     "The acoustic levitation material that traps glowing liquid droplets in mid-air using invisible sound waves",
     "The bioluminescent tobacco plants that glow constantly in the dark using mushroom genes",
     "Micro-robots that can physically reconfigure into working electronic circuits and self-repair.",
@@ -89,9 +88,10 @@
     "The radical negative thermal expansion lattice that shrinks instead of expanding when exposed to intense, blistering heat.",
     "Cherenkov Radiation: Why underwater nuclear reactors glow with eerie electric blue optical light",
     "The bizarre 'Alcubierre metric' spacetime warp bubble that theoretically compresses space ahead of a craft while expanding it behind.",
-    "How 'nuclear isomer ticking' uses excited atomic nuclei as hyper-precise optical clocks that could soon outperform standard atomic cesium standards"
+    "How 'nuclear isomer ticking' uses excited atomic nuclei as hyper-precise optical clocks that could soon outperform standard atomic cesium standards",
+    "The 'cosmic strings' of topological defects left over from the Big Bang that could slice through planets like a microscopic laser blade"
   ],
-  "subcluster_idx": 1,
-  "fallback_idx": 0,
-  "call_count": 321
+  "subcluster_idx": 2,
+  "fallback_idx": 1,
+  "call_count": 322
 }
