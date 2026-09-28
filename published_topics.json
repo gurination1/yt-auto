@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The baffling reality: Time literally runs slower for you if you live on the ground floor instead of the top floor of a skyscraper.",
     "The 'Sound Black Hole' Material That Absorbs All Noise",
     "Living Concrete That Heals Its Own Cracks Using Genetically Engineered Bacteria",
     "The Unbelievable Crystal That Can Physically STOP Light: A Future Computer's Memory",
@@ -89,9 +88,10 @@
     "The origami-inspired mechanical metamaterial that multiplies physical force by a factor of thousands using only geometric folding patterns",
     "The 'demon core' equivalent in superconductors: how trapped magnetic flux vortices can suddenly snap loose and trigger explosive quenches.",
     "How 'time crystals' defy standard thermodynamics by perpetually oscillating in a constant lowest-energy state without ever consuming external fuel.",
-    "The Casimir Effect: How two uncharged plates in a pure vacuum are forced together by virtual particles"
+    "The Casimir Effect: How two uncharged plates in a pure vacuum are forced together by virtual particles",
+    "The 'El Gordo' galaxy cluster that is so massively heavy it literally bends background starlight into giant cosmic question marks."
   ],
-  "subcluster_idx": 1,
-  "fallback_idx": 5,
-  "call_count": 326
+  "subcluster_idx": 2,
+  "fallback_idx": 6,
+  "call_count": 327
 }
