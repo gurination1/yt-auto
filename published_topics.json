@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Living Concrete That Heals Its Own Cracks Using Genetically Engineered Bacteria",
     "The Unbelievable Crystal That Can Physically STOP Light: A Future Computer's Memory",
     "Billions of invisible \"Rogue Planets\" now confirmed to wander interstellar space, outnumbering stars.",
     "The 'Negative Mass' Fluid That Pushes Back When You Push It",
@@ -89,9 +88,10 @@
     "How 'time crystals' defy standard thermodynamics by perpetually oscillating in a constant lowest-energy state without ever consuming external fuel.",
     "The Casimir Effect: How two uncharged plates in a pure vacuum are forced together by virtual particles",
     "The 'El Gordo' galaxy cluster that is so massively heavy it literally bends background starlight into giant cosmic question marks.",
-    "The 'Molecular Ratchet' Nanomachine That Uses Thermal Brownian Motion To Physically Force Molecules Up A Gradient, Defying Standard Entropy"
+    "The 'Molecular Ratchet' Nanomachine That Uses Thermal Brownian Motion To Physically Force Molecules Up A Gradient, Defying Standard Entropy",
+    "Quantum Entanglement: How photons communicate instantaneously across billions of light-years"
   ],
-  "subcluster_idx": 3,
-  "fallback_idx": 7,
-  "call_count": 328
+  "subcluster_idx": 4,
+  "fallback_idx": 8,
+  "call_count": 329
 }
