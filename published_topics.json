@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Saturn's Vanishing Spokes: Ghostly Trails on its Rings",
     "The baffling reality: Time literally runs slower for you if you live on the ground floor instead of the top floor of a skyscraper.",
     "The 'Sound Black Hole' Material That Absorbs All Noise",
     "Living Concrete That Heals Its Own Cracks Using Genetically Engineered Bacteria",
@@ -89,9 +88,10 @@
     "The 'cosmic strings' of topological defects left over from the Big Bang that could slice through planets like a microscopic laser blade",
     "The origami-inspired mechanical metamaterial that multiplies physical force by a factor of thousands using only geometric folding patterns",
     "The 'demon core' equivalent in superconductors: how trapped magnetic flux vortices can suddenly snap loose and trigger explosive quenches.",
-    "How 'time crystals' defy standard thermodynamics by perpetually oscillating in a constant lowest-energy state without ever consuming external fuel."
+    "How 'time crystals' defy standard thermodynamics by perpetually oscillating in a constant lowest-energy state without ever consuming external fuel.",
+    "The Casimir Effect: How two uncharged plates in a pure vacuum are forced together by virtual particles"
   ],
-  "subcluster_idx": 0,
-  "fallback_idx": 4,
-  "call_count": 325
+  "subcluster_idx": 1,
+  "fallback_idx": 5,
+  "call_count": 326
 }
