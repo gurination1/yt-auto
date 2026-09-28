@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The Unbelievable Crystal That Can Physically STOP Light: A Future Computer's Memory",
     "Billions of invisible \"Rogue Planets\" now confirmed to wander interstellar space, outnumbering stars.",
     "The 'Negative Mass' Fluid That Pushes Back When You Push It",
     "The liquid that instantly freezes on touch, even when below freezing, creating a hot ice sculpture.",
@@ -89,9 +88,10 @@
     "The Casimir Effect: How two uncharged plates in a pure vacuum are forced together by virtual particles",
     "The 'El Gordo' galaxy cluster that is so massively heavy it literally bends background starlight into giant cosmic question marks.",
     "The 'Molecular Ratchet' Nanomachine That Uses Thermal Brownian Motion To Physically Force Molecules Up A Gradient, Defying Standard Entropy",
-    "Quantum Entanglement: How photons communicate instantaneously across billions of light-years"
+    "Quantum Entanglement: How photons communicate instantaneously across billions of light-years",
+    "How 'Boltzmann Brains' calculate that a random collection of consciousness is statistically more likely than our actual universe"
   ],
-  "subcluster_idx": 4,
-  "fallback_idx": 8,
-  "call_count": 329
+  "subcluster_idx": 0,
+  "fallback_idx": 9,
+  "call_count": 330
 }
