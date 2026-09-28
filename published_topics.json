@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Micro-robots that can physically reconfigure into working electronic circuits and self-repair.",
     "Saturn's Vanishing Spokes: Ghostly Trails on its Rings",
     "The baffling reality: Time literally runs slower for you if you live on the ground floor instead of the top floor of a skyscraper.",
     "The 'Sound Black Hole' Material That Absorbs All Noise",
@@ -89,9 +88,10 @@
     "How 'nuclear isomer ticking' uses excited atomic nuclei as hyper-precise optical clocks that could soon outperform standard atomic cesium standards",
     "The 'cosmic strings' of topological defects left over from the Big Bang that could slice through planets like a microscopic laser blade",
     "The origami-inspired mechanical metamaterial that multiplies physical force by a factor of thousands using only geometric folding patterns",
-    "The 'demon core' equivalent in superconductors: how trapped magnetic flux vortices can suddenly snap loose and trigger explosive quenches."
+    "The 'demon core' equivalent in superconductors: how trapped magnetic flux vortices can suddenly snap loose and trigger explosive quenches.",
+    "How 'time crystals' defy standard thermodynamics by perpetually oscillating in a constant lowest-energy state without ever consuming external fuel."
   ],
-  "subcluster_idx": 4,
-  "fallback_idx": 3,
-  "call_count": 324
+  "subcluster_idx": 0,
+  "fallback_idx": 4,
+  "call_count": 325
 }
