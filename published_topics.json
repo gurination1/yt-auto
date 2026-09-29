@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The 'Negative Mass' Fluid That Pushes Back When You Push It",
     "The liquid that instantly freezes on touch, even when below freezing, creating a hot ice sculpture.",
     "Scientists 3D Print Fully Functional Blood Vessel Networks for Artificial Organs",
     "AI that autonomously designs and 3D prints its own soft, task-specific robots from scratch.",
@@ -89,9 +88,10 @@
     "The 'Molecular Ratchet' Nanomachine That Uses Thermal Brownian Motion To Physically Force Molecules Up A Gradient, Defying Standard Entropy",
     "Quantum Entanglement: How photons communicate instantaneously across billions of light-years",
     "How 'Boltzmann Brains' calculate that a random collection of consciousness is statistically more likely than our actual universe",
-    "How 'Negative Time Delay' makes photons exit an atomic cloud before they even finish entering it, rewriting our understanding of causality."
+    "How 'Negative Time Delay' makes photons exit an atomic cloud before they even finish entering it, rewriting our understanding of causality.",
+    "The 'Dead' Quasar J1144+4309 That Suddenly Re-Ignited Like a Cosmic Blowtorch, Liberating More Energy Than Trillions of Suns"
   ],
-  "subcluster_idx": 1,
-  "fallback_idx": 10,
-  "call_count": 331
+  "subcluster_idx": 2,
+  "fallback_idx": 11,
+  "call_count": 332
 }
