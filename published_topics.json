@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Wandering Supermassive Black Holes Creating Star Trails",
     "Light-Reprogrammable Smart Materials",
     "The Material That Gets Thicker When You Stretch It",
     "A Rogue Photon Just Challenged Einstein's Fundamental Physics",
@@ -89,9 +88,10 @@
     "The synthetic molecular muscles built from single rotaxane rings that contract with greater force-to-weight ratio than biological muscle tissue.",
     "How 'hyper-dense quantum dots' form self-assembled superlattices that trap light inside an infinite loop, forcing photons to orbit eternally without escape.",
     "How 'gravitational Faraday rotation' twists the polarization angle of background radio waves as they travel through spinning black hole ergospheres.",
-    "How 'Weak Measurements' extract hidden subatomic data without destroying the delicate quantum states being observed."
+    "How 'Weak Measurements' extract hidden subatomic data without destroying the delicate quantum states being observed.",
+    "The Rogue Supermassive Black Hole J2157-3608 Eating the Equivalent of One Entire Sun Every Single Day"
   ],
-  "subcluster_idx": 1,
-  "fallback_idx": 15,
-  "call_count": 336
+  "subcluster_idx": 2,
+  "fallback_idx": 16,
+  "call_count": 337
 }
