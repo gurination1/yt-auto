@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The Material That Gets Thicker When You Stretch It",
     "A Rogue Photon Just Challenged Einstein's Fundamental Physics",
     "Scientists delay quantum entanglement loss with a single 'flip' operation",
     "The 'Mountain' on a Neutron Star: So tiny, it's invisible, yet could rip space-time with gravitational waves.",
@@ -89,9 +88,10 @@
     "How 'gravitational Faraday rotation' twists the polarization angle of background radio waves as they travel through spinning black hole ergospheres.",
     "How 'Weak Measurements' extract hidden subatomic data without destroying the delicate quantum states being observed.",
     "The Rogue Supermassive Black Hole J2157-3608 Eating the Equivalent of One Entire Sun Every Single Day",
-    "The self-healing supramolecular polymer network that completely repairs deep physical lacerations within seconds using hydrogen bond reformation."
+    "The self-healing supramolecular polymer network that completely repairs deep physical lacerations within seconds using hydrogen bond reformation.",
+    "The bizarre 'strange metal' phase in copper-oxide superconductors where electrical resistance scales linearly with absolute temperature."
   ],
-  "subcluster_idx": 3,
-  "fallback_idx": 17,
-  "call_count": 338
+  "subcluster_idx": 4,
+  "fallback_idx": 18,
+  "call_count": 339
 }
