@@ -1,6 +1,5 @@
 {
   "topics": [
-    "A Rogue Photon Just Challenged Einstein's Fundamental Physics",
     "Scientists delay quantum entanglement loss with a single 'flip' operation",
     "The 'Mountain' on a Neutron Star: So tiny, it's invisible, yet could rip space-time with gravitational waves.",
     "Curved Graphene Nanostructures",
@@ -89,9 +88,10 @@
     "How 'Weak Measurements' extract hidden subatomic data without destroying the delicate quantum states being observed.",
     "The Rogue Supermassive Black Hole J2157-3608 Eating the Equivalent of One Entire Sun Every Single Day",
     "The self-healing supramolecular polymer network that completely repairs deep physical lacerations within seconds using hydrogen bond reformation.",
-    "The bizarre 'strange metal' phase in copper-oxide superconductors where electrical resistance scales linearly with absolute temperature."
+    "The bizarre 'strange metal' phase in copper-oxide superconductors where electrical resistance scales linearly with absolute temperature.",
+    "How 'Quantum Phase Slips' in superconducting nanowires allow electrical current to spontaneously jump across time without existing in between."
   ],
-  "subcluster_idx": 4,
-  "fallback_idx": 18,
-  "call_count": 339
+  "subcluster_idx": 0,
+  "fallback_idx": 19,
+  "call_count": 340
 }
