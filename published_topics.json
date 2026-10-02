@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The 'Mountain' on a Neutron Star: So tiny, it's invisible, yet could rip space-time with gravitational waves.",
     "Curved Graphene Nanostructures",
     "Magnetoelectric Crystals for Room-Temp Memory",
     "Negative Absolute Temperature: The Bizarre State Hotter Than Infinity",
@@ -89,9 +88,10 @@
     "The self-healing supramolecular polymer network that completely repairs deep physical lacerations within seconds using hydrogen bond reformation.",
     "The bizarre 'strange metal' phase in copper-oxide superconductors where electrical resistance scales linearly with absolute temperature.",
     "How 'Quantum Phase Slips' in superconducting nanowires allow electrical current to spontaneously jump across time without existing in between.",
-    "How 'Negative Mass' quantum fluids accelerate backward when you push them forward, completely flipping Newton's third law of motion on its head."
+    "How 'Negative Mass' quantum fluids accelerate backward when you push them forward, completely flipping Newton's third law of motion on its head.",
+    "The 'Cosmic Vampire' Black Hole System VFTS 243, which drains its companion star without emitting any explosive supernova blast whatsoever."
   ],
-  "subcluster_idx": 1,
-  "fallback_idx": 20,
-  "call_count": 341
+  "subcluster_idx": 2,
+  "fallback_idx": 21,
+  "call_count": 342
 }
