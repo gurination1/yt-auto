@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Scientists delay quantum entanglement loss with a single 'flip' operation",
     "The 'Mountain' on a Neutron Star: So tiny, it's invisible, yet could rip space-time with gravitational waves.",
     "Curved Graphene Nanostructures",
     "Magnetoelectric Crystals for Room-Temp Memory",
@@ -89,9 +88,10 @@
     "The Rogue Supermassive Black Hole J2157-3608 Eating the Equivalent of One Entire Sun Every Single Day",
     "The self-healing supramolecular polymer network that completely repairs deep physical lacerations within seconds using hydrogen bond reformation.",
     "The bizarre 'strange metal' phase in copper-oxide superconductors where electrical resistance scales linearly with absolute temperature.",
-    "How 'Quantum Phase Slips' in superconducting nanowires allow electrical current to spontaneously jump across time without existing in between."
+    "How 'Quantum Phase Slips' in superconducting nanowires allow electrical current to spontaneously jump across time without existing in between.",
+    "How 'Negative Mass' quantum fluids accelerate backward when you push them forward, completely flipping Newton's third law of motion on its head."
   ],
-  "subcluster_idx": 0,
-  "fallback_idx": 19,
-  "call_count": 340
+  "subcluster_idx": 1,
+  "fallback_idx": 20,
+  "call_count": 341
 }
