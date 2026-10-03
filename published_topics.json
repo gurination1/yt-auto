@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Negative Absolute Temperature: The Bizarre State Hotter Than Infinity",
     "Gravity directly observed acting on quantum waves",
     "Ancient Hydrogen Signal Recreates 3D Universe Maps",
     "The invisible nanobots that can disassemble plastic or disease, molecule by molecule.",
@@ -89,9 +88,10 @@
     "How 'Negative Mass' quantum fluids accelerate backward when you push them forward, completely flipping Newton's third law of motion on its head.",
     "The 'Cosmic Vampire' Black Hole System VFTS 243, which drains its companion star without emitting any explosive supernova blast whatsoever.",
     "The acoustic metamaterial panel that uses destructive interference to completely cancel out high-decibel jet engine noise while remaining fully porous to airflow.",
-    "How 'Twisted Trilayer Graphene' forces electrons to completely freeze in place, creating an unbreakable fractional Chern insulator without any magnetic field."
+    "How 'Twisted Trilayer Graphene' forces electrons to completely freeze in place, creating an unbreakable fractional Chern insulator without any magnetic field.",
+    "How 'thermal time hypotesis' suggests that the flow of time itself is an illusion born entirely out of quantum thermodynamics and entropy"
   ],
-  "subcluster_idx": 4,
-  "fallback_idx": 23,
-  "call_count": 344
+  "subcluster_idx": 0,
+  "fallback_idx": 24,
+  "call_count": 345
 }
