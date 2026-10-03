@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Ancient Hydrogen Signal Recreates 3D Universe Maps",
     "The invisible nanobots that can disassemble plastic or disease, molecule by molecule.",
     "Diamond Flaws Become Quantum Stress Sensors in Micro-Devices",
     "Einstein's Equivalence Principle holds true for quantum objects",
@@ -89,9 +88,10 @@
     "The acoustic metamaterial panel that uses destructive interference to completely cancel out high-decibel jet engine noise while remaining fully porous to airflow.",
     "How 'Twisted Trilayer Graphene' forces electrons to completely freeze in place, creating an unbreakable fractional Chern insulator without any magnetic field.",
     "How 'thermal time hypotesis' suggests that the flow of time itself is an illusion born entirely out of quantum thermodynamics and entropy",
-    "How 'Quantum Defect State' centers in hexagonal boron nitride emit single photons on demand when stressed by atomic lattice vibrations."
+    "How 'Quantum Defect State' centers in hexagonal boron nitride emit single photons on demand when stressed by atomic lattice vibrations.",
+    "The 'primordial echo' of FRB 20190521G, a micro-second burst from deep space carrying the mass-energy signature of a collapsing dimension"
   ],
-  "subcluster_idx": 1,
-  "fallback_idx": 0,
-  "call_count": 346
+  "subcluster_idx": 2,
+  "fallback_idx": 1,
+  "call_count": 347
 }
