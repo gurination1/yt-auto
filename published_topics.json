@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The invisible nanobots that can disassemble plastic or disease, molecule by molecule.",
     "Diamond Flaws Become Quantum Stress Sensors in Micro-Devices",
     "Einstein's Equivalence Principle holds true for quantum objects",
     "The Ghostly Leap: How Particles Teleport Through Solid Walls",
@@ -89,9 +88,10 @@
     "How 'Twisted Trilayer Graphene' forces electrons to completely freeze in place, creating an unbreakable fractional Chern insulator without any magnetic field.",
     "How 'thermal time hypotesis' suggests that the flow of time itself is an illusion born entirely out of quantum thermodynamics and entropy",
     "How 'Quantum Defect State' centers in hexagonal boron nitride emit single photons on demand when stressed by atomic lattice vibrations.",
-    "The 'primordial echo' of FRB 20190521G, a micro-second burst from deep space carrying the mass-energy signature of a collapsing dimension"
+    "The 'primordial echo' of FRB 20190521G, a micro-second burst from deep space carrying the mass-energy signature of a collapsing dimension",
+    "How 'supramolecular catch bonds' make synthetic hydrogels actually grow tougher and harder to tear the harder you pull on them."
   ],
-  "subcluster_idx": 2,
-  "fallback_idx": 1,
-  "call_count": 347
+  "subcluster_idx": 3,
+  "fallback_idx": 2,
+  "call_count": 348
 }
