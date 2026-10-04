@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Einstein's Equivalence Principle holds true for quantum objects",
     "The Ghostly Leap: How Particles Teleport Through Solid Walls",
     "Unexplained 'Hypersoft' X-Ray Sources Baffle Scientists",
     "Metamaterial Learns and Adapts Its Shape Autonomously",
@@ -89,9 +88,10 @@
     "How 'Quantum Defect State' centers in hexagonal boron nitride emit single photons on demand when stressed by atomic lattice vibrations.",
     "The 'primordial echo' of FRB 20190521G, a micro-second burst from deep space carrying the mass-energy signature of a collapsing dimension",
     "How 'supramolecular catch bonds' make synthetic hydrogels actually grow tougher and harder to tear the harder you pull on them.",
-    "How 'giant negative Poisson's ratio' auxetic metamaterials manufactured from microscopic carbon lattices expand inward when crushed, concentrating physical impact forces into infinitely dense nodes"
+    "How 'giant negative Poisson's ratio' auxetic metamaterials manufactured from microscopic carbon lattices expand inward when crushed, concentrating physical impact forces into infinitely dense nodes",
+    "How 'Quantum Backflow' experiments prove that free-moving subatomic particles can spontaneously travel backward against their own momentum direction"
   ],
-  "subcluster_idx": 4,
-  "fallback_idx": 3,
-  "call_count": 349
+  "subcluster_idx": 0,
+  "fallback_idx": 4,
+  "call_count": 350
 }
