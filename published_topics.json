@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Strange Quark Matter: The Dead Star Material That Could Consume Earth",
     "Ultra-Compact Nanolasers for Light-Speed Computing",
     "Quantum Material That Rebuilds Itself After Laser Blast",
     "The Information Engine: Microscopic Machines Powered Entirely by Information Instead of Fuel",
@@ -89,9 +88,10 @@
     "The acoustic metamaterial lens that focuses airborne sound waves into points so intensely hot they can vaporize titanium without touching it",
     "The bizarre 'fluorescent glass' crystal lattice doped with rare-earth ions that stores and emits light indefinitely at room temperature without fading.",
     "The 'Macroscopic Quantum Superposition' states in diamond crystal oscillators that keep single objects in two separate vibrational locations simultaneously",
-    "How 'Quantum Carpentry' lets physicists use laser beams to nail free-floating atoms into rigid three-dimensional crystal cages made entirely of light"
+    "How 'Quantum Carpentry' lets physicists use laser beams to nail free-floating atoms into rigid three-dimensional crystal cages made entirely of light",
+    "How 'pulsar timing arrays' use dead spinning neutron stars scattered across the galaxy as an organic galactic clock to detect ultra-low frequency gravitational wave hums."
   ],
-  "subcluster_idx": 1,
-  "fallback_idx": 10,
-  "call_count": 356
+  "subcluster_idx": 2,
+  "fallback_idx": 11,
+  "call_count": 357
 }
