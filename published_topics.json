@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Penrose's Quantum Consciousness Theory Gains New Evidence",
     "Physicists Find a 'Glitch' in Time Itself",
     "Strange Quark Matter: The Dead Star Material That Could Consume Earth",
     "Ultra-Compact Nanolasers for Light-Speed Computing",
@@ -89,9 +88,10 @@
     "How 'Quantum Steering Ellipses' map out the exact mathematical boundaries of spooky action at a distance in entangled photon pairs.",
     "The 'Cosmic Void' Phenomenon Called the KBC Void That Suggests Our Entire Milky Way Resides Inside an Enormous 2-Billion-Light-Year Bubble",
     "The acoustic metamaterial lens that focuses airborne sound waves into points so intensely hot they can vaporize titanium without touching it",
-    "The bizarre 'fluorescent glass' crystal lattice doped with rare-earth ions that stores and emits light indefinitely at room temperature without fading."
+    "The bizarre 'fluorescent glass' crystal lattice doped with rare-earth ions that stores and emits light indefinitely at room temperature without fading.",
+    "The 'Macroscopic Quantum Superposition' states in diamond crystal oscillators that keep single objects in two separate vibrational locations simultaneously"
   ],
-  "subcluster_idx": 4,
-  "fallback_idx": 8,
-  "call_count": 354
+  "subcluster_idx": 0,
+  "fallback_idx": 9,
+  "call_count": 355
 }
