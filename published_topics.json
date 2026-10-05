@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Unexplained 'Hypersoft' X-Ray Sources Baffle Scientists",
     "Metamaterial Learns and Adapts Its Shape Autonomously",
     "Quantum Locking: Magnets That DEFY Gravity and Stick to Air",
     "Penrose's Quantum Consciousness Theory Gains New Evidence",
@@ -89,9 +88,10 @@
     "How 'supramolecular catch bonds' make synthetic hydrogels actually grow tougher and harder to tear the harder you pull on them.",
     "How 'giant negative Poisson's ratio' auxetic metamaterials manufactured from microscopic carbon lattices expand inward when crushed, concentrating physical impact forces into infinitely dense nodes",
     "How 'Quantum Backflow' experiments prove that free-moving subatomic particles can spontaneously travel backward against their own momentum direction",
-    "How 'Quantum Steering Ellipses' map out the exact mathematical boundaries of spooky action at a distance in entangled photon pairs."
+    "How 'Quantum Steering Ellipses' map out the exact mathematical boundaries of spooky action at a distance in entangled photon pairs.",
+    "The 'Cosmic Void' Phenomenon Called the KBC Void That Suggests Our Entire Milky Way Resides Inside an Enormous 2-Billion-Light-Year Bubble"
   ],
-  "subcluster_idx": 1,
-  "fallback_idx": 5,
-  "call_count": 351
+  "subcluster_idx": 2,
+  "fallback_idx": 6,
+  "call_count": 352
 }
