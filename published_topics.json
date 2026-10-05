@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Quantum Locking: Magnets That DEFY Gravity and Stick to Air",
     "Penrose's Quantum Consciousness Theory Gains New Evidence",
     "Physicists Find a 'Glitch' in Time Itself",
     "Strange Quark Matter: The Dead Star Material That Could Consume Earth",
@@ -89,9 +88,10 @@
     "How 'Quantum Backflow' experiments prove that free-moving subatomic particles can spontaneously travel backward against their own momentum direction",
     "How 'Quantum Steering Ellipses' map out the exact mathematical boundaries of spooky action at a distance in entangled photon pairs.",
     "The 'Cosmic Void' Phenomenon Called the KBC Void That Suggests Our Entire Milky Way Resides Inside an Enormous 2-Billion-Light-Year Bubble",
-    "The acoustic metamaterial lens that focuses airborne sound waves into points so intensely hot they can vaporize titanium without touching it"
+    "The acoustic metamaterial lens that focuses airborne sound waves into points so intensely hot they can vaporize titanium without touching it",
+    "The bizarre 'fluorescent glass' crystal lattice doped with rare-earth ions that stores and emits light indefinitely at room temperature without fading."
   ],
-  "subcluster_idx": 3,
-  "fallback_idx": 7,
-  "call_count": 353
+  "subcluster_idx": 4,
+  "fallback_idx": 8,
+  "call_count": 354
 }
