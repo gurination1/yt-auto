@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Quantum Material That Rebuilds Itself After Laser Blast",
     "The Information Engine: Microscopic Machines Powered Entirely by Information Instead of Fuel",
     "Quantum Energy Teleportation",
     "The LID-568 Black Hole Defying the Eddington Limit",
@@ -89,9 +88,10 @@
     "The 'Macroscopic Quantum Superposition' states in diamond crystal oscillators that keep single objects in two separate vibrational locations simultaneously",
     "How 'Quantum Carpentry' lets physicists use laser beams to nail free-floating atoms into rigid three-dimensional crystal cages made entirely of light",
     "How 'pulsar timing arrays' use dead spinning neutron stars scattered across the galaxy as an organic galactic clock to detect ultra-low frequency gravitational wave hums.",
-    "The programmable shape-shifting metamaterial lattice composed of microscopic buckyballs that instantly snaps into locked rigid structures upon absorbing sudden kinetic impacts."
+    "The programmable shape-shifting metamaterial lattice composed of microscopic buckyballs that instantly snaps into locked rigid structures upon absorbing sudden kinetic impacts.",
+    "Silica Aerogel: The 99.8% air solid matrix that stops a 1000-degree blowtorch from melting a crayon"
   ],
-  "subcluster_idx": 3,
-  "fallback_idx": 12,
-  "call_count": 358
+  "subcluster_idx": 4,
+  "fallback_idx": 13,
+  "call_count": 359
 }
