@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The Information Engine: Microscopic Machines Powered Entirely by Information Instead of Fuel",
     "Quantum Energy Teleportation",
     "The LID-568 Black Hole Defying the Eddington Limit",
     "The Metamaterial That Shrinks When Heated",
@@ -89,9 +88,10 @@
     "How 'Quantum Carpentry' lets physicists use laser beams to nail free-floating atoms into rigid three-dimensional crystal cages made entirely of light",
     "How 'pulsar timing arrays' use dead spinning neutron stars scattered across the galaxy as an organic galactic clock to detect ultra-low frequency gravitational wave hums.",
     "The programmable shape-shifting metamaterial lattice composed of microscopic buckyballs that instantly snaps into locked rigid structures upon absorbing sudden kinetic impacts.",
-    "Silica Aerogel: The 99.8% air solid matrix that stops a 1000-degree blowtorch from melting a crayon"
+    "Silica Aerogel: The 99.8% air solid matrix that stops a 1000-degree blowtorch from melting a crayon",
+    "How the Novikov Self-Consistency Principle Restricts Closed Timelike Curves to Prevent Any Actual Grandfather Paradox Violations"
   ],
-  "subcluster_idx": 4,
-  "fallback_idx": 13,
-  "call_count": 359
+  "subcluster_idx": 0,
+  "fallback_idx": 14,
+  "call_count": 360
 }
