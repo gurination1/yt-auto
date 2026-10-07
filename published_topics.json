@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The LID-568 Black Hole Defying the Eddington Limit",
     "The Metamaterial That Shrinks When Heated",
     "Goldene: The One-Atom-Thick Sheet of Gold That Behaves Like a Semiconductor",
     "Constant-Velocity Warp Drives Without Negative Energy",
@@ -89,9 +88,10 @@
     "The programmable shape-shifting metamaterial lattice composed of microscopic buckyballs that instantly snaps into locked rigid structures upon absorbing sudden kinetic impacts.",
     "Silica Aerogel: The 99.8% air solid matrix that stops a 1000-degree blowtorch from melting a crayon",
     "How the Novikov Self-Consistency Principle Restricts Closed Timelike Curves to Prevent Any Actual Grandfather Paradox Violations",
-    "Magnetars: The super-dense magnetic stars whose field would dissolve human atoms from 1,000 miles away"
+    "Magnetars: The super-dense magnetic stars whose field would dissolve human atoms from 1,000 miles away",
+    "The 'Cosmic String' Candidate J1000+0221: A One-Million-Light-Year-Long Crack in Spacetime That Double-Images Background Quasars"
   ],
-  "subcluster_idx": 1,
-  "fallback_idx": 17,
-  "call_count": 361
+  "subcluster_idx": 2,
+  "fallback_idx": 18,
+  "call_count": 362
 }
