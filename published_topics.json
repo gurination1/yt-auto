@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Quantum Eraser Paradox: How Looking Backwards Changes What Already Happened",
     "The 'Big Ring' in deep space that spans 1.3 billion light-years and breaks our entire model of the universe",
     "The Molecular Drill That Spins 3 Million Times a Second to Bore Into Cells",
     "Pyroelectric Fusion Crystals That Trigger Tabletop Nuclear Fusion",
@@ -89,9 +88,10 @@
     "The 'Cosmic String' Candidate J1000+0221: A One-Million-Light-Year-Long Crack in Spacetime That Double-Images Background Quasars",
     "The self-assembling peptide nanofiber hydrogel that instantly cross-links inside human tissue to stop arterial bleeding without any pressure.",
     "Strontium Optical Lattice Clocks: Timekeepers so precise they lose less than one second in 30 billion years",
-    "The 'Entropy-Reverse' cooling effect in Josephson junction arrays, where microscopic superconducting loops extract heat from the environment to trigger localized time-reversal symmetry."
+    "The 'Entropy-Reverse' cooling effect in Josephson junction arrays, where microscopic superconducting loops extract heat from the environment to trigger localized time-reversal symmetry.",
+    "How 'Macroscopic Quantum Tunneling' lets solid superconducting loops ghost right through impenetrable energy barriers like subatomic ghosts."
   ],
-  "subcluster_idx": 0,
-  "fallback_idx": 21,
-  "call_count": 365
+  "subcluster_idx": 1,
+  "fallback_idx": 22,
+  "call_count": 366
 }
