@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Pyroelectric Fusion Crystals That Trigger Tabletop Nuclear Fusion",
     "The 'Quantum Maxwell's Demon' experiment that successfully extracted usable work from pure information without spending any physical energy.",
     "How the Casimir Torque experiment proved that spinning a nanoparticle in a perfect vacuum slows it down by rubbing against empty space.",
     "The 'Starquakes' on Magnetar SGR 1806-20 that cracked Earth's upper atmosphere from 50,000 light-years away",
@@ -89,9 +88,10 @@
     "The 'Entropy-Reverse' cooling effect in Josephson junction arrays, where microscopic superconducting loops extract heat from the environment to trigger localized time-reversal symmetry.",
     "How 'Macroscopic Quantum Tunneling' lets solid superconducting loops ghost right through impenetrable energy barriers like subatomic ghosts.",
     "The 'Ghost Pulse' of PSR J1719-1438, a planet-sized diamond core leftover from a stripped neutron star that defies planetary formation physics.",
-    "Bose-Einstein Condensate: The macroscopic quantum state where thousands of chilled atoms act as one wave"
+    "Bose-Einstein Condensate: The macroscopic quantum state where thousands of chilled atoms act as one wave",
+    "The bizarre 'flux pinning' phenomenon in yttrium barium copper oxide superconductors that locks floating magnets permanently in mid-air against gravity."
   ],
-  "subcluster_idx": 3,
-  "fallback_idx": 24,
-  "call_count": 368
+  "subcluster_idx": 4,
+  "fallback_idx": 0,
+  "call_count": 369
 }
