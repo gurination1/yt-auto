@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How kagome lattice crystals create flat electronic bands that force electrons to trap each other in microscopic quantum traffic jams.",
     "The 'Quantum Retrocausality' experiment that proved making a measurement today can physically alter a photon's choice made yesterday.",
     "How macroscopic diamonds at room temperature can sustain long-range quantum entanglement using nitrogen-vacancy center spins.",
     "How the ultra-dense magnetar Swift J1818.0-1607 suddenly began acting like a radio pulsar, defying decades of stellar evolution models.",
@@ -89,9 +88,10 @@
     "How 'Negative Absolute Temperature' systems in ultra-cold atomic lattices achieve states hotter than infinity by completely inverting thermodynamic energy distributions.",
     "Graphene Aerogel: The world's lightest solid that can rest atop a flower petal without bending it",
     "How the dead pulsar PSR B1257+12 hosts the first-ever discovered exoplanets, which were chillingly born from the vaporized graveyard ashes of a catastrophic supernova explosion",
-    "The synthetic molecular 'nanocars' powered by electrical pulses that race across gold surfaces on four microscopic buckyball wheels."
+    "The synthetic molecular 'nanocars' powered by electrical pulses that race across gold surfaces on four microscopic buckyball wheels.",
+    "Neutron Star Degeneracy: Why a single sugar-cube volume of neutron star weighs as much as Mount Everest"
   ],
-  "subcluster_idx": 3,
-  "fallback_idx": 6,
-  "call_count": 373
+  "subcluster_idx": 4,
+  "fallback_idx": 7,
+  "call_count": 374
 }
