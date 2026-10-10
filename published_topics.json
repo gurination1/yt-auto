@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The 'Starquakes' on Magnetar SGR 1806-20 that cracked Earth's upper atmosphere from 50,000 light-years away",
     "The mechanical metamaterial featuring 'auxetic' honeycomb structures that defies standard physics by expanding wider when you stretch it instead of thinning out.",
     "How kagome lattice crystals create flat electronic bands that force electrons to trap each other in microscopic quantum traffic jams.",
     "The 'Quantum Retrocausality' experiment that proved making a measurement today can physically alter a photon's choice made yesterday.",
@@ -89,9 +88,10 @@
     "Bose-Einstein Condensate: The macroscopic quantum state where thousands of chilled atoms act as one wave",
     "The bizarre 'flux pinning' phenomenon in yttrium barium copper oxide superconductors that locks floating magnets permanently in mid-air against gravity.",
     "How 'Negative Absolute Temperature' systems in ultra-cold atomic lattices achieve states hotter than infinity by completely inverting thermodynamic energy distributions.",
-    "Graphene Aerogel: The world's lightest solid that can rest atop a flower petal without bending it"
+    "Graphene Aerogel: The world's lightest solid that can rest atop a flower petal without bending it",
+    "How the dead pulsar PSR B1257+12 hosts the first-ever discovered exoplanets, which were chillingly born from the vaporized graveyard ashes of a catastrophic supernova explosion"
   ],
-  "subcluster_idx": 1,
-  "fallback_idx": 4,
-  "call_count": 371
+  "subcluster_idx": 2,
+  "fallback_idx": 5,
+  "call_count": 372
 }
