@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The molecular 'nanotrucks' built from single-chain polymers that physically crawl across living cell membranes to deliver targeted cargo.",
     "How twisting two sheets of graphene at precisely the 'magic angle' of 1.1 degrees instantly turns ordinary carbon into an exotic superconductor.",
     "The 'Quantum Darwinism' framework proving that reality only exists because microscopic systems constantly broadcast their state to the surrounding environment.",
     "How atomic clocks tick at noticeably different rates when separated by mere millimeters of vertical height due to general relativistic time dilation.",
@@ -89,9 +88,10 @@
     "Neutron Star Degeneracy: Why a single sugar-cube volume of neutron star weighs as much as Mount Everest",
     "How 'Maxwell's Demon' thought experiments were experimentally realized using single-electron transistors that physically extract usable work from thermal noise.",
     "Metallic Hydrogen: The superheated ultra-high pressure fuel synthesized inside diamond anvil cells",
-    "The 'Diamond Rain' of the Exoplanet WASP-121b, Where Scorching Atmospheres Forge Molten Gemstones and Hurl Them Through Alien Skies"
+    "The 'Diamond Rain' of the Exoplanet WASP-121b, Where Scorching Atmospheres Forge Molten Gemstones and Hurl Them Through Alien Skies",
+    "The self-folding origami metamaterial built from microscopic polymer sheets that automatically configures its shape when exposed to near-infrared light."
   ],
-  "subcluster_idx": 2,
-  "fallback_idx": 10,
-  "call_count": 377
+  "subcluster_idx": 3,
+  "fallback_idx": 11,
+  "call_count": 378
 }
