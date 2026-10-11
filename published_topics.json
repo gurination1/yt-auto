@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The 'Quantum Retrocausality' experiment that proved making a measurement today can physically alter a photon's choice made yesterday.",
     "How macroscopic diamonds at room temperature can sustain long-range quantum entanglement using nitrogen-vacancy center spins.",
     "How the ultra-dense magnetar Swift J1818.0-1607 suddenly began acting like a radio pulsar, defying decades of stellar evolution models.",
     "The molecular 'nanotrucks' built from single-chain polymers that physically crawl across living cell membranes to deliver targeted cargo.",
@@ -89,9 +88,10 @@
     "Graphene Aerogel: The world's lightest solid that can rest atop a flower petal without bending it",
     "How the dead pulsar PSR B1257+12 hosts the first-ever discovered exoplanets, which were chillingly born from the vaporized graveyard ashes of a catastrophic supernova explosion",
     "The synthetic molecular 'nanocars' powered by electrical pulses that race across gold surfaces on four microscopic buckyball wheels.",
-    "Neutron Star Degeneracy: Why a single sugar-cube volume of neutron star weighs as much as Mount Everest"
+    "Neutron Star Degeneracy: Why a single sugar-cube volume of neutron star weighs as much as Mount Everest",
+    "How 'Maxwell's Demon' thought experiments were experimentally realized using single-electron transistors that physically extract usable work from thermal noise."
   ],
-  "subcluster_idx": 4,
-  "fallback_idx": 7,
-  "call_count": 374
+  "subcluster_idx": 0,
+  "fallback_idx": 8,
+  "call_count": 375
 }
