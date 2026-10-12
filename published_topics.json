@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The 'Dark Matter Hurricane' of Stellar Stream S1 currently pelting our solar system at 500 kilometers per second",
     "DNA origami nanorobots that autonomously navigate inside living human blood vessels to hunt down and lock onto cancer cell receptors.",
     "How bismuth crystal lattices trap light in microscopic chambers, creating photonic traps that defy normal optical reflection.",
     "How the Wheeler-Feynman absorber theory suggests the universe uses retrocausality, where future photon absorption dictates past emission.",
@@ -89,9 +88,10 @@
     "The self-folding origami metamaterial built from microscopic polymer sheets that automatically configures its shape when exposed to near-infrared light.",
     "How 'Kagome Metal' Crystal Lattices Force Electrons into Frustrated Flat Bands That Generate Spontaneous Magnetic Vortices",
     "DNA Origami Nanobots: Synthetic molecular containers programmed to deliver payloads at cellular scale",
-    "How 'Anyons' in two-dimensional quantum systems remember their movement history by tying microscopic geometric knots in invisible fields."
+    "How 'Anyons' in two-dimensional quantum systems remember their movement history by tying microscopic geometric knots in invisible fields.",
+    "The 'Cosmic Cannibal' Pulsar J1748-2446ad, which spins a staggering 716 times every single second, pushing matter to the absolute breaking point of centrifugal force."
   ],
-  "subcluster_idx": 1,
-  "fallback_idx": 19,
-  "call_count": 381
+  "subcluster_idx": 2,
+  "fallback_idx": 20,
+  "call_count": 382
 }
