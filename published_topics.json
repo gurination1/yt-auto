@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The 'Quantum Darwinism' framework proving that reality only exists because microscopic systems constantly broadcast their state to the surrounding environment.",
     "How atomic clocks tick at noticeably different rates when separated by mere millimeters of vertical height due to general relativistic time dilation.",
     "The 'Dark Matter Hurricane' of Stellar Stream S1 currently pelting our solar system at 500 kilometers per second",
     "DNA origami nanorobots that autonomously navigate inside living human blood vessels to hunt down and lock onto cancer cell receptors.",
@@ -89,9 +88,10 @@
     "Metallic Hydrogen: The superheated ultra-high pressure fuel synthesized inside diamond anvil cells",
     "The 'Diamond Rain' of the Exoplanet WASP-121b, Where Scorching Atmospheres Forge Molten Gemstones and Hurl Them Through Alien Skies",
     "The self-folding origami metamaterial built from microscopic polymer sheets that automatically configures its shape when exposed to near-infrared light.",
-    "How 'Kagome Metal' Crystal Lattices Force Electrons into Frustrated Flat Bands That Generate Spontaneous Magnetic Vortices"
+    "How 'Kagome Metal' Crystal Lattices Force Electrons into Frustrated Flat Bands That Generate Spontaneous Magnetic Vortices",
+    "DNA Origami Nanobots: Synthetic molecular containers programmed to deliver payloads at cellular scale"
   ],
-  "subcluster_idx": 4,
-  "fallback_idx": 12,
-  "call_count": 379
+  "subcluster_idx": 0,
+  "fallback_idx": 18,
+  "call_count": 380
 }
