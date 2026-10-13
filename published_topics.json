@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How bismuth crystal lattices trap light in microscopic chambers, creating photonic traps that defy normal optical reflection.",
     "How the Wheeler-Feynman absorber theory suggests the universe uses retrocausality, where future photon absorption dictates past emission.",
     "How the recent experimental realization of quantum steering allows one observer to remotely manipulate another particle's reality without violating local realism.",
     "The 'cosmic mirror' ring of Hoag's Object, a perfectly circular galaxy floating inside another galaxy with zero physical connection",
@@ -89,9 +88,10 @@
     "DNA Origami Nanobots: Synthetic molecular containers programmed to deliver payloads at cellular scale",
     "How 'Anyons' in two-dimensional quantum systems remember their movement history by tying microscopic geometric knots in invisible fields.",
     "The 'Cosmic Cannibal' Pulsar J1748-2446ad, which spins a staggering 716 times every single second, pushing matter to the absolute breaking point of centrifugal force.",
-    "The light-driven molecular motor built from overcrowded alkenes that spins continuously in one direction at millions of RPMs."
+    "The light-driven molecular motor built from overcrowded alkenes that spins continuously in one direction at millions of RPMs.",
+    "The bizarre 'electron traffic jams' in twisted transition metal dichalcogenides that force electricity to move sideways against the applied voltage vector."
   ],
-  "subcluster_idx": 3,
-  "fallback_idx": 21,
-  "call_count": 383
+  "subcluster_idx": 4,
+  "fallback_idx": 22,
+  "call_count": 384
 }
