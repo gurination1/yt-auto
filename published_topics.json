@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The 'cosmic mirror' ring of Hoag's Object, a perfectly circular galaxy floating inside another galaxy with zero physical connection",
     "The magnetic shape-memory alloy actuator that changes its physical dimensions at the microscopic level thousands of times per second without generating heat.",
     "How time-reversal symmetry breaking in chiral crystal lattices creates unidirectional electron highways that conduct electricity with zero resistance",
     "How 'Loschmidt's paradox' proves that the fundamental laws of physics are completely reversible, yet everyday thermodynamics forces eggs to scramble and never unscramble.",
@@ -89,9 +88,10 @@
     "The light-driven molecular motor built from overcrowded alkenes that spins continuously in one direction at millions of RPMs.",
     "The bizarre 'electron traffic jams' in twisted transition metal dichalcogenides that force electricity to move sideways against the applied voltage vector.",
     "How 'Quantum Darwinism' proves that the universe constantly clones microscopic information into the environment, forcing objective reality to exist.",
-    "Quasicrystals: The forbidden non-repeating atomic geometries that physicists thought were impossible"
+    "Quasicrystals: The forbidden non-repeating atomic geometries that physicists thought were impossible",
+    "The bizarre 'strange matter' quark stars that theoretically transform any normal matter they touch into pure subatomic goop on contact."
   ],
-  "subcluster_idx": 1,
-  "fallback_idx": 0,
-  "call_count": 386
+  "subcluster_idx": 2,
+  "fallback_idx": 1,
+  "call_count": 387
 }
