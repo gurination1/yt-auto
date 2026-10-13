@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How the recent experimental realization of quantum steering allows one observer to remotely manipulate another particle's reality without violating local realism.",
     "The 'cosmic mirror' ring of Hoag's Object, a perfectly circular galaxy floating inside another galaxy with zero physical connection",
     "The magnetic shape-memory alloy actuator that changes its physical dimensions at the microscopic level thousands of times per second without generating heat.",
     "How time-reversal symmetry breaking in chiral crystal lattices creates unidirectional electron highways that conduct electricity with zero resistance",
@@ -89,9 +88,10 @@
     "The 'Cosmic Cannibal' Pulsar J1748-2446ad, which spins a staggering 716 times every single second, pushing matter to the absolute breaking point of centrifugal force.",
     "The light-driven molecular motor built from overcrowded alkenes that spins continuously in one direction at millions of RPMs.",
     "The bizarre 'electron traffic jams' in twisted transition metal dichalcogenides that force electricity to move sideways against the applied voltage vector.",
-    "How 'Quantum Darwinism' proves that the universe constantly clones microscopic information into the environment, forcing objective reality to exist."
+    "How 'Quantum Darwinism' proves that the universe constantly clones microscopic information into the environment, forcing objective reality to exist.",
+    "Quasicrystals: The forbidden non-repeating atomic geometries that physicists thought were impossible"
   ],
-  "subcluster_idx": 0,
-  "fallback_idx": 23,
-  "call_count": 385
+  "subcluster_idx": 1,
+  "fallback_idx": 0,
+  "call_count": 386
 }
