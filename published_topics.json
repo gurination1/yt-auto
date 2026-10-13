@@ -1,6 +1,5 @@
 {
   "topics": [
-    "DNA origami nanorobots that autonomously navigate inside living human blood vessels to hunt down and lock onto cancer cell receptors.",
     "How bismuth crystal lattices trap light in microscopic chambers, creating photonic traps that defy normal optical reflection.",
     "How the Wheeler-Feynman absorber theory suggests the universe uses retrocausality, where future photon absorption dictates past emission.",
     "How the recent experimental realization of quantum steering allows one observer to remotely manipulate another particle's reality without violating local realism.",
@@ -89,9 +88,10 @@
     "How 'Kagome Metal' Crystal Lattices Force Electrons into Frustrated Flat Bands That Generate Spontaneous Magnetic Vortices",
     "DNA Origami Nanobots: Synthetic molecular containers programmed to deliver payloads at cellular scale",
     "How 'Anyons' in two-dimensional quantum systems remember their movement history by tying microscopic geometric knots in invisible fields.",
-    "The 'Cosmic Cannibal' Pulsar J1748-2446ad, which spins a staggering 716 times every single second, pushing matter to the absolute breaking point of centrifugal force."
+    "The 'Cosmic Cannibal' Pulsar J1748-2446ad, which spins a staggering 716 times every single second, pushing matter to the absolute breaking point of centrifugal force.",
+    "The light-driven molecular motor built from overcrowded alkenes that spins continuously in one direction at millions of RPMs."
   ],
-  "subcluster_idx": 2,
-  "fallback_idx": 20,
-  "call_count": 382
+  "subcluster_idx": 3,
+  "fallback_idx": 21,
+  "call_count": 383
 }
