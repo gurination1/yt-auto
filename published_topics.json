@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How the recent discovery of non-Abelian anyons in fractional quantum Hall states creates stable topological qubits immune to decoherence.",
     "The 'cosmic heartbeat' of FRB 20220914A, a repeating fast radio burst that pulses with an uncanny clockwork precision resembling artificial alien machinery.",
     "The thermal cloak metamaterial that bends heat currents completely around an object inside it, making it entirely invisible to infrared thermal cameras",
     "How 'schizophoenic' shape-memory polymers remember two completely different physical forms and flip between them when exposed to a specific light wavelength.",
@@ -89,9 +88,10 @@
     "The bizarre 'strange matter' quark stars that theoretically transform any normal matter they touch into pure subatomic goop on contact.",
     "Active mechanical metamaterials engineered with odd elasticity that violate action-reaction symmetry, generating endless autonomous robotic motion powered strictly by internal micro-torques.",
     "The bizarre 'hyper-frustrated' pyrochlore lattices that trap magnetic monopoles in a continuous liquid state at near-absolute zero temperatures.",
-    "James Webb Space Telescope: Why infrared mirrors must be coated in microscopic vaporized gold"
+    "James Webb Space Telescope: Why infrared mirrors must be coated in microscopic vaporized gold",
+    "Carbon Nanotubes: The cylindrical carbon allotropes 100 times stronger than steel at one-sixth the weight"
   ],
-  "subcluster_idx": 0,
-  "fallback_idx": 6,
-  "call_count": 390
+  "subcluster_idx": 1,
+  "fallback_idx": 10,
+  "call_count": 391
 }
