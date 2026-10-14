@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How time-reversal symmetry breaking in chiral crystal lattices creates unidirectional electron highways that conduct electricity with zero resistance",
     "How 'Loschmidt's paradox' proves that the fundamental laws of physics are completely reversible, yet everyday thermodynamics forces eggs to scramble and never unscramble.",
     "How the recent discovery of non-Abelian anyons in fractional quantum Hall states creates stable topological qubits immune to decoherence.",
     "The 'cosmic heartbeat' of FRB 20220914A, a repeating fast radio burst that pulses with an uncanny clockwork precision resembling artificial alien machinery.",
@@ -89,9 +88,10 @@
     "How 'Quantum Darwinism' proves that the universe constantly clones microscopic information into the environment, forcing objective reality to exist.",
     "Quasicrystals: The forbidden non-repeating atomic geometries that physicists thought were impossible",
     "The bizarre 'strange matter' quark stars that theoretically transform any normal matter they touch into pure subatomic goop on contact.",
-    "Active mechanical metamaterials engineered with odd elasticity that violate action-reaction symmetry, generating endless autonomous robotic motion powered strictly by internal micro-torques."
+    "Active mechanical metamaterials engineered with odd elasticity that violate action-reaction symmetry, generating endless autonomous robotic motion powered strictly by internal micro-torques.",
+    "The bizarre 'hyper-frustrated' pyrochlore lattices that trap magnetic monopoles in a continuous liquid state at near-absolute zero temperatures."
   ],
-  "subcluster_idx": 3,
-  "fallback_idx": 2,
-  "call_count": 388
+  "subcluster_idx": 4,
+  "fallback_idx": 3,
+  "call_count": 389
 }
