@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How the quantum Zeno effect proves that staring intently at an unstable radioactive atom can literally freeze time and prevent it from decaying.",
     "The 'Cosmic Rope' of Galaxy NGC 4676, the Mice Galaxies, where a billion light-year bridge of torn stars connects two colliding titans.",
     "The biological molecular motor kinesin that acts like a microscopic cargo truck, walking step-by-step along cellular microtubule tracks.",
     "The room-temperature piezoelectric crystal that instantly generates thousands of volts of electricity the exact microsecond you tap its surface.",
@@ -89,9 +88,10 @@
     "The 'starquake' oscillations of pulsar PSR B0531+21 inside the Crab Nebula, which violently crack its crust and instantly alter its rotation speed.",
     "The synthetic molecular 'nanodrill' rotor that drills through living cancer cell membranes in seconds using light-activated mechanical rotation",
     "The bizarre 'Rosetta Stone' quasicrystal discovered in meteorite debris that possesses five-fold rotational symmetry forbidden by standard classical mineralogy.",
-    "The bizarre 'Quantum Eraser' paradox where a detector can erase a particle's history after it has already hit the back screen."
+    "The bizarre 'Quantum Eraser' paradox where a detector can erase a particle's history after it has already hit the back screen.",
+    "Superfluid Helium-4: The quantum liquid with zero viscosity that climbs up beaker walls and escapes"
   ],
-  "subcluster_idx": 0,
-  "fallback_idx": 14,
-  "call_count": 395
+  "subcluster_idx": 1,
+  "fallback_idx": 19,
+  "call_count": 396
 }
