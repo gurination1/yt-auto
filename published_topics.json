@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The 'Cosmic Rope' of Galaxy NGC 4676, the Mice Galaxies, where a billion light-year bridge of torn stars connects two colliding titans.",
     "The biological molecular motor kinesin that acts like a microscopic cargo truck, walking step-by-step along cellular microtubule tracks.",
     "The room-temperature piezoelectric crystal that instantly generates thousands of volts of electricity the exact microsecond you tap its surface.",
     "How 'Quantum Backaction' forces physicists to physically disturb the very universe they are trying to measure, proving absolute objectivity is impossible.",
@@ -89,9 +88,10 @@
     "The synthetic molecular 'nanodrill' rotor that drills through living cancer cell membranes in seconds using light-activated mechanical rotation",
     "The bizarre 'Rosetta Stone' quasicrystal discovered in meteorite debris that possesses five-fold rotational symmetry forbidden by standard classical mineralogy.",
     "The bizarre 'Quantum Eraser' paradox where a detector can erase a particle's history after it has already hit the back screen.",
-    "Superfluid Helium-4: The quantum liquid with zero viscosity that climbs up beaker walls and escapes"
+    "Superfluid Helium-4: The quantum liquid with zero viscosity that climbs up beaker walls and escapes",
+    "The 'Cosmic Bullet' Runaway Neutron Star RX J0822-4300 Racing Through Deep Space at a Mind-Blowing Four Million Miles Per Hour"
   ],
-  "subcluster_idx": 1,
-  "fallback_idx": 19,
-  "call_count": 396
+  "subcluster_idx": 2,
+  "fallback_idx": 20,
+  "call_count": 397
 }
