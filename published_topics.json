@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How 'Quantum Backaction' forces physicists to physically disturb the very universe they are trying to measure, proving absolute objectivity is impossible.",
     "Gallium Liquid Metal: The non-toxic metal that melts at 86 degrees Fahrenheit and shatters aluminum",
     "The Baffling Reality of the 'Bo\u00f6tes Void', an Enormous 330-Million-Light-Year Patch of Space That Is Shockingly Empty of Galaxies",
     "The photonic topological metamaterial that forces light to travel exclusively around sharp ninety-degree corners without losing a single photon of energy.",
@@ -89,9 +88,10 @@
     "Superfluid Helium-4: The quantum liquid with zero viscosity that climbs up beaker walls and escapes",
     "The 'Cosmic Bullet' Runaway Neutron Star RX J0822-4300 Racing Through Deep Space at a Mind-Blowing Four Million Miles Per Hour",
     "The self-assembling peptide nanotube structures that autonomously weave themselves into dense electrical wiring networks when stimulated by targeted infrared pulses.",
-    "The bizarre 'antiferromagnetic skyrmion' magnetic vortex lattices inside chiral magnets that store data in swirling topological knots invisible to external sensors."
+    "The bizarre 'antiferromagnetic skyrmion' magnetic vortex lattices inside chiral magnets that store data in swirling topological knots invisible to external sensors.",
+    "The Mpemba Paradox: Why boiling hot water can freeze significantly faster than cold water"
   ],
-  "subcluster_idx": 4,
-  "fallback_idx": 22,
-  "call_count": 399
+  "subcluster_idx": 0,
+  "fallback_idx": 12,
+  "call_count": 400
 }
