@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Gallium Liquid Metal: The non-toxic metal that melts at 86 degrees Fahrenheit and shatters aluminum",
     "The Baffling Reality of the 'Bo\u00f6tes Void', an Enormous 330-Million-Light-Year Patch of Space That Is Shockingly Empty of Galaxies",
     "The photonic topological metamaterial that forces light to travel exclusively around sharp ninety-degree corners without losing a single photon of energy.",
     "The 'superionic ice' crystal lattice found inside Uranus and Neptune where water atoms form a solid lattice while protons flow like liquid.",
@@ -89,9 +88,10 @@
     "The 'Cosmic Bullet' Runaway Neutron Star RX J0822-4300 Racing Through Deep Space at a Mind-Blowing Four Million Miles Per Hour",
     "The self-assembling peptide nanotube structures that autonomously weave themselves into dense electrical wiring networks when stimulated by targeted infrared pulses.",
     "The bizarre 'antiferromagnetic skyrmion' magnetic vortex lattices inside chiral magnets that store data in swirling topological knots invisible to external sensors.",
-    "The Mpemba Paradox: Why boiling hot water can freeze significantly faster than cold water"
+    "The Mpemba Paradox: Why boiling hot water can freeze significantly faster than cold water",
+    "Metamaterial Invisibility Cloaks: Nanostructured surfaces that guide optical waveforms completely around objects"
   ],
-  "subcluster_idx": 0,
-  "fallback_idx": 12,
-  "call_count": 400
+  "subcluster_idx": 1,
+  "fallback_idx": 21,
+  "call_count": 401
 }
