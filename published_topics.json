@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The radical negative thermal expansion lattice that shrinks instead of expanding when exposed to intense, blistering heat.",
     "Cherenkov Radiation: Why underwater nuclear reactors glow with eerie electric blue optical light",
     "The bizarre 'Alcubierre metric' spacetime warp bubble that theoretically compresses space ahead of a craft while expanding it behind.",
     "How 'nuclear isomer ticking' uses excited atomic nuclei as hyper-precise optical clocks that could soon outperform standard atomic cesium standards",
@@ -89,9 +88,10 @@
     "How 'giant piezoelectric' single crystals in lead-free bismuth ferrite warp their atomic lattices with enough mechanical force to crush steel when exposed to micro-voltages.",
     "How the 'Page Curve' paradox proves that information swallowed by black holes must eventually escape, violating classical general relativity.",
     "How 'Quantum Zeno Paradox' experiments physically freeze unstable radioactive atoms in place by constantly measuring them, stopping decay indefinitely.",
-    "The runaway hyper-velocity pulsar PSR J0002+6216 leaving behind a blazing 13-light-year-long particle wake as it escapes our galactic disc."
+    "The runaway hyper-velocity pulsar PSR J0002+6216 leaving behind a blazing 13-light-year-long particle wake as it escapes our galactic disc.",
+    "Cosmic Ray Muon Tomography: How high-energy subatomic particles map hidden chambers inside monuments"
   ],
-  "subcluster_idx": 2,
-  "fallback_idx": 19,
-  "call_count": 407
+  "subcluster_idx": 3,
+  "fallback_idx": 22,
+  "call_count": 408
 }
