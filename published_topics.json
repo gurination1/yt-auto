@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Cherenkov Radiation: Why underwater nuclear reactors glow with eerie electric blue optical light",
     "The bizarre 'Alcubierre metric' spacetime warp bubble that theoretically compresses space ahead of a craft while expanding it behind.",
     "How 'nuclear isomer ticking' uses excited atomic nuclei as hyper-precise optical clocks that could soon outperform standard atomic cesium standards",
     "The 'cosmic strings' of topological defects left over from the Big Bang that could slice through planets like a microscopic laser blade",
@@ -89,9 +88,10 @@
     "How the 'Page Curve' paradox proves that information swallowed by black holes must eventually escape, violating classical general relativity.",
     "How 'Quantum Zeno Paradox' experiments physically freeze unstable radioactive atoms in place by constantly measuring them, stopping decay indefinitely.",
     "The runaway hyper-velocity pulsar PSR J0002+6216 leaving behind a blazing 13-light-year-long particle wake as it escapes our galactic disc.",
-    "Cosmic Ray Muon Tomography: How high-energy subatomic particles map hidden chambers inside monuments"
+    "Cosmic Ray Muon Tomography: How high-energy subatomic particles map hidden chambers inside monuments",
+    "The Quantum Zeno Effect: How observing an unstable particle can freeze it in time forever"
   ],
-  "subcluster_idx": 3,
-  "fallback_idx": 22,
-  "call_count": 408
+  "subcluster_idx": 4,
+  "fallback_idx": 1,
+  "call_count": 409
 }
