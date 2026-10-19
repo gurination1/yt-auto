@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The 'cosmic strings' of topological defects left over from the Big Bang that could slice through planets like a microscopic laser blade",
     "The origami-inspired mechanical metamaterial that multiplies physical force by a factor of thousands using only geometric folding patterns",
     "The 'demon core' equivalent in superconductors: how trapped magnetic flux vortices can suddenly snap loose and trigger explosive quenches.",
     "How 'time crystals' defy standard thermodynamics by perpetually oscillating in a constant lowest-energy state without ever consuming external fuel.",
@@ -89,9 +88,10 @@
     "Cosmic Ray Muon Tomography: How high-energy subatomic particles map hidden chambers inside monuments",
     "The Quantum Zeno Effect: How observing an unstable particle can freeze it in time forever",
     "How 'macroscopic entropy reduction' fluctuations in ultra-cold atomic gases temporarily make heat flow spontaneously from cold to hot.",
-    "How 'Interaction-Free Measurements' let physicists photograph a bomb using light particles that completely bypassed the bomb without ever touching it"
+    "How 'Interaction-Free Measurements' let physicists photograph a bomb using light particles that completely bypassed the bomb without ever touching it",
+    "The ghostly 'orphan' gamma-ray bursts erupting in deep space without any host galaxy, baffling astrophysicists who search for their hidden source"
   ],
-  "subcluster_idx": 1,
-  "fallback_idx": 3,
-  "call_count": 411
+  "subcluster_idx": 2,
+  "fallback_idx": 4,
+  "call_count": 412
 }
