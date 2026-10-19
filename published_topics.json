@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How 'nuclear isomer ticking' uses excited atomic nuclei as hyper-precise optical clocks that could soon outperform standard atomic cesium standards",
     "The 'cosmic strings' of topological defects left over from the Big Bang that could slice through planets like a microscopic laser blade",
     "The origami-inspired mechanical metamaterial that multiplies physical force by a factor of thousands using only geometric folding patterns",
     "The 'demon core' equivalent in superconductors: how trapped magnetic flux vortices can suddenly snap loose and trigger explosive quenches.",
@@ -89,9 +88,10 @@
     "The runaway hyper-velocity pulsar PSR J0002+6216 leaving behind a blazing 13-light-year-long particle wake as it escapes our galactic disc.",
     "Cosmic Ray Muon Tomography: How high-energy subatomic particles map hidden chambers inside monuments",
     "The Quantum Zeno Effect: How observing an unstable particle can freeze it in time forever",
-    "How 'macroscopic entropy reduction' fluctuations in ultra-cold atomic gases temporarily make heat flow spontaneously from cold to hot."
+    "How 'macroscopic entropy reduction' fluctuations in ultra-cold atomic gases temporarily make heat flow spontaneously from cold to hot.",
+    "How 'Interaction-Free Measurements' let physicists photograph a bomb using light particles that completely bypassed the bomb without ever touching it"
   ],
-  "subcluster_idx": 0,
-  "fallback_idx": 2,
-  "call_count": 410
+  "subcluster_idx": 1,
+  "fallback_idx": 3,
+  "call_count": 411
 }
