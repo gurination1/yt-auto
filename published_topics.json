@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The Casimir Effect: How two uncharged plates in a pure vacuum are forced together by virtual particles",
     "The 'El Gordo' galaxy cluster that is so massively heavy it literally bends background starlight into giant cosmic question marks.",
     "The 'Molecular Ratchet' Nanomachine That Uses Thermal Brownian Motion To Physically Force Molecules Up A Gradient, Defying Standard Entropy",
     "Quantum Entanglement: How photons communicate instantaneously across billions of light-years",
@@ -89,9 +88,10 @@
     "The ghostly 'orphan' gamma-ray bursts erupting in deep space without any host galaxy, baffling astrophysicists who search for their hidden source",
     "Cherenkov Radiation: Why underwater nuclear reactors glow with eerie electric blue optical light",
     "How 'negative thermal expansion' scandium-zirconium tungstate crystal lattices violently shrink when baked with blowtorches instead of expanding like every other solid on Earth.",
-    "How 'Unruh Radiation' experiments in ultra-cold Bose-Einstein condensates simulate the searing thermal glow of an accelerating event horizon in a tabletop lab."
+    "How 'Unruh Radiation' experiments in ultra-cold Bose-Einstein condensates simulate the searing thermal glow of an accelerating event horizon in a tabletop lab.",
+    "How 'Borromean Nuclei' bind three separate subatomic clusters together in a fragile tri-part lock where removing any single piece instantly destroys the whole system"
   ],
-  "subcluster_idx": 0,
-  "fallback_idx": 0,
-  "call_count": 415
+  "subcluster_idx": 1,
+  "fallback_idx": 1,
+  "call_count": 416
 }
