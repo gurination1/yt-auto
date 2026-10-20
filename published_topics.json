@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The 'El Gordo' galaxy cluster that is so massively heavy it literally bends background starlight into giant cosmic question marks.",
     "The 'Molecular Ratchet' Nanomachine That Uses Thermal Brownian Motion To Physically Force Molecules Up A Gradient, Defying Standard Entropy",
     "Quantum Entanglement: How photons communicate instantaneously across billions of light-years",
     "How 'Boltzmann Brains' calculate that a random collection of consciousness is statistically more likely than our actual universe",
@@ -89,9 +88,10 @@
     "Cherenkov Radiation: Why underwater nuclear reactors glow with eerie electric blue optical light",
     "How 'negative thermal expansion' scandium-zirconium tungstate crystal lattices violently shrink when baked with blowtorches instead of expanding like every other solid on Earth.",
     "How 'Unruh Radiation' experiments in ultra-cold Bose-Einstein condensates simulate the searing thermal glow of an accelerating event horizon in a tabletop lab.",
-    "How 'Borromean Nuclei' bind three separate subatomic clusters together in a fragile tri-part lock where removing any single piece instantly destroys the whole system"
+    "How 'Borromean Nuclei' bind three separate subatomic clusters together in a fragile tri-part lock where removing any single piece instantly destroys the whole system",
+    "The 'Elstir' Ghost Supernova 1181, an ancient stellar explosion whose surviving zombie white dwarf star is frantically reigniting carbon ash in a forbidden reverse-evolution cycle"
   ],
-  "subcluster_idx": 1,
-  "fallback_idx": 1,
-  "call_count": 416
+  "subcluster_idx": 2,
+  "fallback_idx": 2,
+  "call_count": 417
 }
