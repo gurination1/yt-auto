@@ -1,6 +1,5 @@
 {
   "topics": [
-    "Quantum Entanglement: How photons communicate instantaneously across billions of light-years",
     "How 'Boltzmann Brains' calculate that a random collection of consciousness is statistically more likely than our actual universe",
     "How 'Negative Time Delay' makes photons exit an atomic cloud before they even finish entering it, rewriting our understanding of causality.",
     "The 'Dead' Quasar J1144+4309 That Suddenly Re-Ignited Like a Cosmic Blowtorch, Liberating More Energy Than Trillions of Suns",
@@ -89,9 +88,10 @@
     "How 'Unruh Radiation' experiments in ultra-cold Bose-Einstein condensates simulate the searing thermal glow of an accelerating event horizon in a tabletop lab.",
     "How 'Borromean Nuclei' bind three separate subatomic clusters together in a fragile tri-part lock where removing any single piece instantly destroys the whole system",
     "The 'Elstir' Ghost Supernova 1181, an ancient stellar explosion whose surviving zombie white dwarf star is frantically reigniting carbon ash in a forbidden reverse-evolution cycle",
-    "The 'stiff-to-fluid' magnetic colloids made from iron oxide nanoparticles that instantly switch from liquid to solid steel under micro-voltages"
+    "The 'stiff-to-fluid' magnetic colloids made from iron oxide nanoparticles that instantly switch from liquid to solid steel under micro-voltages",
+    "The 'superionic ice-VII' crystal phases trapped inside terrestrial diamonds that maintain solid water structures at searing volcanic temperatures"
   ],
-  "subcluster_idx": 3,
-  "fallback_idx": 3,
-  "call_count": 418
+  "subcluster_idx": 4,
+  "fallback_idx": 4,
+  "call_count": 419
 }
