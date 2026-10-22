@@ -1,6 +1,5 @@
 {
   "topics": [
-    "The 'Dead' Quasar J1144+4309 That Suddenly Re-Ignited Like a Cosmic Blowtorch, Liberating More Energy Than Trillions of Suns",
     "The synthetic molecular muscles built from single rotaxane rings that contract with greater force-to-weight ratio than biological muscle tissue.",
     "How 'hyper-dense quantum dots' form self-assembled superlattices that trap light inside an infinite loop, forcing photons to orbit eternally without escape.",
     "How 'gravitational Faraday rotation' twists the polarization angle of background radio waves as they travel through spinning black hole ergospheres.",
@@ -89,9 +88,10 @@
     "The 'stiff-to-fluid' magnetic colloids made from iron oxide nanoparticles that instantly switch from liquid to solid steel under micro-voltages",
     "The 'superionic ice-VII' crystal phases trapped inside terrestrial diamonds that maintain solid water structures at searing volcanic temperatures",
     "The Casimir Effect: How two uncharged plates in a pure vacuum are forced together by virtual particles",
-    "Quantum Entanglement: How photons communicate instantaneously across billions of light-years"
+    "Quantum Entanglement: How photons communicate instantaneously across billions of light-years",
+    "Gravitational Lensing: How massive galaxy clusters bend spacetime into cosmic magnifying glasses"
   ],
-  "subcluster_idx": 1,
-  "fallback_idx": 8,
-  "call_count": 421
+  "subcluster_idx": 2,
+  "fallback_idx": 14,
+  "call_count": 422
 }
