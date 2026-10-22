@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How 'Weak Measurements' extract hidden subatomic data without destroying the delicate quantum states being observed.",
     "The Rogue Supermassive Black Hole J2157-3608 Eating the Equivalent of One Entire Sun Every Single Day",
     "The self-healing supramolecular polymer network that completely repairs deep physical lacerations within seconds using hydrogen bond reformation.",
     "The bizarre 'strange metal' phase in copper-oxide superconductors where electrical resistance scales linearly with absolute temperature.",
@@ -89,9 +88,10 @@
     "Gravitational Lensing: How massive galaxy clusters bend spacetime into cosmic magnifying glasses",
     "Time Crystals: The bizarre state of matter that repeats in time without consuming energy",
     "Fast Radio Bursts: Millisecond cosmic flashes releasing more energy than the Sun outputs in three days",
-    "Type-II Superconductors: How quantum flux pinning allows magnets to levitate upside down in mid-air"
+    "Type-II Superconductors: How quantum flux pinning allows magnets to levitate upside down in mid-air",
+    "Quantum Tunneling: How subatomic particles pass straight through impenetrable energy barriers"
   ],
-  "subcluster_idx": 0,
-  "fallback_idx": 3,
-  "call_count": 425
+  "subcluster_idx": 1,
+  "fallback_idx": 16,
+  "call_count": 426
 }
