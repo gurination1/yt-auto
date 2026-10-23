@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How 'Quantum Phase Slips' in superconducting nanowires allow electrical current to spontaneously jump across time without existing in between.",
     "How 'Negative Mass' quantum fluids accelerate backward when you push them forward, completely flipping Newton's third law of motion on its head.",
     "The 'Cosmic Vampire' Black Hole System VFTS 243, which drains its companion star without emitting any explosive supernova blast whatsoever.",
     "The acoustic metamaterial panel that uses destructive interference to completely cancel out high-decibel jet engine noise while remaining fully porous to airflow.",
@@ -89,9 +88,10 @@
     "Quantum Tunneling: How subatomic particles pass straight through impenetrable energy barriers",
     "Silica Aerogel: The 99.8% air solid matrix that stops a 1000-degree blowtorch from melting a crayon",
     "Silica Aerogel: The 99.8% air solid matrix that stops a 1000-degree blowtorch from melting a crayon",
+    "Silica Aerogel: The 99.8% air solid matrix that stops a 1000-degree blowtorch from melting a crayon",
     "Silica Aerogel: The 99.8% air solid matrix that stops a 1000-degree blowtorch from melting a crayon"
   ],
-  "subcluster_idx": 4,
+  "subcluster_idx": 0,
   "fallback_idx": 13,
-  "call_count": 429
+  "call_count": 430
 }
