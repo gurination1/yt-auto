@@ -1,6 +1,5 @@
 {
   "topics": [
-    "How 'Quantum Backflow' experiments prove that free-moving subatomic particles can spontaneously travel backward against their own momentum direction",
     "How 'Quantum Steering Ellipses' map out the exact mathematical boundaries of spooky action at a distance in entangled photon pairs.",
     "The 'Cosmic Void' Phenomenon Called the KBC Void That Suggests Our Entire Milky Way Resides Inside an Enormous 2-Billion-Light-Year Bubble",
     "The acoustic metamaterial lens that focuses airborne sound waves into points so intensely hot they can vaporize titanium without touching it",
@@ -89,9 +88,10 @@
     "Silica Aerogel: The 99.8% air solid matrix that stops a 1000-degree blowtorch from melting a crayon",
     "Silica Aerogel: The 99.8% air solid matrix that stops a 1000-degree blowtorch from melting a crayon",
     "Silica Aerogel: The 99.8% air solid matrix that stops a 1000-degree blowtorch from melting a crayon",
+    "Silica Aerogel: The 99.8% air solid matrix that stops a 1000-degree blowtorch from melting a crayon",
     "Silica Aerogel: The 99.8% air solid matrix that stops a 1000-degree blowtorch from melting a crayon"
   ],
-  "subcluster_idx": 4,
+  "subcluster_idx": 0,
   "fallback_idx": 13,
-  "call_count": 439
+  "call_count": 440
 }
